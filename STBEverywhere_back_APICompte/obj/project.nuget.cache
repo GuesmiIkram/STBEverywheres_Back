@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YNQfrILRyu8=",
+  "dgSpecHash": "dvSA9a+YRNQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+  "projectFilePath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ikram\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Ikram\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",

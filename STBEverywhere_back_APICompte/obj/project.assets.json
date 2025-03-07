@@ -3353,11 +3353,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+      "projectUniqueName": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
       "projectName": "STBEverywhere_back_APICompte",
-      "projectPath": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+      "projectPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
       "packagesPath": "C:\\Users\\Ikram\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_back_APICompte\\obj\\",
+      "outputPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3378,8 +3378,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj": {
-              "projectPath": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj"
+            "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj": {
+              "projectPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj"
             }
           }
         }
@@ -3393,8 +3393,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -3454,7 +3453,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
