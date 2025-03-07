@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\STBEverywhere_back_APIClient.props" />
+</Project>

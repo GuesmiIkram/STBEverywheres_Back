@@ -1,0 +1,34 @@
+{
+  "Version": 1,
+  "Hash": "bakx3lCHKlCIm5In33X0lWAJ+IhegAyrYYPlmP/Jfeg=",
+  "Source": "STBEverywhere_back_APIClient",
+  "BasePath": "_content/STBEverywhere_back_APIClient",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+      "Version": 2,
+      "Source": "STBEverywhere_back_APICompte",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    },
+    {
+      "Identity": "C:\\Users\\Ikram\\Desktop\\Stage PFE\\StbEverywhere_BackEnd\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+      "Version": 2,
+      "Source": "STBEverywhere_Back_SharedModels",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\STBEverywhere_Back_SharedModels.props" />
+</Project>

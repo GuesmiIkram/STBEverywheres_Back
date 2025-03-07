@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\STBEverywhere_back_APIClient.props" />
+</Project>
