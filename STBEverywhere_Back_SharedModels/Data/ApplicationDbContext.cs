@@ -15,6 +15,10 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<Virement> Virements { get; set; }
         public DbSet<Carte> Cartes { get; set; }
         public DbSet<DemandeCarte> DemandesCarte { get; set; }
+        public DbSet<DemandeChequier> DemandesChequiers { get; set; }
+        public DbSet<Chequier> Chequiers { get; set; }
+        public DbSet<FeuilleChequier> FeuillesChequiers { get; set; }
+        public DbSet<EmailLog> EmailLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

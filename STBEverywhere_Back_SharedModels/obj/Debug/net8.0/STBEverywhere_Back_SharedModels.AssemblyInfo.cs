@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEverywhere_Back_SharedModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baec83a0ec6f2b75a027a90fb9ea2bac2ef28d2b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3423028dae1aada603d9c8bbbc691b8f35c87fbb")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEverywhere_Back_SharedModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEverywhere_Back_SharedModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
