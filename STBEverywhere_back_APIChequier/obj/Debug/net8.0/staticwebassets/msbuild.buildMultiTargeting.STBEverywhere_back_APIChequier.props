@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\STBEverywhere_back_APIChequier.props" />
+</Project>

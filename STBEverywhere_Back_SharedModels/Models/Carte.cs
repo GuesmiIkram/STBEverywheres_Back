@@ -48,7 +48,6 @@ public class Carte
     [Required]
      // Code CVV à 3 chiffres
     public String  CodeCVV { get; set; }
-
-    [Column(TypeName = "decimal(18, 2)")] 
+     [Column(TypeName = "decimal(18, 2)")] 
     public decimal Plafond { get; set; }
 }
