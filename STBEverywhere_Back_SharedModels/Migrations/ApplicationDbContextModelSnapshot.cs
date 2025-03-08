@@ -174,7 +174,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 3, 20, 38, 18, 18, DateTimeKind.Local).AddTicks(9450),
+                            DateCreation = new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4888),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -190,7 +190,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 3, 20, 38, 18, 18, DateTimeKind.Local).AddTicks(9510),
+                            DateCreation = new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4921),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -273,7 +273,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
                             EtatCivil = "Célibataire",
-                            MotDePasse = "$2a$11$/0HpxUQxwlosB7xhn02umOSmZKtjKyBq11zFoAiO0NHN7bIScp/8u",
+                            MotDePasse = "$2a$11$muq9cgtwPqEFelgntGb3iO7gXeZuvaaFGSbCN0CuzezGLAIzaAZF6",
                             Nationalite = "US",
                             Nom = "Doe",
                             NumCIN = "14668061",
@@ -289,7 +289,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             EtatCivil = "Marié(e)",
-                            MotDePasse = "$2a$11$HBtMZq0UcScA9qkZ1gBjI.SXCU/34cyYzDO8y7ZJFJ0fRjDZOViwu",
+                            MotDePasse = "$2a$11$ookOCoKmP8O.Orwfo/tAVOavlFNnLe8MtUEkqSom31DL2WJPJu3x6",
                             Nationalite = "CA",
                             Nom = "Smith",
                             NumCIN = "14668062",
@@ -354,6 +354,146 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Statut = "Actif",
                             Type = "Épargne"
                         });
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Chequier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateLivraison")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("DemandeChequierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandeChequierId");
+
+                    b.ToTable("Chequiers");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>
+                {
+                    b.Property<int>("IdDemande")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("AccepteEngagement")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Agence")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateDemande")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NombreFeuilles")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumTel")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NumeroChequier")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Otp")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("PlafondChequier")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("RaisonDemande")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RibCompte")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isBarre")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("IdDemande");
+
+                    b.HasIndex("RibCompte");
+
+                    b.ToTable("DemandesChequiers");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.EmailLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Contenu")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DateEnvoi")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("DemandeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Destinataire")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("EmailType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsEnvoye")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Sujet")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandeId");
+
+                    b.ToTable("EmailLogs");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FeuilleChequier", b =>
+                {
+                    b.Property<int>("IdFeuille")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("DemandeChequierId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumeroFeuille")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("PlafondFeuille")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("IdFeuille");
+
+                    b.HasIndex("DemandeChequierId");
+
+                    b.ToTable("FeuillesChequiers");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Virement", b =>
@@ -437,6 +577,50 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Chequier", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.DemandeChequier", "DemandeChequier")
+                        .WithMany()
+                        .HasForeignKey("DemandeChequierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DemandeChequier");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Compte", "Compte")
+                        .WithMany()
+                        .HasForeignKey("RibCompte")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Compte");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.EmailLog", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.DemandeChequier", "DemandeChequier")
+                        .WithMany("Emails")
+                        .HasForeignKey("DemandeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DemandeChequier");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FeuilleChequier", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.DemandeChequier", "DemandeChequier")
+                        .WithMany("Feuilles")
+                        .HasForeignKey("DemandeChequierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DemandeChequier");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
                 {
                     b.Navigation("Comptes");
@@ -447,6 +631,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Compte", b =>
                 {
                     b.Navigation("Cartes");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>
+                {
+                    b.Navigation("Emails");
+
+                    b.Navigation("Feuilles");
                 });
 #pragma warning restore 612, 618
         }

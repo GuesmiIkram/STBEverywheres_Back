@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_Back_SharedMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_back_APICarte", "STBEverywhere_back_APICarte\STBEverywhere_back_APICarte.csproj", "{0E9939A2-8BDB-4D27-9999-837955B5A2BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_back_APIChequier", "STBEverywhere_back_APIChequier\STBEverywhere_back_APIChequier.csproj", "{6D5D05CE-9A89-4080-9747-DB31B1F0803B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0E9939A2-8BDB-4D27-9999-837955B5A2BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E9939A2-8BDB-4D27-9999-837955B5A2BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E9939A2-8BDB-4D27-9999-837955B5A2BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
