@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "cdd9ymVJj9tk7e7a3MiPadoFIAjtRbScWN7QslDVmCU=",
+  "Hash": "nXectStIZolHOgFolNKPyVVcXrkRyjtZOxsxmfUkG2U=",
   "Source": "STBEverywhere_back_APICompte",
   "BasePath": "_content/STBEverywhere_back_APICompte",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+      "Identity": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
       "Version": 2,
       "Source": "STBEverywhere_Back_SharedModels",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

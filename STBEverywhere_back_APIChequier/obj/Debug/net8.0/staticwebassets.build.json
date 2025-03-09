@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "Oc6rxkCEkLNYGgv+k4Gi4jZoJiIf8hJVFyHW85Yv1bM=",
+  "Hash": "aQZb9FLEBGhnO+0GE87UP/Rm7+aCFCpBC+1f8MiSneU=",
   "Source": "STBEverywhere_back_APIChequier",
   "BasePath": "_content/STBEverywhere_back_APIChequier",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+      "Identity": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
       "Version": 2,
       "Source": "STBEverywhere_Back_SharedModels",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
