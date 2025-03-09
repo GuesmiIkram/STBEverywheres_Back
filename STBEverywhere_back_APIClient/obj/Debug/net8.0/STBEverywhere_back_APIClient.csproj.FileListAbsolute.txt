@@ -511,3 +511,25 @@ C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\STBEverywhere_back_APIClient.pdb
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\STBEverywhere_back_APIClient.genruntimeconfig.cache
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\ref\STBEverywhere_back_APIClient.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\MailKit.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\HtmlRenderer.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\HtmlRenderer.PdfSharp.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\PdfSharp.Charting.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\PdfSharp.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\PdfSharpCore.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\ICSharpCode.SharpZipLib.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\SixLabors.Fonts.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\de\PdfSharp.Charting.resources.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\de\PdfSharp.resources.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\de\PdfSharpCore.resources.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\System.Private.Windows.Core.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\System.Text.Encoding.CodePages.dll
+C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Text.Encoding.CodePages.dll
