@@ -1,6 +1,6 @@
 ﻿namespace STBEverywhere_Back_SharedModels.Models.DTO
 {
-    public class VirementDto
+    public class VirementUnitaireDto
     {
         public string RIB_Emetteur { get; set; }   // RIB du compte émetteur (obligatoire)
         public string RIB_Recepteur { get; set; }   // RIB du compte récepteur (obligatoire)

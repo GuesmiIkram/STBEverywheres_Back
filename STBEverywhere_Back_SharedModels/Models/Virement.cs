@@ -29,7 +29,12 @@ namespace  STBEverywhere_Back_SharedModels
 
         public string Description { get; set; }
 
-        
+        // Nouveau champ pour déterminer le type de virement
+        public string TypeVirement { get; set; }   // Valeur : "Unitaire" ou "Masse"
+
+        // Champ spécifique aux virements de masse
+        public string? FichierBeneficaires { get; set; } // Nullable
+
     }
 
 

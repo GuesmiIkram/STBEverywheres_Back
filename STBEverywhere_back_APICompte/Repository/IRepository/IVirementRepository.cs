@@ -10,5 +10,6 @@ namespace STBEverywhere_back_APICompte.Repository.IRepository
         Task CommitTransactionAsync();
        
         Task RollbackTransactionAsync();
+        Task EnregistrerVirements(List<Virement> virements);
     }
 }

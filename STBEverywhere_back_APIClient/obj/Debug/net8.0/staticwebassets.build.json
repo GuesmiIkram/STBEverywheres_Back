@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
+  "Hash": "2Z3aTylc6NU1tX8+7XyAIsCGPcx9v7RerP8I/WJemdk=",
+=======
   "Hash": "E2d/2+5oWu13DlVSGt3z15V6VnbUbutlhpF0ESVL470=",
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
   "Source": "STBEverywhere_back_APIClient",
   "BasePath": "_content/STBEverywhere_back_APIClient",
   "Mode": "Default",
@@ -29,6 +33,72 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "STBEverywhere_back_APICompte\\wwwroot",
+      "Source": "STBEverywhere_back_APICompte",
+      "ContentRoot": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\",
+      "BasePath": "_content/STBEverywhere_back_APICompte",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\uploads\\80003_Fmandat_39d22311111111112362612",
+      "SourceId": "STBEverywhere_back_APICompte",
+      "SourceType": "Project",
+      "ContentRoot": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\",
+      "BasePath": "_content/STBEverywhere_back_APICompte",
+      "RelativePath": "uploads/80003_Fmandat_39d22311111111112362612",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\80003_Fmandat_39d22311111111112362612"
+    },
+    {
+      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\uploads\\a - Copie",
+      "SourceId": "STBEverywhere_back_APICompte",
+      "SourceType": "Project",
+      "ContentRoot": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\",
+      "BasePath": "_content/STBEverywhere_back_APICompte",
+      "RelativePath": "uploads/a - Copie",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\a - Copie"
+    },
+    {
+      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\uploads\\virementFournisseurMars2025.txt",
+      "SourceId": "STBEverywhere_back_APICompte",
+      "SourceType": "Project",
+      "ContentRoot": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\wwwroot\\",
+      "BasePath": "_content/STBEverywhere_back_APICompte",
+      "RelativePath": "uploads/virementFournisseurMars2025.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\virementFournisseurMars2025.txt"
+    }
+  ]
 }

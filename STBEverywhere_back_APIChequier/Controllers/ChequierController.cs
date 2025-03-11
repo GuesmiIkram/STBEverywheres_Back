@@ -76,7 +76,9 @@ namespace STBEverywhere_back_APIChequier.Controllers
                     c.DateLivraison,
                     NumeroChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).NumeroChequier,
                     PlafondChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).PlafondChequier,
-                    RibCompte = demandes.First(d => d.IdDemande == c.DemandeChequierId).RibCompte
+                    RibCompte = demandes.First(d => d.IdDemande == c.DemandeChequierId).RibCompte,
+                    Type = demandes.First(d => d.IdDemande == c.DemandeChequierId).isBarre ? "Barré" : "Non barré",
+                    AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
                 }).ToList();
 
                 return Ok(chequiersClient);
@@ -86,6 +88,68 @@ namespace STBEverywhere_back_APIChequier.Controllers
                 return StatusCode(500, $"Erreur serveur : {ex.Message}");
             }
         }
+
+        
+    
+
+
+
+
+    [HttpGet("cheques/{ribCompte}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetChequesParRibCompte(string ribCompte)
+        {
+            var idClient = GetClientIdFromToken();
+            Console.WriteLine($"Client ID: {idClient}");
+
+            if (!idClient.HasValue)
+            {
+                return Unauthorized(new { message = "Utilisateur non authentifié" });
+            }
+
+            try
+            {
+                // Récupérer les demandes de chéquiers associées au RIB du compte
+                var demandes = await _demandesChequiersRepository.GetDemandesByRibCompte(ribCompte);
+
+                if (!demandes.Any())
+                {
+                    return NotFound("Aucune demande de chéquier trouvée pour ce RIB.");
+                }
+
+                // Récupérer les chéquiers associés aux demandes
+                var demandesIds = demandes.Select(d => d.IdDemande).ToList();
+                var chequiers = await _repository.GetChequiersByDemandesIds(demandesIds);
+
+                if (!chequiers.Any())
+                {
+                    return NotFound("Aucun chéquier trouvé pour ce RIB.");
+                }
+
+                // Formater les résultats pour le retour API
+                var chequiersClient = chequiers.Select(c => new
+                {
+                    Status = c.Status.ToString(),
+                    c.DateLivraison,
+                    NumeroChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).NumeroChequier,
+                    PlafondChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).PlafondChequier,
+                    RibCompte = demandes.First(d => d.IdDemande == c.DemandeChequierId).RibCompte,
+                    Type = demandes.First(d => d.IdDemande == c.DemandeChequierId).isBarre ? "Barré" : "Non barré",
+                    AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
+                }).ToList();
+
+                return Ok(chequiersClient);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur serveur : {ex.Message}");
+            }
+        }
+
 
         private int? GetClientIdFromToken()
         {
@@ -100,5 +164,7 @@ namespace STBEverywhere_back_APIChequier.Controllers
             }
             return null;
         }
+
+
     }
 }

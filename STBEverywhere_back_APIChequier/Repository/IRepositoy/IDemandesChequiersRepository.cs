@@ -11,8 +11,11 @@ namespace STBEverywhere_back_APIChequier.Repository.IRepositoy
         Task DeleteAsync(int id);
         Task SaveAsync();
         Task<List<DemandeChequier>> GetDemandesByRibComptes(List<string> ribComptes);
+        Task<List<DemandeChequier>> GetDemandesByRibCompte(string ribCompte);
+
         Task<List<string>> GetRibComptesByClientId(int clientId);
-
-
+        Task<int> CountFeuillesByRib(string ribCompte);
+        Task<bool> IsCompteEpargne(string ribCompte);
+        Task<bool> HasActiveChequier(string ribCompte);
     }
 }

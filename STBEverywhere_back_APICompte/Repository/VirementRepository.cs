@@ -37,7 +37,11 @@ namespace STBEverywhere_back_APICompte.Repository
                 await _transaction.DisposeAsync();
             }
         }
-
+        public async Task EnregistrerVirements(List<Virement> virements)
+        {
+            await _db.Virements.AddRangeAsync(virements);
+            await _db.SaveChangesAsync();
+        }
         public async Task CreateAsync(Virement entity)
         {
             await _db.Virements.AddAsync(entity);
