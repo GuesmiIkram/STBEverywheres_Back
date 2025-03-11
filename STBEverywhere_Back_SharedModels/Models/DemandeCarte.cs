@@ -35,7 +35,7 @@ public class DemandeCarte
 
     // Clé étrangère vers Client
     [Required]
-    public int ClientId { get; set; } // Référence au client
+    public int? ClientId { get; set; } // Référence au client
 
     [ForeignKey("ClientId")]
     public Client Client { get; set; } // Relation avec Client

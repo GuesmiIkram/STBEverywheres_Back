@@ -129,7 +129,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                     {
                         RIB = "65432110223463790345",
                         NumCin = "14668062",
-                        Type = "Épargne",
+                        Type = "Epargne",
                         Solde = 5000.00m,
                         DateCreation = new DateTime(2024, 1, 1),
                         Statut = "Actif",
@@ -158,7 +158,10 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Statut = "Active",
                         Iddemande = 1,
                         CodeCVV = "",
-                        Plafond = 1000,
+                        Nature = "postpayée",
+                        PlafondTPE = 40000,
+                        PlafondDAP= 20000,
+                        Solde = 1000.50m,
                         CodePIN = "",
                         RIB = "12345678923537902652" // RIB du compte associé
                     },
@@ -169,11 +172,14 @@ namespace STBEverywhere_Back_SharedModels.Data
                         TypeCarte = "National",
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
-                        Statut = "active",
+                        Statut = "Active",
                         Iddemande = 2,
                         CodeCVV = "",
+                        Solde = 5000.00m,
+                        Nature = "postpayée",
                         CodePIN = "",
-                        Plafond = 1000,
+                        PlafondTPE = 40000,
+                        PlafondDAP = 20000,
                         RIB = "65432110223463790345" // RIB du compte associé
                     }
                 );

@@ -3,6 +3,118 @@
   "WorkspaceRootPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\icarteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\icarteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\controllers\\cartecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\controllers\\cartecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\cartelivreejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\cartelivreejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\carteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\carteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\solderesponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\solderesponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\carte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\carte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\cartedisponiblejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\cartedisponiblejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\repository\\icarterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\repository\\icarterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\repository\\carterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\repository\\carterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\cartecreationjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\cartecreationjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\demandecarte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\demandecarte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\demandechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\demandechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\stbeverywhere_back_apiclient.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\stbeverywhere_back_apiclient.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\compte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\compte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,26 +143,6 @@
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\repositories\\clientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -63,24 +155,12 @@
       "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\forgotpassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apiclient\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\ikram\\desktop\\ikram stage pfe\\stbeverywheres_back\\stbeverywhere_back_apicompte\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -111,234 +191,197 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ClientRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAuwB0AAAAbAAAAAAAAAA==",
+              "Title": "Carte.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:11:15.529Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IClientRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T22:08:08.434Z",
+              "WhenOpened": "2025-03-09T20:04:56.233Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\AuthService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\AuthService.cs",
-              "ViewState": "AgIAANwAAAAAAAAAAAAwwN4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:11:12.705Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ClientService.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAABMAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:22:32.902Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmailService.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\EmailService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\EmailService.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\EmailService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\EmailService.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T21:57:23.362Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IAuthService.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:22:35.521Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IClientService.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IClientService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IClientService.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IClientService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\IClientService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T22:06:56.531Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ClientController.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T22:01:41.032Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAQwBkAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:05:05.47Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
               "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAcwGwAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAJEAAAAAAAAAAAAcwKIAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-08T22:09:33.233Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Program.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "ICarteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T21:27:55.044Z",
+              "WhenOpened": "2025-03-09T21:13:08.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CarteController.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
+              "ViewState": "AgIAABYBAAAAAAAAAAA6wCEBAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T20:06:28.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CarteLivreeJob.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T14:48:28.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CarteService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Services\\CarteService.cs",
+              "ViewState": "AgIAAGEBAAAAAAAAAAAwwGwBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T20:06:36.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ICarteService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAtwBMAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:26:51.923Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SoldeResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\SoldeResponse.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\SoldeResponse.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\SoldeResponse.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\SoldeResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T22:50:08.762Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "CarteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAkwHsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:12:36.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "Client.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
               "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
               "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAA3wDMAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAA5wDMAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T20:07:05.982Z",
+              "WhenOpened": "2025-03-08T20:07:05.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CarteDisponibleJob.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T22:40:27.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CarteCreationJob.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA+wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T20:17:51.515Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-08T22:31:05.185Z"
+              "Title": "DemandeCarte.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAADwvyUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T20:11:06.627Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ResetPasswordDto.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "DemandeCarteDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T22:05:01.822Z"
+              "WhenOpened": "2025-03-10T15:22:47.168Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "ForgotPasswordDto.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Title": "DemandeChequier.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T22:04:29.926Z"
+              "WhenOpened": "2025-03-10T15:19:44.07Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Program.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Program.cs",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Program.cs",
-              "RelativeToolTip": "STBEverywhere_back_APICarte\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T21:56:39.985Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\appsettings.json",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\appsettings.json",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\appsettings.json",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-08T21:55:40.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.json",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\appsettings.json",
-              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.json",
-              "RelativeToolTip": "STBEverywhere_back_APICarte\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-08T21:55:22.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\EmailService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\EmailService.cs",
@@ -350,19 +393,295 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 17,
+              "Title": "CompteService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\CompteService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\CompteService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\CompteService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\CompteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:34:20.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "CompteAPIController.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
               "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAqwJ4AAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwOgAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-08T20:08:45.124Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Program.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T21:27:55.044Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ClientController.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAH4AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T22:01:41.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Program.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T21:56:39.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ICompteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:24:08.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Program.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:41:19.172Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ICompteService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:34:31.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAkwIMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T20:05:05.47Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "CompteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAswBEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:20:10.123Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "STBEverywhere_back_APIClient.csproj",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-09T21:01:34.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Compte.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T20:27:55.178Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "IClientRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Repositories\\IClientRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T22:08:08.434Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ClientRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Repositories\\ClientRepository.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAuwB0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T20:11:15.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\AuthService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\AuthService.cs",
+              "ViewState": "AgIAANwAAAAAAAAAAAAwwN4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T20:11:12.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ClientService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAABMAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T20:22:32.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\EmailService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\EmailService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAAAYAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T21:57:23.362Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T20:22:35.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "IClientService.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IClientService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IClientService.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IClientService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\IClientService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T22:06:56.531Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-08T22:31:05.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ResetPasswordDto.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ResetPasswordDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T22:05:01.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "ForgotPasswordDto.cs",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\ForgotPasswordDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T22:04:29.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\appsettings.json",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\appsettings.json",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\appsettings.json",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-08T21:55:40.76Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.json",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\appsettings.json",
+              "ToolTip": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.json",
+              "RelativeToolTip": "STBEverywhere_back_APICarte\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-08T21:55:22.746Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Properties\\launchSettings.json",
@@ -374,7 +693,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 41,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\appsettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\appsettings.json",
@@ -386,7 +705,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 42,
               "Title": "NotificationHub.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Hubs\\NotificationHub.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Hubs\\NotificationHub.cs",
@@ -398,7 +717,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 43,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\RegisterDto.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\RegisterDto.cs",

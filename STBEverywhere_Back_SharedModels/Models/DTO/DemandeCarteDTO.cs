@@ -11,6 +11,6 @@
         public string NumTel { get; set; } // Numéro de téléphone
         public DateTime DateCreation { get; set; } = DateTime.Now; // Date de la demande
         public string Statut { get; set; } // Statut de la demande
-        public int ClientId { get; set; } // Référence au client
+        public int? ClientId { get; set; } // Référence au client
     }
 }

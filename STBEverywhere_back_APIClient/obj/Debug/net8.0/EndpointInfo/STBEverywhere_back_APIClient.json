@@ -807,6 +807,68 @@
         }
       }
     },
+    "/api/CompteApi/GetSoldeByRIB/{rib}": {
+      "get": {
+        "tags": [
+          "CompteAPI"
+        ],
+        "parameters": [
+          {
+            "name": "rib",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/VirementApi/Virement": {
       "post": {
         "tags": [
@@ -943,6 +1005,10 @@
             "minLength": 1,
             "type": "string"
           },
+          "nature": {
+            "type": "string",
+            "nullable": true
+          },
           "iddemande": {
             "type": "integer",
             "format": "int32"
@@ -953,6 +1019,11 @@
           "rib": {
             "minLength": 1,
             "type": "string"
+          },
+          "solde": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           },
           "compte": {
             "$ref": "#/components/schemas/Compte"
@@ -970,7 +1041,11 @@
             "minLength": 1,
             "type": "string"
           },
-          "plafond": {
+          "plafondTPE": {
+            "type": "number",
+            "format": "double"
+          },
+          "plafondDAP": {
             "type": "number",
             "format": "double"
           }
