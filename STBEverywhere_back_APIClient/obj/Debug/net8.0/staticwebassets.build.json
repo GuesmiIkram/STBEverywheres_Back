@@ -1,13 +1,17 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "2Z3aTylc6NU1tX8+7XyAIsCGPcx9v7RerP8I/WJemdk=",
+=======
+  "Hash": "E2d/2+5oWu13DlVSGt3z15V6VnbUbutlhpF0ESVL470=",
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
   "Source": "STBEverywhere_back_APIClient",
   "BasePath": "_content/STBEverywhere_back_APIClient",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+      "Identity": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
       "Version": 2,
       "Source": "STBEverywhere_back_APICompte",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
@@ -18,7 +22,7 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     },
     {
-      "Identity": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+      "Identity": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
       "Version": 2,
       "Source": "STBEverywhere_Back_SharedModels",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

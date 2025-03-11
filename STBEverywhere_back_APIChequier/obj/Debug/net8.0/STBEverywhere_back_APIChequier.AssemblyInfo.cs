@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEverywhere_back_APIChequier")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4c47d78d32ce2efad432e5a4b6223594f61e69f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+129f2412c2e4d889d110608bfd05c6d177e6921a")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEverywhere_back_APIChequier")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEverywhere_back_APIChequier")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

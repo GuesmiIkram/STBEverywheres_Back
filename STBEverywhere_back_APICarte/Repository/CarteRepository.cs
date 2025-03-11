@@ -17,6 +17,11 @@ namespace STBEverywhere_back_APICarte.Repository
             _context = context;
             _logger = logger;
         }
+        public async Task<bool> UpdateCarteAsync(Carte carte)
+        {
+            _context.Cartes.Update(carte);
+            return await _context.SaveChangesAsync() > 0;
+        }
 
         public async Task<IEnumerable<Carte>> GetCartesByRIBAsync(string rib)
         {
@@ -113,8 +118,7 @@ namespace STBEverywhere_back_APICarte.Repository
         }
         public async Task<Carte> GetCarteByNumCarteAsync(string numCarte)
         {
-            return await _context.Cartes
-                .FirstOrDefaultAsync(c => c.NumCarte == numCarte);
+            return await _context.Cartes.FirstOrDefaultAsync(c => c.NumCarte == numCarte);
         }
     }
 }

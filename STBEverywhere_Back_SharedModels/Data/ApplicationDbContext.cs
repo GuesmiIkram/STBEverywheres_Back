@@ -50,14 +50,28 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Prenom = "John",
                         DateNaissance = new DateTime(1980, 1, 1),
                         Telephone = "123456789",
-                        Email = "john.doe@example.com",
+                        Email = "guesmiimahmoud@gmail.com",
                         Adresse = "123 Main St",
                         Civilite = "M",
                         Nationalite = "US",
                         EtatCivil = "Célibataire",
                         Residence = "New York",
                         NumCIN = "14668061",
-                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password123")
+                        DateDelivranceCIN = new DateTime(2010, 1, 1),
+                        DateExpirationCIN = new DateTime(2030, 1, 1),
+                        LieuDelivranceCIN = "New York",
+                        PhotoClient = "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg",
+                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password123"),
+                        Genre = "Masculin",
+                        Profession = "Ingénieur",
+                        SituationProfessionnelle = "Employé",
+                        NiveauEducation = "Master",
+                        NombreEnfants = 2,
+                        RevenuMensuel = 5000.00m,
+                        PaysNaissance = "USA",
+                        NomMere = "Jane Doe",
+                        NomPere = "John Doe Sr.",
+                        ResetPasswordTokenExpiry = null
                     },
                     new Client
                     {
@@ -73,7 +87,21 @@ namespace STBEverywhere_Back_SharedModels.Data
                         EtatCivil = "Marié(e)",
                         Residence = "Toronto",
                         NumCIN = "14668062",
-                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password456")
+                        DateDelivranceCIN = new DateTime(2015, 5, 15),
+                        DateExpirationCIN = new DateTime(2035, 5, 15),
+                        LieuDelivranceCIN = "Toronto",
+                        PhotoClient = "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg",
+                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password456"),
+                        Genre = "Féminin",
+                        Profession = "Médecin",
+                        SituationProfessionnelle = "Indépendant",
+                        NiveauEducation = "Doctorat",
+                        NombreEnfants = 1,
+                        RevenuMensuel = 7000.00m,
+                        PaysNaissance = "Canada",
+                        NomMere = "Mary Smith",
+                        NomPere = "Robert Smith",
+                        ResetPasswordTokenExpiry = null
                     }
                 );
             });
@@ -102,7 +130,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                     {
                         RIB = "65432110223463790345",
                         NumCin = "14668062",
-                        Type = "Épargne",
+                        Type = "Epargne",
                         Solde = 5000.00m,
                         DateCreation = new DateTime(2024, 1, 1),
                         Statut = "Actif",
@@ -131,7 +159,10 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Statut = "Active",
                         Iddemande = 1,
                         CodeCVV = "",
-                        Plafond = 1000,
+                        Nature = "postpayée",
+                        PlafondTPE = 40000,
+                        PlafondDAP= 20000,
+                        Solde = 1000.50m,
                         CodePIN = "",
                         RIB = "12345678923537902652" // RIB du compte associé
                     },
@@ -142,11 +173,14 @@ namespace STBEverywhere_Back_SharedModels.Data
                         TypeCarte = "National",
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
-                        Statut = "active",
+                        Statut = "Active",
                         Iddemande = 2,
                         CodeCVV = "",
+                        Solde = 5000.00m,
+                        Nature = "postpayée",
                         CodePIN = "",
-                        Plafond=1000,
+                        PlafondTPE = 40000,
+                        PlafondDAP = 20000,
                         RIB = "65432110223463790345" // RIB du compte associé
                     }
                 );
@@ -199,7 +233,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Statut = "DisponibleAgence",
                         EmailEnvoye = false,
                         EmailEnvoyeLivree = false,
-                        CarteAjouter =false,
+                        CarteAjouter = false,
                         ClientId = 2
                     }
                 );

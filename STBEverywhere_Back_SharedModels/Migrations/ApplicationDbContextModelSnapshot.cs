@@ -44,17 +44,26 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Property<int>("Iddemande")
                         .HasColumnType("int");
 
+                    b.Property<string>("Nature")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("NomCarte")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<decimal>("Plafond")
+                    b.Property<decimal?>("PlafondDAP")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal?>("PlafondTPE")
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("RIB")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
+
+                    b.Property<decimal?>("Solde")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Statut")
                         .IsRequired()
@@ -83,9 +92,12 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Iddemande = 1,
+                            Nature = "postpayée",
                             NomCarte = "Visa",
-                            Plafond = 1000m,
+                            PlafondDAP = 20000m,
+                            PlafondTPE = 40000m,
                             RIB = "12345678923537902652",
+                            Solde = 1000.50m,
                             Statut = "Active",
                             TypeCarte = "International"
                         },
@@ -97,9 +109,12 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Iddemande = 2,
+                            Nature = "postpayée",
                             NomCarte = "Mastercard",
-                            Plafond = 1000m,
+                            PlafondDAP = 20000m,
+                            PlafondTPE = 40000m,
                             RIB = "65432110223463790345",
+                            Solde = 5000.00m,
                             Statut = "active",
                             TypeCarte = "National"
                         });
@@ -174,7 +189,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
+<<<<<<< HEAD
                             DateCreation = new DateTime(2025, 3, 11, 3, 38, 23, 411, DateTimeKind.Local).AddTicks(2641),
+=======
+                            DateCreation = new DateTime(2025, 3, 9, 21, 36, 20, 83, DateTimeKind.Local).AddTicks(4926),
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -190,7 +209,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
+<<<<<<< HEAD
                             DateCreation = new DateTime(2025, 3, 11, 3, 38, 23, 411, DateTimeKind.Local).AddTicks(2667),
+=======
+                            DateCreation = new DateTime(2025, 3, 9, 21, 36, 20, 83, DateTimeKind.Local).AddTicks(4996),
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -217,6 +240,12 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime?>("DateDelivranceCIN")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateExpirationCIN")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DateNaissance")
                         .HasColumnType("datetime(6)");
 
@@ -229,6 +258,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LieuDelivranceCIN")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("MotDePasse")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -238,12 +274,31 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("NiveauEducation")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("NomMere")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NomPere")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("NombreEnfants")
+                        .HasColumnType("int");
+
                     b.Property<string>("NumCIN")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PaysNaissance")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhotoClient")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Prenom")
@@ -251,7 +306,24 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ResetPasswordToken")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("ResetPasswordTokenExpiry")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Residence")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("RevenuMensuel")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("SituationProfessionnelle")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -270,15 +342,32 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 1,
                             Adresse = "123 Main St",
                             Civilite = "M",
+                            DateDelivranceCIN = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateExpirationCIN = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "john.doe@example.com",
+                            Email = "guesmiimahmoud@gmail.com",
                             EtatCivil = "Célibataire",
+<<<<<<< HEAD
                             MotDePasse = "$2a$11$yoZtUaTRP.rDCtREVCGBXOasWJbv7Qro7t/ekX.9mujKjn0yJD1RK",
+=======
+                            Genre = "Masculin",
+                            LieuDelivranceCIN = "New York",
+                            MotDePasse = "$2a$11$wkcRMXy.iSj9j/WpA9073enTPsP.YLTs6hrRcqSfdjqS.QtHANucq",
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
                             Nationalite = "US",
+                            NiveauEducation = "Master",
                             Nom = "Doe",
+                            NomMere = "Jane Doe",
+                            NomPere = "John Doe Sr.",
+                            NombreEnfants = 2,
                             NumCIN = "14668061",
+                            PaysNaissance = "USA",
+                            PhotoClient = "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg",
                             Prenom = "John",
+                            Profession = "Ingénieur",
                             Residence = "New York",
+                            RevenuMensuel = 5000.00m,
+                            SituationProfessionnelle = "Employé",
                             Telephone = "123456789"
                         },
                         new
@@ -286,15 +375,32 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 2,
                             Adresse = "456 Elm St",
                             Civilite = "Mme",
+                            DateDelivranceCIN = new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateExpirationCIN = new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateNaissance = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             EtatCivil = "Marié(e)",
+<<<<<<< HEAD
                             MotDePasse = "$2a$11$4BHNbE7xwwtCAVXvWo07TuWUzORo1gxHu..HxTC78iV8JYputtjba",
+=======
+                            Genre = "Féminin",
+                            LieuDelivranceCIN = "Toronto",
+                            MotDePasse = "$2a$11$kr1VNWBmxojCwv4UofisW.lfJiyknxOU.5T8CcTh2BIVs7srLmd3C",
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
                             Nationalite = "CA",
+                            NiveauEducation = "Doctorat",
                             Nom = "Smith",
+                            NomMere = "Mary Smith",
+                            NomPere = "Robert Smith",
+                            NombreEnfants = 1,
                             NumCIN = "14668062",
+                            PaysNaissance = "Canada",
+                            PhotoClient = "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg",
                             Prenom = "Jane",
+                            Profession = "Médecin",
                             Residence = "Toronto",
+                            RevenuMensuel = 7000.00m,
+                            SituationProfessionnelle = "Indépendant",
                             Telephone = "987654321"
                         });
                 });
@@ -352,7 +458,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             NumCin = "14668062",
                             Solde = 5000.00m,
                             Statut = "Actif",
-                            Type = "Épargne"
+                            Type = "Epargne"
                         });
                 });
 

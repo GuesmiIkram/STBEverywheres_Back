@@ -17,6 +17,20 @@ namespace STBEverywhere_back_APICompte.Repository
         {
             _db = db;
         }
+        public async Task<decimal> GetSoldeByRIBAsync(string rib)
+        {
+            // Récupérer le compte par son RIB
+            var compte = await _db.Comptes
+                .FirstOrDefaultAsync(c => c.RIB == rib);
+
+            if (compte == null)
+            {
+                throw new InvalidOperationException("Compte introuvable.");
+            }
+
+            // Retourner le solde du compte
+            return compte.Solde;
+        }
 
         public async Task CreateAsync(Compte entity)
         {
