@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEverywhere_back_APIClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3423028dae1aada603d9c8bbbc691b8f35c87fbb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4c47d78d32ce2efad432e5a4b6223594f61e69f")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEverywhere_back_APIClient")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEverywhere_back_APIClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

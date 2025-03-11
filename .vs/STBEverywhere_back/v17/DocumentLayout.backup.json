@@ -3,24 +3,176 @@
   "WorkspaceRootPath": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\services\\chequierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\services\\chequierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\virement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\virement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\virementunitairedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\virementunitairedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\controllers\\virementapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\controllers\\virementapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\controllers\\demandechequiercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\controllers\\demandechequiercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\demandechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\demandechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\jobs\\chequierenvoirecommandejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\jobs\\chequierenvoirecommandejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\jobs\\chequierdisponibleenagencejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\jobs\\chequierdisponibleenagencejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\demandechequierdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\demandechequierdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\jobs\\chequierjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\jobs\\chequierjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\ivirementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\ivirementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\virementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\virementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\ivirementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\ivirementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\virementdemassedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\virementdemassedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\repository\\demandeschequiersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\repository\\demandeschequiersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\stbeverywhere_back_apicompte.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\stbeverywhere_back_apicompte.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\uploadfichierrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\uploadfichierrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\filters\\swaggerfileoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\filters\\swaggerfileoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\chequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\chequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\controllers\\chequiercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\controllers\\chequiercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\stbeverywhere_back_apichequier.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\stbeverywhere_back_apichequier.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\repository\\irepositoy\\idemandeschequiersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\repository\\irepositoy\\idemandeschequiersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\repository\\chequierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\repository\\chequierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\feuillechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\feuillechequier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\migrations\\20250309115917_deletegenerationautonumfeucheq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\migrations\\20250309115917_deletegenerationautonumfeucheq.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\migrations\\20250308120600_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\migrations\\20250308120600_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\jobs\\emailjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\jobs\\emailjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\services\\chequierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\services\\chequierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apichequier\\stbeverywhere_back_apichequier.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{6D5D05CE-9A89-4080-9747-DB31B1F0803B}|STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj|solutionrelative:stbeverywhere_back_apichequier\\stbeverywhere_back_apichequier.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -51,10 +203,6 @@
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\stbeverywhere_back_apiclient.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\virement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\virement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\carteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\carteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -71,52 +219,16 @@
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\cartedisponiblejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\compterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\ivirementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\ivirementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\irepository\\icompterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\controllers\\compteapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\icompteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\services\\compteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicarte\\services\\cartelivreejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -127,20 +239,12 @@
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicarte\\repository\\carterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\repository\\carterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicarte\\repository\\icarterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\repository\\icarterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\stbeverywhere_back_sharedmodels.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicarte\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -159,10 +263,6 @@
       "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\mappingconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\compte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\compte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -173,10 +273,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\services\\iclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\cartedetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -195,10 +291,6 @@
       "RelativeMoniker": "D:0:0:{0E9939A2-8BDB-4D27-9999-837955B5A2BE}|STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj|solutionrelative:stbeverywhere_back_apicarte\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\demandecartedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_sharedmodels\\models\\dto\\createcomptedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A842F652-2EE3-4F2B-B021-6BE72F1FC975}|STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj|solutionrelative:stbeverywhere_back_sharedmodels\\models\\dto\\createcomptedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -209,48 +301,460 @@
     {
       "AbsoluteMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apiclient\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{13E46946-0E67-476E-A63D-F3E978C4832D}|STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj|solutionrelative:stbeverywhere_back_apiclient\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|c:\\users\\farha\\onedrive\\desktop\\projetstb\\stbeverywheres_back\\stbeverywhere_back_apicompte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{AC5D0E29-604C-4256-9451-D8C5C1845DF4}|STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj|solutionrelative:stbeverywhere_back_apicompte\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 256,
+      "VerticalTabListWidth": 100,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "STBEverywhere_back_APIChequier",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
-              "RelativeToolTip": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+              "Title": "VirementApiController.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\VirementApiController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Controllers\\VirementApiController.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\VirementApiController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Controllers\\VirementApiController.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAswHoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T22:36:03.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DemandeChequier.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DemandeChequier.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAA9wEYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T01:18:21.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Program.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T20:17:16.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VirementUnitaireDto.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementUnitaireDto.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementUnitaireDto.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementUnitaireDto.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementUnitaireDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T02:52:26.87Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Virement.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAwwCUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T12:10:32.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-03-03T18:57:24.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "STBEverywhere_Back_SharedModels",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-08T12:15:04.435Z",
+              "WhenOpened": "2025-03-10T22:03:50.936Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Carte.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAcwDMAAAAoAAAAAAAAAA==",
+              "Title": "ChequierEnvoiRecommandeJob.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierEnvoiRecommandeJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Jobs\\ChequierEnvoiRecommandeJob.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierEnvoiRecommandeJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Jobs\\ChequierEnvoiRecommandeJob.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAA5wCkAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T11:13:07.82Z"
+              "WhenOpened": "2025-03-11T01:18:42.193Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
+              "Title": "DemandeChequierController.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\DemandeChequierController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Controllers\\DemandeChequierController.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\DemandeChequierController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Controllers\\DemandeChequierController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAwFIAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T23:52:14.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ChequierDisponibleEnAgenceJob.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierDisponibleEnAgenceJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Jobs\\ChequierDisponibleEnAgenceJob.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierDisponibleEnAgenceJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Jobs\\ChequierDisponibleEnAgenceJob.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowAkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T01:42:35.325Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ChequierJob.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Jobs\\ChequierJob.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\ChequierJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Jobs\\ChequierJob.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA1wB4AAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T01:42:22.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Program.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACQAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T01:39:20.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DemandeChequierDTO.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeChequierDTO.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeChequierDTO.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeChequierDTO.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeChequierDTO.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAABwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T00:12:14.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "DemandeCarteDTO.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA1wA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T12:57:34.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "VirementService.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\VirementService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\VirementService.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\VirementService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\VirementService.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T21:43:48.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IVirementService.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\IVirementService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\IVirementService.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\IVirementService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\IVirementService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T21:48:33.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "VirementDeMasseDto.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementDeMasseDto.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementDeMasseDto.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementDeMasseDto.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\VirementDeMasseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T03:00:54.807Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "DemandesChequiersRepository.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\DemandesChequiersRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Repository\\DemandesChequiersRepository.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\DemandesChequiersRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Repository\\DemandesChequiersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T11:49:35.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Program.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Program.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAD4vxoAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T20:04:54.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "UploadFichierRequest.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\UploadFichierRequest.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\UploadFichierRequest.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\UploadFichierRequest.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\UploadFichierRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T21:43:42.085Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Program.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIClient\\Program.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAkwJsAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T20:04:30.728Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "STBEverywhere_back_APICompte.csproj",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-08T20:29:30.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SwaggerFileOperationFilter.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Filters\\SwaggerFileOperationFilter.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Filters\\SwaggerFileOperationFilter.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Filters\\SwaggerFileOperationFilter.cs",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\Filters\\SwaggerFileOperationFilter.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAwBQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T14:52:58.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ChequierRepository.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\ChequierRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Repository\\ChequierRepository.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\ChequierRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Repository\\ChequierRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T11:49:21.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "ChequierController.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAWwF4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T12:16:29.476Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAswEEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-02T10:12:06.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Chequier.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Chequier.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Chequier.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Chequier.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Chequier.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAB8AAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T13:06:10.345Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "IDemandesChequiersRepository.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\IRepositoy\\IDemandesChequiersRepository.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Repository\\IRepositoy\\IDemandesChequiersRepository.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Repository\\IRepositoy\\IDemandesChequiersRepository.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Repository\\IRepositoy\\IDemandesChequiersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T11:50:31.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Client.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T11:21:32.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\appsettings.json",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\appsettings.json",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\appsettings.json",
+              "RelativeToolTip": "STBEverywhere_back_APICompte\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-25T20:03:47.894Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "FeuilleChequier.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\FeuilleChequier.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\FeuilleChequier.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\FeuilleChequier.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\FeuilleChequier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T01:18:15.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "20250308120600_initialmigration.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Migrations\\20250308120600_initialmigration.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Migrations\\20250308120600_initialmigration.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Migrations\\20250308120600_initialmigration.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Migrations\\20250308120600_initialmigration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T12:04:18.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "20250309115917_DeleteGenerationAutoNumFeuCheq.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Migrations\\20250309115917_DeleteGenerationAutoNumFeuCheq.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Migrations\\20250309115917_DeleteGenerationAutoNumFeuCheq.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Migrations\\20250309115917_DeleteGenerationAutoNumFeuCheq.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Migrations\\20250309115917_DeleteGenerationAutoNumFeuCheq.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAowA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T12:04:35.35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "EmailJob.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\EmailJob.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Jobs\\EmailJob.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Jobs\\EmailJob.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Jobs\\EmailJob.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-09T01:42:57.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ChequierService.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwBAAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-08T12:16:37.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\appsettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\appsettings.json",
@@ -262,20 +766,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAxwBQAAAA2AAAAAAAAAA==",
+              "DocumentIndex": 44,
+              "Title": "Carte.cs",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Carte.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAcwDMAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T10:12:06.868Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T11:13:07.82Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 41,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
@@ -283,38 +786,23 @@
               "RelativeToolTip": "STBEverywhere_back_APIClient\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAFgAAAAAAAAAAAAIwGoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T10:49:39.263Z",
+              "WhenOpened": "2025-03-02T10:49:39.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "STBEverywhere_back_APIChequier",
+              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+              "RelativeToolTip": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-08T12:15:04.435Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChequierService.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Services\\ChequierService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T12:16:37.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ChequierController.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIChequier\\Controllers\\ChequierController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-08T12:16:29.476Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 45,
               "Title": "DemandeCarte.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DemandeCarte.cs",
@@ -326,7 +814,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 46,
               "Title": "CarteController.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Controllers\\CarteController.cs",
@@ -338,7 +826,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 52,
               "Title": "CarteCreationJob.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteCreationJob.cs",
@@ -350,7 +838,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 48,
               "Title": "STBEverywhere_back_APICarte.csproj",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
@@ -358,11 +846,12 @@
               "RelativeToolTip": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-03T20:42:06.79Z"
+              "WhenOpened": "2025-03-03T20:42:06.79Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 49,
               "Title": "STBEverywhere_back_APIClient.csproj",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
@@ -370,22 +859,24 @@
               "RelativeToolTip": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-03T20:42:19.101Z"
+              "WhenOpened": "2025-03-03T20:42:19.101Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 47,
               "Title": "STBEverywhere_back_APICarte",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "RelativeToolTip": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-03T20:45:13.825Z"
+              "WhenOpened": "2025-03-03T20:45:13.825Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 50,
               "Title": "CarteService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteService.cs",
@@ -397,7 +888,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 53,
               "Title": "CarteDisponibleJob.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteDisponibleJob.cs",
@@ -409,7 +900,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 51,
               "Title": "ICarteService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\ICarteService.cs",
@@ -421,43 +912,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Virement.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Virement.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAkwBgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T12:10:32.901Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Program.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Program.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Program.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Program.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T20:17:16.158Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CompteAPIController.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
-              "RelativeToolTip": "STBEverywhere_back_APICompte\\Controllers\\CompteAPIController.cs",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAkwKUAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T19:53:26.457Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "CompteRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
@@ -465,23 +920,25 @@
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Repository\\CompteRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T19:57:14.766Z"
+              "WhenOpened": "2025-02-28T19:57:14.766Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "IVirementRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\IVirementRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\IRepository\\IVirementRepository.cs",
               "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\IVirementRepository.cs",
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Repository\\IRepository\\IVirementRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T19:55:56.268Z"
+              "WhenOpened": "2025-03-03T19:55:56.268Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 54,
               "Title": "IRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\IRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\IRepository\\IRepository.cs",
@@ -493,19 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Program.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Program.cs",
-              "RelativeToolTip": "STBEverywhere_back_APICompte\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T20:04:54.761Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 56,
               "Title": "Repository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\Repository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\Repository.cs",
@@ -517,19 +962,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 17,
               "Title": "CompteService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\CompteService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\CompteService.cs",
               "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\CompteService.cs",
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\CompteService.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwCoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T10:17:20.175Z"
+              "WhenOpened": "2025-02-28T10:17:20.175Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 22,
               "Title": "ICompteService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
@@ -537,23 +983,25 @@
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Services\\ICompteService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T11:13:07.694Z"
+              "WhenOpened": "2025-03-02T11:13:07.694Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 20,
               "Title": "ICompteRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
               "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
               "RelativeToolTip": "STBEverywhere_back_APICompte\\Repository\\IRepository\\ICompteRepository.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T19:57:12.452Z"
+              "WhenOpened": "2025-02-28T19:57:12.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 55,
               "Title": "AuthService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\AuthService.cs",
@@ -565,19 +1013,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Client.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Client.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T11:21:32.324Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 57,
               "Title": "CarteLivreeJob.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\CarteLivreeJob.cs",
@@ -589,7 +1025,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 58,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Services\\EmailService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Services\\EmailService.cs",
@@ -601,19 +1037,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Program.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Program.cs",
-              "RelativeToolTip": "STBEverywhere_back_APIClient\\Program.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAtwJsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T20:04:30.728Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 60,
               "Title": "ICarteRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Repository\\ICarteRepository.cs",
@@ -625,7 +1049,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 59,
               "Title": "CarteRepository.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Repository\\CarteRepository.cs",
@@ -637,7 +1061,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 63,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\appsettings.json",
@@ -649,7 +1073,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 61,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Program.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Program.cs",
@@ -661,19 +1085,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj.Backup.tmp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-03-03T18:57:24.851Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 62,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\appsettings.Development.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\appsettings.Development.json",
@@ -685,7 +1097,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 64,
               "Title": "MappingConfig.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\MappingConfig.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\MappingConfig.cs",
@@ -697,19 +1109,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "Compte.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\Compte.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAIwBEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T22:01:02.952Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 65,
               "Title": "ClientController.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Controllers\\ClientController.cs",
@@ -721,7 +1121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 66,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IAuthService.cs",
@@ -733,7 +1133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 67,
               "Title": "IClientService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\IClientService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\IClientService.cs",
@@ -745,19 +1145,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 19,
               "Title": "ClientService.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
               "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\Services\\ClientService.cs",
               "RelativeToolTip": "STBEverywhere_back_APIClient\\Services\\ClientService.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAuwBUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-02T11:03:10.438Z"
+              "WhenOpened": "2025-03-02T11:03:10.438Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 68,
               "Title": "CarteDetails.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\CarteDetails.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\CarteDetails.cs",
@@ -769,7 +1170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 69,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\RegisterDto.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\RegisterDto.cs",
@@ -781,7 +1182,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 70,
               "Title": "CarteDTO.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\CarteDTO.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\CarteDTO.cs",
@@ -793,7 +1194,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 71,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICarte\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APICarte\\Properties\\launchSettings.json",
@@ -805,19 +1206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "DemandeCarteDTO.cs",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
-              "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
-              "RelativeToolTip": "STBEverywhere_Back_SharedModels\\Models\\DTO\\DemandeCarteDTO.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAA5wA8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T12:57:34.389Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 72,
               "Title": "CreateCompteDto.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\CreateCompteDto.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\CreateCompteDto.cs",
@@ -829,7 +1218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 73,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Models\\DTO\\LoginDto.cs",
               "RelativeDocumentMoniker": "STBEverywhere_Back_SharedModels\\Models\\DTO\\LoginDto.cs",
@@ -841,7 +1230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 74,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APIClient\\appsettings.json",
               "RelativeDocumentMoniker": "STBEverywhere_back_APIClient\\appsettings.json",
@@ -850,18 +1239,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-25T20:04:08.419Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\appsettings.json",
-              "RelativeDocumentMoniker": "STBEverywhere_back_APICompte\\appsettings.json",
-              "ToolTip": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_back_APICompte\\appsettings.json",
-              "RelativeToolTip": "STBEverywhere_back_APICompte\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-25T20:03:47.894Z"
             }
           ]
         }

@@ -174,7 +174,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4888),
+                            DateCreation = new DateTime(2025, 3, 11, 3, 38, 23, 411, DateTimeKind.Local).AddTicks(2641),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -190,7 +190,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4921),
+                            DateCreation = new DateTime(2025, 3, 11, 3, 38, 23, 411, DateTimeKind.Local).AddTicks(2667),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -273,7 +273,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "john.doe@example.com",
                             EtatCivil = "Célibataire",
-                            MotDePasse = "$2a$11$muq9cgtwPqEFelgntGb3iO7gXeZuvaaFGSbCN0CuzezGLAIzaAZF6",
+                            MotDePasse = "$2a$11$yoZtUaTRP.rDCtREVCGBXOasWJbv7Qro7t/ekX.9mujKjn0yJD1RK",
                             Nationalite = "US",
                             Nom = "Doe",
                             NumCIN = "14668061",
@@ -289,7 +289,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jane.smith@example.com",
                             EtatCivil = "Marié(e)",
-                            MotDePasse = "$2a$11$ookOCoKmP8O.Orwfo/tAVOavlFNnLe8MtUEkqSom31DL2WJPJu3x6",
+                            MotDePasse = "$2a$11$4BHNbE7xwwtCAVXvWo07TuWUzORo1gxHu..HxTC78iV8JYputtjba",
                             Nationalite = "CA",
                             Nom = "Smith",
                             NumCIN = "14668062",
@@ -387,8 +387,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Property<bool?>("AccepteEngagement")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("AdresseComplete")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Agence")
-                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CodePostal")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateDemande")
@@ -397,6 +402,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("ModeLivraison")
+                        .HasColumnType("int");
 
                     b.Property<int>("NombreFeuilles")
                         .HasColumnType("int");
@@ -487,7 +495,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<decimal>("PlafondFeuille")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(10,3)");
 
                     b.HasKey("IdFeuille");
 
@@ -509,6 +517,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FichierBeneficaires")
+                        .HasColumnType("longtext");
+
                     b.Property<decimal>("Montant")
                         .HasColumnType("decimal(18,3)");
 
@@ -525,6 +536,10 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Statut")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TypeVirement")
                         .IsRequired()
                         .HasColumnType("longtext");
 

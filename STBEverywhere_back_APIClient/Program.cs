@@ -10,11 +10,11 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration de la base de données
-  builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
-    ));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+  options.UseMySql(
+      builder.Configuration.GetConnectionString("DefaultConnection"),
+      ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
+  ));
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClientService, ClientService>();

@@ -511,3 +511,5 @@ C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\STBEverywhere_back_APIClient.pdb
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\STBEverywhere_back_APIClient.genruntimeconfig.cache
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\obj\Debug\net8.0\ref\STBEverywhere_back_APIClient.dll
+C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\STBEverywhere_back_APICompte.staticwebassets.runtime.json
+C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APIClient\bin\Debug\net8.0\STBEverywhere_back_APIClient.staticwebassets.runtime.json

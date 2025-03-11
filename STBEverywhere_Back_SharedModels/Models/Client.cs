@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STBEverywhere_Back_SharedModels.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,5 +39,6 @@ namespace STBEverywhere_Back_SharedModels
         // Relation One-to-Many : Un client peut avoir plusieurs comptes
         public ICollection<Compte> Comptes { get; set; } = new List<Compte>();
         public ICollection<DemandeCarte> DemandesCarte { get; set; } = new List<DemandeCarte>();
+
     }
 }
