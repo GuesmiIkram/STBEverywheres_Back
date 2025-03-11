@@ -9,19 +9,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using STBEverywhere_back_APICompte.Services;
+using STBEverywhere_back_APICompte.Filters;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-  builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.Parse("8.0.0-mysql") // Mets la version exacte de MySQL ici
-    ));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+  options.UseMySql(
+      builder.Configuration.GetConnectionString("DefaultConnection"),
+      ServerVersion.Parse("8.0.0-mysql") // Mets la version exacte de MySQL ici
+  ));
 builder.Services.AddScoped<ICompteRepository, CompteRepository>();
 builder.Services.AddScoped<IVirementRepository, VirementRepository>();
 builder.Services.AddScoped<ICompteService, CompteService>();
+//builder.Services.AddScoped<IVirementService, VirementService>();
+
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -60,6 +64,12 @@ builder.Services.AddSwaggerGen(options =>
             new List<string>()
         }
     });
+
+    // Ajoute le filtre pour gérer les fichiers dans Swagger
+   options.OperationFilter<SwaggerFileOperationFilter>();
+
+    options.SchemaGeneratorOptions.SupportNonNullableReferenceTypes = false;
+
 });
 
 var AllowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins")!.Split(",");
@@ -118,13 +128,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+//app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseCors("AllowAngularOrigins");
-app.UseAuthorization();   
+app.UseAuthorization();
 
-app.MapControllers();  
+app.MapControllers();
 
 app.Run();

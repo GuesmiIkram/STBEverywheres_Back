@@ -372,12 +372,13 @@ C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_AP
 C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APICompte\obj\Debug\net8.0\STBEverywhere_back_APICompte.pdb
 C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APICompte\obj\Debug\net8.0\STBEverywhere_back_APICompte.genruntimeconfig.cache
 C:\Users\Ikram\Desktop\ikram stage pfe\STBEverywheres_Back\STBEverywhere_back_APICompte\obj\Debug\net8.0\ref\STBEverywhere_back_APICompte.dll
-C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\appsettings.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_Back_SharedModels.deps.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_Back_SharedModels.runtimeconfig.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_Back_SharedModels.exe
+C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\appsettings.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\global.json
+C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_back_APICompte.staticwebassets.runtime.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_back_APICompte.exe
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_back_APICompte.deps.json
 C:\Users\farha\OneDrive\Desktop\projetStb\STBEverywheres_Back\STBEverywhere_back_APICompte\bin\Debug\net8.0\STBEverywhere_back_APICompte.runtimeconfig.json

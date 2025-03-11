@@ -20,6 +20,7 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<FeuilleChequier> FeuillesChequiers { get; set; }
         public DbSet<EmailLog> EmailLogs { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -236,7 +237,8 @@ namespace STBEverywhere_Back_SharedModels.Data
                         ClientId = 2
                     }
                 );
-            });
+            }
+            );
 
             // Configuration de l'entité Virement
             modelBuilder.Entity<Virement>(entity =>

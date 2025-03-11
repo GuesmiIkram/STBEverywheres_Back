@@ -56,6 +56,53 @@ namespace STBEverywhere_back_APIChequier.Repository
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> CountFeuillesByRib(string ribCompte)
+        {
+            return await _context.FeuillesChequiers
+                .Where(f => f.DemandeChequier.RibCompte == ribCompte)
+                .CountAsync();
+        }
+        public async Task<bool> HasActiveChequier(string ribCompte)
+        {
+            var chequier = await _context.Chequiers
+                .Where(c => c.DemandeChequier.RibCompte == ribCompte && c.Status == ChequierStatus.Active)
+                .FirstOrDefaultAsync();
+
+            return chequier != null; // Si un chéquier actif est trouvé, retourne true
+        }
+        public async Task<List<DemandeChequier>> GetDemandesByRibCompte(string ribCompte)
+        {
+            try
+            {
+                // Récupérer les demandes de chéquiers où le RIB du compte correspond à l'argument
+                var demandes = await _context.DemandesChequiers
+                                              .Where(d => d.RibCompte == ribCompte)
+                                              .ToListAsync();
+
+                return demandes;
+            }
+            catch (Exception ex)
+            {
+                // Gestion des erreurs, vous pouvez loguer ou retourner l'erreur
+                throw new Exception($"Erreur lors de la récupération des demandes par RIB: {ex.Message}");
+            }
+        }
+
+        public async Task<bool> IsCompteEpargne(string ribCompte)
+        {
+            var compte = await _context.Comptes
+                .Where(c => c.RIB == ribCompte)
+                .FirstOrDefaultAsync();
+
+            if (compte != null && compte.Type == "epargne")
+            {
+                return true;  // Compte de type épargne
+            }
+
+            return false;  // Autre type de compte
+        }
+
         public async Task DeleteAsync(int id)
         {
             var demande = await _context.DemandesChequiers.FindAsync(id);
