@@ -23,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Enregistrement des repositories
 builder.Services.AddScoped<ICarteRepository, CarteRepository>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddHttpClient();
 // Enregistrement des services
 builder.Services.AddScoped<ICarteService, CarteService>();
 builder.Services.AddHostedService<CarteCreationJob>();

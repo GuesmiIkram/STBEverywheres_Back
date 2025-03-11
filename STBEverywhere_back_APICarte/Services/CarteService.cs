@@ -9,6 +9,11 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Data;
+using STBEverywhere_Back_SharedModels;
+using System.Net.Http;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Security.Claims;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -18,14 +23,15 @@ namespace STBEverywhere_back_APICarte.Services
         private readonly ILogger<CarteService> _logger;
         private readonly EmailService _emailService;
         private readonly ApplicationDbContext _dbContext;
+        private readonly HttpClient _httpClient;
 
-        public CarteService(ICarteRepository carteRepository, ILogger<CarteService> logger, EmailService emailService, ApplicationDbContext dbContext)
+        public CarteService(ICarteRepository carteRepository, HttpClient httpClient, ILogger<CarteService> logger, EmailService emailService, ApplicationDbContext dbContext)
         {
             _carteRepository = carteRepository;
             _logger = logger;
             _emailService = emailService;
             _dbContext = dbContext;
-
+            _httpClient = httpClient;
         }
 
         public async Task<IEnumerable<CarteDTO>> GetCartesByRIBAsync(string rib)
@@ -44,63 +50,7 @@ namespace STBEverywhere_back_APICarte.Services
             });
         }
 
-        public async Task<bool> CreateDemandeCarteAsync(DemandeCarteDTO demandeCarteDTO)
-        {
-            _logger.LogInformation("Création d'une nouvelle demande de carte pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
-
-            var cartes = await _carteRepository.GetCartesByRIBAsync(demandeCarteDTO.NumCompte);
-
-            // Condition 1: Maximum 2 cartes internationales par compte
-            if (demandeCarteDTO.TypeCarte == "International" && cartes.Count(c => c.TypeCarte == "International") >= 2)
-            {
-                _logger.LogWarning("Tentative de création d'une troisième carte internationale pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
-                throw new InvalidOperationException("Un compte ne peut avoir que 2 cartes internationales.");
-            }
-
-            // Condition 2: Maximum 2 cartes nationales par compte
-            if (demandeCarteDTO.TypeCarte == "National" && cartes.Count(c => c.TypeCarte == "National") >= 2)
-            {
-                _logger.LogWarning("Tentative de création d'une troisième carte nationale pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
-                throw new InvalidOperationException("Un compte ne peut avoir que 2 cartes nationales.");
-            }
-
-            // Condition 3: Une seule carte épargne par compte
-            if (demandeCarteDTO.NomCarte == "Epargne" && cartes.Any(c => c.NomCarte == "Epargne"))
-            {
-                _logger.LogWarning("Tentative de création d'une deuxième carte épargne pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
-                throw new InvalidOperationException("Un compte ne peut avoir qu'une seule carte épargne.");
-            }
-
-            // Condition 4: Pas de demande en cours avec le même nom et type de carte
-            var demandesExistantes = await _carteRepository.GetDemandesByCompteAndNomAndTypeAsync(
-                demandeCarteDTO.NumCompte,
-                demandeCarteDTO.NomCarte,
-                demandeCarteDTO.TypeCarte
-            );
-
-            if (demandesExistantes.Any(d => d.Statut != "Recuperee"))
-            {
-                _logger.LogWarning("Une demande existe déjà avec le même nom et type de carte pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
-                throw new InvalidOperationException("Une demande est déjà en cours avec le même nom et type de carte.");
-            }
-
-            // Créer la demande de carte avec le statut "En cours de préparation"
-            var demandeCarte = new DemandeCarte
-            {
-                NumCompte = demandeCarteDTO.NumCompte,
-                NomCarte = demandeCarteDTO.NomCarte,
-                TypeCarte = demandeCarteDTO.TypeCarte,
-                CIN = demandeCarteDTO.CIN,
-                Email = demandeCarteDTO.Email,
-                NumTel = demandeCarteDTO.NumTel,
-                DateCreation = DateTime.Now,
-                Statut = "En cours de préparation" // Statut initial
-            };
-
-            // Enregistrer la demande de carte
-            return await _carteRepository.CreateDemandeCarteAsync(demandeCarte);
-        }
-
+    
         public async Task<bool> CreateCarteIfDemandeRecupereeAsync(int demandeId)
         {
             _logger.LogInformation("Tentative de création de carte pour la demande : {DemandeId}", demandeId);
@@ -127,17 +77,21 @@ namespace STBEverywhere_back_APICarte.Services
             var encryptedPIN = EncryptCode(int.Parse(codePIN));
             var encryptedCVV = EncryptCode(int.Parse(codeCVV));
 
+            // Générer un numéro de carte unique en fonction du type de carte
+            var numCarte = await GenerateUniqueCardNumberAsync(demande.NomCarte);
+
             // Créer la carte
             var carte = new Carte
             {
-                NumCarte = await GenerateUniqueCardNumberAsync(), // Générer un numéro de carte unique
+                NumCarte = numCarte, // Utiliser le numéro de carte généré
                 NomCarte = demande.NomCarte,
                 TypeCarte = demande.TypeCarte,
                 DateCreation = demande.DateCreation,
                 DateExpiration = demande.DateCreation.AddYears(3),
                 Statut = "Active",
                 RIB = demande.NumCompte,
-                Plafond = 1000,
+                PlafondTPE = 4000,
+                PlafondDAP = 2000,
                 Iddemande = demande.Iddemande,
                 DateRecuperation = DateTime.Now,
                 CodePIN = encryptedPIN,
@@ -187,15 +141,15 @@ namespace STBEverywhere_back_APICarte.Services
             return demandes;
         }
 
-        private async Task<string> GenerateUniqueCardNumberAsync()
+        private async Task<string> GenerateUniqueCardNumberAsync(string nomCarte)
         {
             string cardNumber;
             bool isUnique;
 
             do
             {
-                // Générer un numéro de carte aléatoire de 16 chiffres
-                cardNumber = GenerateRandomCardNumber();
+                // Générer un numéro de carte en fonction du type de carte
+                cardNumber = GenerateCardNumberWithPrefix(nomCarte);
 
                 // Vérifier si le numéro de carte existe déjà dans la base de données
                 isUnique = !await _carteRepository.CardNumberExistsAsync(cardNumber);
@@ -204,13 +158,38 @@ namespace STBEverywhere_back_APICarte.Services
             return cardNumber;
         }
 
-        private string GenerateRandomCardNumber()
+        private string GenerateCardNumberWithPrefix(string nomCarte)
         {
-            var random = new Random();
-            var cardNumberBuilder = new StringBuilder();
+            string prefix;
+            int length;
 
-            // Générer 16 chiffres aléatoires
-            for (int i = 0; i < 16; i++)
+            // Définir le préfixe et la longueur en fonction du type de carte
+            if (nomCarte.Contains("Visa"))
+            {
+                prefix = "431405";
+                length = 16; // Longueur totale de la carte Visa
+            }
+            else if (nomCarte.Contains("Mastercard"))
+            {
+                prefix = "539997";
+                length = 16; // Longueur totale de la Mastercard
+            }
+            else if (nomCarte.Contains("Epargne"))
+            {
+                prefix = "4906001";
+                length = 16; // Longueur totale de la carte Épargne
+            }
+            else
+            {
+                throw new ArgumentException("Type de carte non reconnu.");
+            }
+
+            // Générer les chiffres restants après le préfixe
+            var random = new Random();
+            var cardNumberBuilder = new StringBuilder(prefix);
+
+            // Ajouter des chiffres aléatoires jusqu'à atteindre la longueur totale
+            while (cardNumberBuilder.Length < length)
             {
                 cardNumberBuilder.Append(random.Next(0, 10)); // Chiffre entre 0 et 9
             }
@@ -255,7 +234,6 @@ namespace STBEverywhere_back_APICarte.Services
                 .ToArray());
         }
 
-
         public async Task<IEnumerable<DemandeCarteDTO>> GetDemandesByRIBAsync(string rib)
         {
             _logger.LogInformation("Récupération des demandes de carte pour le RIB : {RIB}", rib);
@@ -292,7 +270,7 @@ namespace STBEverywhere_back_APICarte.Services
             return new CarteDetails
             {
                 Statut = carte.Statut,  // Statut de la carte
-                Plafond = carte.Plafond // Plafond de la carte
+                Plafond = carte.PlafondTPE // Plafond de la carte
             };
         }
 
@@ -309,6 +287,7 @@ namespace STBEverywhere_back_APICarte.Services
                 throw;
             }
         }
+
         public async Task<bool> UpdateEmailEnvoyeAsync(int demandeId, bool emailEnvoye)
         {
             return await _carteRepository.UpdateEmailEnvoyeAsync(demandeId, emailEnvoye);
@@ -344,5 +323,76 @@ namespace STBEverywhere_back_APICarte.Services
                 throw new ApplicationException("Une erreur s'est produite lors de la mise à jour de la demande.", ex);
             }
         }
+
+        public async Task<string> BlockCarteAsync(string numCarte)
+        {
+            // Normaliser le numéro de carte
+            numCarte = numCarte.Trim();
+
+            _logger.LogInformation("Recherche de la carte avec le numéro : {NumCarte}", numCarte);
+
+            // Récupérer la carte par son numéro
+            var carte = await _carteRepository.GetCarteByNumCarteAsync(numCarte);
+            _logger.LogInformation("Carte trouvée : {Carte}", carte);
+
+            if (carte == null)
+            {
+                throw new InvalidOperationException("Carte introuvable.");
+            }
+
+            // Vérifier si la carte est déjà inactive
+            if (carte.Statut == "Inactif")
+            {
+                throw new InvalidOperationException("La carte est déjà inactive.");
+            }
+            // Vérifier si le solde est égal à 0
+            if (carte.Solde == 0)
+            {
+                // Mettre à jour le statut de la carte à "Inactif"
+                carte.Statut = "Inactif";
+                await _carteRepository.UpdateCarteAsync(carte);
+                return "Carte bloquée avec succès.";
+            }
+            else
+            {
+                // Le solde n'est pas égal à 0, on ne peut pas bloquer la carte
+                throw new InvalidOperationException("La carte contient de l'argent. Veuillez récupérer l'argent avant de bloquer la carte.");
+            }
+        }
+
+
+        public async Task<string> DeBlockCarteAsync(string numCarte)
+        {
+            // Normaliser le numéro de carte
+            numCarte = numCarte.Trim();
+
+            _logger.LogInformation("Recherche de la carte avec le numéro : {NumCarte}", numCarte);
+
+            // Récupérer la carte par son numéro
+            var carte = await _carteRepository.GetCarteByNumCarteAsync(numCarte);
+            _logger.LogInformation("Carte trouvée : {Carte}", carte);
+
+            if (carte == null)
+            {
+                throw new InvalidOperationException("Carte introuvable.");
+            }
+
+            // Vérifier si la carte est déjà inactive
+            if (carte.Statut == "Active")
+            {
+                throw new InvalidOperationException("La carte est déjà active.");
+            }
+            // Vérifier si le solde est égal à 0
+
+            else
+            {
+                // Mettre à jour le statut de la carte à "Inactif"
+                carte.Statut = "Active";
+                await _carteRepository.UpdateCarteAsync(carte);
+                return "Carte debloquée avec succès.";
+            }
+           
+        }
+
     }
 }

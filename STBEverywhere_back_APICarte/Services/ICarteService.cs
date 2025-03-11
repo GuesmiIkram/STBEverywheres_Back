@@ -8,7 +8,7 @@ namespace STBEverywhere_back_APICarte.Services
     {
         Task<IEnumerable<CarteDTO>> GetCartesByRIBAsync(string rib);
         Task<IEnumerable<DemandeCarteDTO>> GetDemandesByRIBAsync(string rib);
-        Task<bool> CreateDemandeCarteAsync(DemandeCarteDTO demandeCarteDTO);
+       // Task<bool> CreateDemandeCarteAsync(DemandeCarteDTO demandeCarteDTO);
         Task<bool> CreateCarteIfDemandeRecupereeAsync(int demandeId);
         Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(string statut);
         Task<CarteDetails> GetCarteDetailsAsync(string numCarte);
@@ -16,5 +16,7 @@ namespace STBEverywhere_back_APICarte.Services
         Task<bool> UpdateEmailEnvoyeAsync(int demandeId, bool emailEnvoye);
         Task<bool> UpdateEmailEnvoyeLivreeAsync(int demandeId, bool emailEnvoyeLivree);
         Task UpdateDemandeAsync(DemandeCarte demande);
+        Task<string> BlockCarteAsync(string numCarte);
+        Task<string> DeBlockCarteAsync(string numCarte);
     }
 }

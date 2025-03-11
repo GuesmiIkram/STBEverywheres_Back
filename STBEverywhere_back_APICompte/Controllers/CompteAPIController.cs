@@ -238,6 +238,24 @@ namespace STBEverywhere_back_APICompte.Controllers
             return null;
         }
 
+        [HttpGet("GetSoldeByRIB/{rib}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetSoldeByRIB(string rib)
+        {
+            try
+            {
+                var solde = await _compteService.GetSoldeByRIBAsync(rib);
+                return Ok(new { Solde = solde });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+
 
 
     }
