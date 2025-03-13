@@ -37,5 +37,9 @@ namespace STBEverywhere_back_APIClient.Repositories
             return _context.Clients.FirstOrDefault(c => c.Id == id);
         }
 
+        public Client GetClientByResetToken(string token)
+        {
+            return _context.Clients.FirstOrDefault(c => c.ResetPasswordToken == token);
+        }
     } 
 }

@@ -23,6 +23,7 @@ public class Carte
 
     [Required]
     public string Statut { get; set; }  // Statut actif/inactif 
+    public string? Nature { get; set; }  // postpayee pépayee
 
     [Required]
     public int Iddemande { get; set; } // Référence à la demande de carte
@@ -32,7 +33,8 @@ public class Carte
 
     // Clé étrangère vers Compte
     [Required]
-    public string RIB { get; set; } // Référence au compte
+    public string RIB { get; set; }
+    public decimal? Solde { get; set; }// Référence au compte
 
     [ForeignKey("RIB")]
     public Compte Compte { get; set; } // Relation avec Compte
@@ -49,5 +51,6 @@ public class Carte
      // Code CVV à 3 chiffres
     public String  CodeCVV { get; set; }
      [Column(TypeName = "decimal(18, 2)")] 
-    public decimal Plafond { get; set; }
+    public decimal PlafondTPE { get; set; }//par defaut 4000 pour toute les carte 
+    public decimal PlafondDAP{ get; set; }//par defaut 2000 pour toute les carte 
 }

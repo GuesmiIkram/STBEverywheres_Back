@@ -41,7 +41,16 @@ namespace STBEverywhere_back_APICompte.Services
 
             return compte.Client; // Retourne le client associé au compte
         }
+        public async Task<decimal> GetSoldeByRIBAsync(string rib)
+        {
+            var compte = await _compteRepository.GetByRibAsync(rib);
+            if (compte == null)
+            {
+                throw new InvalidOperationException("Compte introuvable.");
+            }
 
+            return compte.Solde;
+        }
 
         public async Task SaveAsync()
         {

@@ -4,6 +4,10 @@ using Microsoft.Extensions.Logging;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_back_APIClient.Services;
 using System;
+using STBEverywhere_back_APIClient.Repositories;
+using STBEverywhere_Back_SharedModels;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -13,11 +17,22 @@ namespace STBEverywhere_back_APIClient.Controllers
     {
         private readonly IAuthService _authService;
         private readonly ILogger<AuthController> _logger;
+        private readonly IClientRepository _clientRepository;
+        private readonly HttpClient _httpClient;
+        private readonly EmailService _emailService;
 
-        public AuthController(IAuthService authService, ILogger<AuthController> logger)
+        public AuthController(
+            IAuthService authService,
+            ILogger<AuthController> logger,
+            IClientRepository clientRepository,
+            HttpClient httpClient,
+            EmailService emailService)
         {
             _authService = authService;
             _logger = logger;
+            _clientRepository = clientRepository;
+            _httpClient = httpClient;
+            _emailService = emailService;
         }
 
         [HttpPost("login")]
@@ -52,7 +67,6 @@ namespace STBEverywhere_back_APIClient.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)] // Succès
         [ProducesResponseType(StatusCodes.Status401Unauthorized)] // Token invalide ou expiré
         [ProducesResponseType(StatusCodes.Status500InternalServerError)] // Erreur serveur
-
         public IActionResult RefreshToken()
         {
             try
@@ -102,5 +116,143 @@ namespace STBEverywhere_back_APIClient.Controllers
             return Ok(new { AccessToken = accessToken, RefreshToken = refreshToken });
         }
 
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)] // Succès
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // Requête invalide
+        [ProducesResponseType(StatusCodes.Status409Conflict)] // Client déjà enregistré
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // Client inexistant
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] // Erreur serveur
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        {
+            try
+            {
+                _logger.LogInformation("Tentative d'enregistrement pour l'email : {Email}", registerDto.Email);
+
+                // Appeler l'API du service de compte pour vérifier si le RIB existe
+                var response = await _httpClient.GetAsync($"http://localhost:5185/api/CompteApi/GetByRIB/{registerDto.RIB}");
+                if (!response.IsSuccessStatusCode)
+                {
+                    return BadRequest(new { Message = "RIB invalide." });
+                }
+
+                // Vérifier si le client associé à ce RIB existe
+                var existingClient = _clientRepository.GetClientByEmail(registerDto.Email);
+                if (existingClient == null)
+                {
+                    return NotFound(new { Message = "Client inexistant." });
+                }
+
+                // Vérifier si le client possède déjà un mot de passe
+                if (!string.IsNullOrEmpty(existingClient.MotDePasse))
+                {
+                    return Conflict(new { Message = "Le client est déjà enregistré." });
+                }
+
+                // Mettre à jour le client avec le nouveau mot de passe
+                existingClient.MotDePasse = registerDto.Password;
+                await _clientRepository.UpdateClientAsync(existingClient);
+
+                return Ok(new { Message = "Enregistrement réussi." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Une erreur s'est produite lors de l'enregistrement pour l'email : {Email}. Erreur : {Message}", registerDto.Email, ex.Message);
+                return StatusCode(500, new { Message = "Une erreur interne s'est produite." });
+            }
+        }
+
+        [HttpPost("forgot-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)] // Succès
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // Client inexistant
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] // Erreur serveur
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
+        {
+            try
+            {
+                _logger.LogInformation("Demande de réinitialisation du mot de passe pour l'email : {Email}", forgotPasswordDto.Email);
+
+                // Vérifier si le client existe
+                var existingClient = _clientRepository.GetClientByEmail(forgotPasswordDto.Email);
+                if (existingClient == null)
+                {
+                    return NotFound(new { Message = "Client inexistant." });
+                }
+
+                // Générer un token de réinitialisation
+                var resetToken = Guid.NewGuid().ToString();
+                existingClient.ResetPasswordToken = resetToken;
+                existingClient.ResetPasswordTokenExpiry = DateTime.UtcNow.AddHours(1); // Token valide pendant 1 heure
+
+                // Mettre à jour le client dans la base de données
+                await _clientRepository.UpdateClientAsync(existingClient);
+
+                // Envoyer un e-mail avec le lien de réinitialisation
+                var resetLink = $"http://localhost:5260/api/Auth/reset-password?token={resetToken}";
+                await _emailService.SendEmailAsync(existingClient.Email, "Réinitialisation de votre mot de passe", $"Cliquez sur ce lien pour réinitialiser votre mot de passe : {resetLink}");
+
+                return Ok(new { Message = "Un e-mail de réinitialisation a été envoyé." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Une erreur s'est produite lors de la demande de réinitialisation du mot de passe pour l'email : {Email}. Erreur : {Message}", forgotPasswordDto.Email, ex.Message);
+                return StatusCode(500, new { Message = "Une erreur interne s'est produite." });
+            }
+        }
+
+        [HttpGet("reset-password")]
+        public IActionResult ShowResetPasswordForm([FromQuery] string token)
+        {
+            // Vérifier si le token est valide
+            var existingClient = _clientRepository.GetClientByResetToken(token);
+            if (existingClient == null || existingClient.ResetPasswordTokenExpiry < DateTime.UtcNow)
+            {
+                return BadRequest(new { Message = "Token invalide ou expiré." });
+            }
+
+            // Afficher une page HTML avec un formulaire de réinitialisation
+            return Content(@"
+                <form action='/api/Auth/reset-password' method='post'>
+                    <input type='hidden' name='token' value='" + token + @"' />
+                    <label for='newPassword'>Nouveau mot de passe :</label>
+                    <input type='password' id='newPassword' name='newPassword' required />
+                    <button type='submit'>Réinitialiser</button>
+                </form>
+            ", "text/html");
+        }
+
+        [HttpPost("reset-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)] // Succès
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // Token invalide ou expiré
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // Client inexistant
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] // Erreur serveur
+        public async Task<IActionResult> ResetPassword([FromForm] string token, [FromForm] string newPassword)
+        {
+            try
+            {
+                _logger.LogInformation("Tentative de réinitialisation du mot de passe avec le token : {Token}", token);
+
+                // Vérifier si le token est valide
+                var existingClient = _clientRepository.GetClientByResetToken(token);
+                if (existingClient == null || existingClient.ResetPasswordTokenExpiry < DateTime.UtcNow)
+                {
+                    return BadRequest(new { Message = "Token invalide ou expiré." });
+                }
+
+                // Mettre à jour le mot de passe
+                existingClient.MotDePasse = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                existingClient.ResetPasswordToken = null; // Réinitialiser le token
+                existingClient.ResetPasswordTokenExpiry = null; // Réinitialiser l'expiration
+
+                // Mettre à jour le client dans la base de données
+                await _clientRepository.UpdateClientAsync(existingClient);
+
+                return Ok(new { Message = "Mot de passe réinitialisé avec succès." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Une erreur s'est produite lors de la réinitialisation du mot de passe avec le token : {Token}. Erreur : {Message}", token, ex.Message);
+                return StatusCode(500, new { Message = "Une erreur interne s'est produite." });
+            }
+        }
     }
 }

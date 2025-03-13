@@ -7,6 +7,7 @@ namespace STBEverywhere_back_APICarte.Repository
     public interface ICarteRepository
     {
         Task<IEnumerable<Carte>> GetCartesByRIBAsync(string rib);
+        Task<bool> UpdateCarteAsync(Carte carte);
         Task<bool> CreateDemandeCarteAsync(DemandeCarte demandeCarte);
         Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(string statut);
         Task<bool> CreateCarteAsync(Carte carte);

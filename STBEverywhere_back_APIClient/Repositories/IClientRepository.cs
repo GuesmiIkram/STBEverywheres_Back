@@ -10,5 +10,6 @@ namespace STBEverywhere_back_APIClient.Repositories
         Task<Client> GetClientByNumCinAsync(string numCin); // Ajout de cette méthode
 
         Task UpdateClientAsync(Client client);
+        Client GetClientByResetToken(string token);
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     /// <inheritdoc />
-    public partial class initialmigration : Migration
+    public partial class initialmigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,8 +44,33 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NumCIN = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateDelivranceCIN = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DateExpirationCIN = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    LieuDelivranceCIN = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhotoClient = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     MotDePasse = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ResetPasswordToken = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Genre = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Profession = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SituationProfessionnelle = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NiveauEducation = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NombreEnfants = table.Column<int>(type: "int", nullable: false),
+                    RevenuMensuel = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PaysNaissance = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NomMere = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NomPere = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ResetPasswordTokenExpiry = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,11 +326,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
             migrationBuilder.InsertData(
                 table: "Clients",
-                columns: new[] { "Id", "Adresse", "Civilite", "DateNaissance", "Email", "EtatCivil", "MotDePasse", "Nationalite", "Nom", "NumCIN", "Prenom", "Residence", "Telephone" },
+                columns: new[] { "Id", "Adresse", "Civilite", "DateDelivranceCIN", "DateExpirationCIN", "DateNaissance", "Email", "EtatCivil", "Genre", "LieuDelivranceCIN", "MotDePasse", "Nationalite", "NiveauEducation", "Nom", "NomMere", "NomPere", "NombreEnfants", "NumCIN", "PaysNaissance", "PhotoClient", "Prenom", "Profession", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Residence", "RevenuMensuel", "SituationProfessionnelle", "Telephone" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St", "M", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", "Célibataire", "$2a$11$muq9cgtwPqEFelgntGb3iO7gXeZuvaaFGSbCN0CuzezGLAIzaAZF6", "US", "Doe", "14668061", "John", "New York", "123456789" },
-                    { 2, "456 Elm St", "Mme", new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "$2a$11$ookOCoKmP8O.Orwfo/tAVOavlFNnLe8MtUEkqSom31DL2WJPJu3x6", "CA", "Smith", "14668062", "Jane", "Toronto", "987654321" }
+                    { 1, "123 Main St", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "$2a$11$XlaYFD77jUU7AK3elJxseuGkO/EBIRy0hiIq.S2qSNOkFOwt.vkiy", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789" },
+                    { 2, "456 Elm St", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "$2a$11$/2XLqdoHJxlypBMon/gRt.vo9mgnY.RKi5A8z/G4OXmMvM/6fL5H6", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\Images\\mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321" }
                 });
 
             migrationBuilder.InsertData(
@@ -322,8 +347,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Iddemande", "CIN", "CarteAjouter", "ClientId", "DateCreation", "Email", "EmailEnvoye", "EmailEnvoyeLivree", "NomCarte", "NumCompte", "NumTel", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { 1, "14668061", false, 1, new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4888), "john.doe@example.com", false, false, "Visa", "12345678923537902652", "12345678", "DisponibleAgence", "International" },
-                    { 2, "14668062", false, 2, new DateTime(2025, 3, 8, 13, 5, 59, 376, DateTimeKind.Local).AddTicks(4921), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "DisponibleAgence", "National" }
+                    { 1, "14668061", false, 1, new DateTime(2025, 3, 9, 11, 5, 8, 863, DateTimeKind.Local).AddTicks(3342), "john.doe@example.com", false, false, "Visa", "12345678923537902652", "12345678", "DisponibleAgence", "International" },
+                    { 2, "14668062", false, 2, new DateTime(2025, 3, 9, 11, 5, 8, 863, DateTimeKind.Local).AddTicks(3411), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "DisponibleAgence", "National" }
                 });
 
             migrationBuilder.InsertData(

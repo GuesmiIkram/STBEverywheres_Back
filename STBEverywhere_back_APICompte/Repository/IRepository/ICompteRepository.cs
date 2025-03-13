@@ -14,6 +14,7 @@ namespace STBEverywhere_back_APICompte.Repository.IRepository
         Task<Compte> GetByRibAsync(string rib);
         Task<Compte> GetCompteByRIBAsync(string rib);
         Task<int?> GetClientIdByRibAsync(string rib);
+        Task<decimal> GetSoldeByRIBAsync(string rib);
 
         //Task SaveAsync(); 
     }

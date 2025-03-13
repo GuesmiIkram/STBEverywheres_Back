@@ -12,6 +12,8 @@ namespace STBEverywhere_back_APICompte.Services
         Task<Compte> CreateAsync(Compte entity);
         Task SaveAsync();
         string GenerateUniqueRIB();
-        
+        Task<decimal> GetSoldeByRIBAsync(string rib);
+
+
     }
 }

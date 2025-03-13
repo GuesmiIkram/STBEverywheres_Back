@@ -1,4 +1,0 @@
-# Ignorer les dossiers de build et de cache
-**/bin/
-**/obj/
-.vs/

@@ -8,16 +8,27 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 // Configuration de la base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
+<<<<<<< HEAD
   options.UseMySql(
       builder.Configuration.GetConnectionString("DefaultConnection"),
       ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
   ));
+=======
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
+    ));
+
+builder.Services.AddHttpClient();
+>>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<EmailService>();
 
 // Configuration de l'authentification JWT
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);

@@ -147,8 +147,8 @@ namespace STBEverywhere_back_APIClient.Services
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = false, // Angular peut accéder au cookie
-                Secure = false,// ⚠️ `false` en localhost, `true` en prod
-                SameSite = SameSiteMode.Lax, // 🌟 Permet d'envoyer les cookies avec requêtes cross-origin
+                Secure = false,
+                SameSite = SameSiteMode.Lax,
                 Expires = DateTime.UtcNow.AddHours(1),
                 Path = "/"
             };
