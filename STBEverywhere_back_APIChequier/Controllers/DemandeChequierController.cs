@@ -8,6 +8,7 @@ using STBEverywhere_back_APIChequier.Repository.IRepositoy;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 namespace STBEverywhere_back_APIChequier.Controllers
 {
     [Route("api/DemandeChequierApi")]
@@ -43,23 +44,63 @@ namespace STBEverywhere_back_APIChequier.Controllers
             {
                 return BadRequest("Les informations de la demande sont invalides.");
             }
+
+            // Vérifier si le compte est de type épargne
+            bool isEpargne = await _repository.IsCompteEpargne(demandeDto.RibCompte);
+            if (isEpargne)
+            {
+                return BadRequest("Les comptes de type épargne ne peuvent pas faire de demande de chéquier.");
+            }
+
+            // Vérifier si le compte a déjà un chéquier actif
+            bool hasActiveChequier = await _repository.HasActiveChequier(demandeDto.RibCompte);
+            if (hasActiveChequier)
+            {
+                return BadRequest("Le compte a déjà un chéquier actif, vous ne pouvez pas soumettre une nouvelle demande.");
+            }
+
             if (demandeDto.PlafondChequier > 30000)
             {
                 return BadRequest("Le plafond du chéquier ne peut pas dépasser 30 000 dinars.");
             }
+            // Validation du mode de livraison
+            if (demandeDto.ModeLivraison == ModeLivraison.LivraisonAgence)
+            {
+                if (string.IsNullOrWhiteSpace(demandeDto.Agence))
+                {
+                    return BadRequest("L'agence doit être spécifiée pour une livraison en agence.");
+                }
+            }
+            else if (demandeDto.ModeLivraison == ModeLivraison.EnvoiRecommande)
+            {
+                if (string.IsNullOrWhiteSpace(demandeDto.AdresseComplete) || string.IsNullOrWhiteSpace(demandeDto.CodePostal))
+                {
+                    return BadRequest("L'adresse complète et le code postal sont obligatoires pour un envoi recommandé.");
+                }
+            }
+
+
+            int totalFeuillesEmises = await _repository.CountFeuillesByRib(demandeDto.RibCompte);
+
             // Créer une nouvelle demande de chéquier
             var demande = new DemandeChequier
             {
                 RibCompte = demandeDto.RibCompte,
                 NombreFeuilles = demandeDto.NombreFeuilles,
                 Otp = demandeDto.Otp,
-                Agence = demandeDto.Agence,
+                //Agence = demandeDto.Agence,
+                Agence = demandeDto.ModeLivraison == ModeLivraison.LivraisonAgence ? demandeDto.Agence : null,
+                AdresseComplete = demandeDto.ModeLivraison == ModeLivraison.EnvoiRecommande ? demandeDto.AdresseComplete : null,
+                CodePostal = demandeDto.ModeLivraison == ModeLivraison.EnvoiRecommande ? demandeDto.CodePostal : null,
                 Email = demandeDto.Email,
                 NumTel = demandeDto.NumTel,
                 PlafondChequier = demandeDto.PlafondChequier,
                 Status = DemandeStatus.EnCoursPreparation,
                 DateDemande = DateTime.Now,
-                isBarre=true
+                isBarre=true,
+                AccepteEngagement = null,
+                RaisonDemande = null,
+                ModeLivraison=demandeDto.ModeLivraison
             };
             
 
@@ -73,10 +114,13 @@ namespace STBEverywhere_back_APIChequier.Controllers
                 {
                     montantFeuille += correction;
                 }
+                int numFeuille = totalFeuillesEmises + i + 1;
+                string numeroFeuille = numFeuille.ToString("D7") + demandeDto.RibCompte;
 
                 demande.Feuilles.Add(new FeuilleChequier
                 {
                     PlafondFeuille = montantFeuille,
+                    NumeroFeuille = numeroFeuille,
                     DemandeChequier = demande
                 });
             }
@@ -106,16 +150,31 @@ namespace STBEverywhere_back_APIChequier.Controllers
             {
                 return BadRequest("Les informations de la demande sont invalides.");
             }
+            // Vérifier si le compte est de type épargne
+            bool isEpargne = await _repository.IsCompteEpargne(demandeDto.RibCompte);
+            if (isEpargne)
+            {
+                return BadRequest("Les comptes de type épargne ne peuvent pas faire de demande de chéquier.");
+            }
+
+            // Vérifier si le compte a déjà un chéquier actif
+            bool hasActiveChequier = await _repository.HasActiveChequier(demandeDto.RibCompte);
+            if (hasActiveChequier)
+            {
+                return BadRequest("Le compte a déjà un chéquier actif, vous ne pouvez pas soumettre une nouvelle demande.");
+            }
 
             if (demandeDto.PlafondChequier > 30000)
             {
                 return BadRequest("Le plafond du chéquier ne peut pas dépasser 30 000 dinars.");
             }
 
+
             if (string.IsNullOrWhiteSpace(demandeDto.RaisonDemande))
             {
                 return BadRequest("La raison de la demande doit être renseignée pour un chéquier non barré.");
             }
+
             if ((bool)!demandeDto.AccepteEngagement)
             {
                 return BadRequest("Vous devez accepter l'engagement pour continuer.");
@@ -127,6 +186,7 @@ namespace STBEverywhere_back_APIChequier.Controllers
             {
                 return BadRequest("Le code OTP est invalide.");
             }*/
+            int totalFeuillesEmises = await _repository.CountFeuillesByRib(demandeDto.RibCompte);
 
             // Créer une nouvelle demande de chéquier non barré
             var demande = new DemandeChequier
@@ -155,10 +215,13 @@ namespace STBEverywhere_back_APIChequier.Controllers
                 {
                     montantFeuille += correction;
                 }
+                int numFeuille = totalFeuillesEmises + i + 1;
+                string numeroFeuille = numFeuille.ToString("D7") + demandeDto.RibCompte;
 
                 demande.Feuilles.Add(new FeuilleChequier
                 {
                     PlafondFeuille = montantFeuille,
+                    NumeroFeuille = numeroFeuille,
                     DemandeChequier = demande
                 });
             }

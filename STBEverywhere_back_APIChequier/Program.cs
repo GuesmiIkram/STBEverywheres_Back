@@ -33,8 +33,9 @@ builder.Services.AddScoped<IChequierRepository, ChequierRepository>();
 //builder.Services.AddHostedService<ChequierJob>();
 builder.Services.AddHostedService<EmailJob>();
 builder.Services.AddHostedService<ChequierJob>();
+builder.Services.AddHostedService<ChequierEnvoiRecommandeJob>();
+builder.Services.AddHostedService<ChequierDisponibleEnAgenceJob>();
 
-builder.Services.AddHostedService<ChequierLivraisonJob>();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 

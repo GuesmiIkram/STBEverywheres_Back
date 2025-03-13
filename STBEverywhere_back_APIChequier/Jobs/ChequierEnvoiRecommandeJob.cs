@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using STBEverywhere_back_APIChequier.Hubs;
-using STBEverywhere_back_APIChequier.Services;
 using STBEverywhere_Back_SharedModels.Data;
 using STBEverywhere_Back_SharedModels.Models;
+using Microsoft.EntityFrameworkCore;
+using STBEverywhere_back_APIChequier.Services;
+
 
 namespace STBEverywhere_back_APIChequier.Jobs
 {
-    public class ChequierLivraisonJob : BackgroundService
+    public class ChequierEnvoiRecommandeJob : BackgroundService
     {
+
+
+
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<ChequierLivraisonJob> _logger;
+        private readonly ILogger<ChequierDisponibleEnAgenceJob> _logger;
         private readonly IHubContext<NotificationHub> _hubContext;
 
-        public ChequierLivraisonJob(IServiceProvider serviceProvider, ILogger<ChequierLivraisonJob> logger, IHubContext<NotificationHub> hubContext)
+        public ChequierEnvoiRecommandeJob(IServiceProvider serviceProvider, ILogger<ChequierDisponibleEnAgenceJob> logger, IHubContext<NotificationHub> hubContext)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
@@ -32,12 +36,12 @@ namespace STBEverywhere_back_APIChequier.Jobs
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         var emailService = scope.ServiceProvider.GetRequiredService<EmailService>();
 
-                        // Récupérer les demandes dont le statut est 'livré'
-                        var demandesLivrees = await context.DemandesChequiers
-                            .Where(d => d.Status == DemandeStatus.Livre) // Le statut doit être 'Livré'
+                        // Récupérer les demandes dont le statut est 'expedié'
+                        var demandesDispo = await context.DemandesChequiers
+                            .Where(d => d.Status == DemandeStatus.expédié && d.ModeLivraison == ModeLivraison.EnvoiRecommande) 
                             .ToListAsync();
 
-                        foreach (var demande in demandesLivrees) // Ajout de la boucle foreach
+                        foreach (var demande in demandesDispo) // Ajout de la boucle foreach
                         {
                             // Vérifier si un chéquier existe déjà pour cette demande
                             var existingChequier = await context.Chequiers
@@ -62,12 +66,11 @@ namespace STBEverywhere_back_APIChequier.Jobs
 
                                 if (existingEmailLog == null) // Si l'email n'a pas encore été envoyé
                                 {
-                                    var contenu = $"Le numéro de votre chéquier est {demande.NumeroChequier}.";
-                                    await emailService.LogEmailAsync(demande.Email, "Votre chéquier est livré", contenu, demande.IdDemande, "cheque livre");
+                                    var contenu = $"Votre chéquier {demande.NumeroChequier} a été envoyé par courrier recommandé. Vous pouvez suivre la livraison à l'aide du numéro de suivi.\r\n\r\nCordialement,\r\nSTB";
+                                    await emailService.LogEmailAsync(demande.Email, "Votre chéquier a été envoyé", contenu, demande.IdDemande, "cheque recommande");
                                 }
-
-                                _logger.LogInformation("Envoi de notification pour le chéquier {ChequierId} à l'email {Email}.", chequier.Id, demande.Email);
-                                await _hubContext.Clients.User(demande.Email).SendAsync("ReceiveNotification", $"Votre chéquier est livré. Le numéro de votre chéquier est {demande.NumeroChequier}.");
+                                _logger.LogInformation("Envoi de notification pour le chéquier {ChequierId} envoyé par recommandé à l'email {Email}.", demande.IdDemande, demande.Email);
+                                await _hubContext.Clients.User(demande.Email).SendAsync("ReceiveNotification", $"Votre chéquier {demande.NumeroChequier} a été envoyé par courrier recommandé.");
                             }
                             else
                             {
@@ -86,4 +89,8 @@ namespace STBEverywhere_back_APIChequier.Jobs
             }
         }
     }
-    }
+}
+
+
+
+

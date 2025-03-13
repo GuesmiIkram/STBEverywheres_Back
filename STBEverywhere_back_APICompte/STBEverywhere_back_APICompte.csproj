@@ -24,6 +24,10 @@
     <ProjectReference Include="..\STBEverywhere_Back_SharedModels\STBEverywhere_Back_SharedModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
   
 
 </Project>

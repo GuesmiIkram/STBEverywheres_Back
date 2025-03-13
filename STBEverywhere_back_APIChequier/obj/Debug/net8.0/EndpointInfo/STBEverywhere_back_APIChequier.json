@@ -60,6 +60,71 @@
         }
       }
     },
+    "/api/ChequierApi/cheques/{ribCompte}": {
+      "get": {
+        "tags": [
+          "Chequier"
+        ],
+        "parameters": [
+          {
+            "name": "ribCompte",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/DemandeChequierApi/DemandeChequierBarre": {
       "post": {
         "tags": [
@@ -290,7 +355,18 @@
           "otp": {
             "type": "boolean"
           },
+          "modeLivraison": {
+            "$ref": "#/components/schemas/ModeLivraison"
+          },
           "agence": {
+            "type": "string",
+            "nullable": true
+          },
+          "adresseComplete": {
+            "type": "string",
+            "nullable": true
+          },
+          "codePostal": {
             "type": "string",
             "nullable": true
           },
@@ -316,6 +392,14 @@
           }
         },
         "additionalProperties": false
+      },
+      "ModeLivraison": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "ProblemDetails": {
         "type": "object",

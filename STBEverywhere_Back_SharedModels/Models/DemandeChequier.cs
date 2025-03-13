@@ -18,7 +18,6 @@ namespace STBEverywhere_Back_SharedModels.Models
         public DateTime DateDemande { get; set; } = DateTime.UtcNow;
 
         [Required]
-        [Range(25, 30, ErrorMessage = "Le nombre de feuilles doit être soit 25 soit 30.")]
         public int NombreFeuilles { get; set; }
 
         [Required]
@@ -27,7 +26,14 @@ namespace STBEverywhere_Back_SharedModels.Models
         public bool Otp { get; set; }
 
         [Required]
-        public string Agence { get; set; }
+        public ModeLivraison ModeLivraison { get; set; } // Ajout du mode de livraison
+
+        public string? Agence { get; set; } // Obligatoire si "LivraisonAgence"
+
+        public string? AdresseComplete { get; set; } // Obligatoire si "EnvoiRecommande"
+
+        public string? CodePostal { get; set; } // Obligatoire si "EnvoiRecommande"
+
         [Required, EmailAddress]
         public string Email { get; set; } // Email du client
 
@@ -55,7 +61,14 @@ namespace STBEverywhere_Back_SharedModels.Models
     {
         EnCoursPreparation,
         DisponibleEnAgence,
-        Livre
+        RemisAuClient,
+        expédié
+    }
+
+    public enum ModeLivraison
+    {
+        LivraisonAgence,
+        EnvoiRecommande
     }
 
 }
