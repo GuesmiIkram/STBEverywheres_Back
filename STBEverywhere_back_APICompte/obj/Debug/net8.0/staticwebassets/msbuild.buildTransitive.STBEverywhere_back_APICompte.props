@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\STBEverywhere_back_APICompte.props" />
-</Project>
