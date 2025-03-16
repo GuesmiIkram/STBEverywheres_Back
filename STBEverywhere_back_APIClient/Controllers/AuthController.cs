@@ -8,6 +8,8 @@ using STBEverywhere_back_APIClient.Repositories;
 using STBEverywhere_Back_SharedModels;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -149,7 +151,7 @@ namespace STBEverywhere_back_APIClient.Controllers
                 }
 
                 // Mettre à jour le client avec le nouveau mot de passe
-                existingClient.MotDePasse = registerDto.Password;
+                existingClient.MotDePasse = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
                 await _clientRepository.UpdateClientAsync(existingClient);
 
                 return Ok(new { Message = "Enregistrement réussi." });
@@ -253,6 +255,72 @@ namespace STBEverywhere_back_APIClient.Controllers
                 _logger.LogError("Une erreur s'est produite lors de la réinitialisation du mot de passe avec le token : {Token}. Erreur : {Message}", token, ex.Message);
                 return StatusCode(500, new { Message = "Une erreur interne s'est produite." });
             }
+        }
+
+
+        [HttpPost("change-password")]
+        [Authorize] // Seuls les utilisateurs authentifiés peuvent changer leur mot de passe
+        [ProducesResponseType(StatusCodes.Status200OK)] // Succès
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // Requête invalide
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)] // Non autorisé
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // Client non trouvé
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)] // Erreur serveur
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+        {
+            try
+            {
+                // Récupérer l'ID du client à partir du token JWT
+                var clientId = GetClientIdFromToken();
+                if (clientId == null)
+                {
+                    return Unauthorized(new { Message = "Utilisateur non authentifié." });
+                }
+
+                // Récupérer le client depuis la base de données
+                var client = await _clientRepository.GetClientByIdAsync(clientId.Value);
+                if (client == null)
+                {
+                    return NotFound(new { Message = "Client non trouvé." });
+                }
+
+                // Vérifier si l'ancien mot de passe est correct
+                if (!BCrypt.Net.BCrypt.Verify(changePasswordDto.CurrentPassword, client.MotDePasse))
+                {
+                    return BadRequest(new { Message = "L'ancien mot de passe est incorrect." });
+                }
+
+                // Vérifier si le nouveau mot de passe et la confirmation correspondent
+                if (changePasswordDto.NewPassword != changePasswordDto.ConfirmNewPassword)
+                {
+                    return BadRequest(new { Message = "Les nouveaux mots de passe ne correspondent pas." });
+                }
+
+                // Hacher et mettre à jour le nouveau mot de passe
+                client.MotDePasse = BCrypt.Net.BCrypt.HashPassword(changePasswordDto.NewPassword);
+                await _clientRepository.UpdateClientAsync(client);
+
+                return Ok(new { Message = "Mot de passe changé avec succès." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Une erreur s'est produite lors du changement de mot de passe. Erreur : {Message}", ex.Message);
+                return StatusCode(500, new { Message = "Une erreur interne s'est produite." });
+            }
+        }
+
+        // Méthode pour extraire l'ID du client à partir du token JWT
+        private int? GetClientIdFromToken()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                if (clientIdClaim != null)
+                {
+                    return int.Parse(clientIdClaim.Value);
+                }
+            }
+            return null;
         }
     }
 }
