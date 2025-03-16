@@ -8,6 +8,8 @@ using PdfSharpCore;
 using PdfSharpCore.Pdf;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using STBEverywhere_Back_SharedModels.Data;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -16,10 +18,12 @@ namespace STBEverywhere_back_APIClient.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
+        private readonly ApplicationDbContext _context;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientService clientService, ApplicationDbContext context)
         {
             _clientService = clientService;
+            _context = context;
         }
 
         [HttpGet("me")]
@@ -44,6 +48,7 @@ namespace STBEverywhere_back_APIClient.Controllers
 
             return Ok(client);
         }
+
 
         [HttpPut("update")]
         [Authorize]
@@ -101,7 +106,78 @@ namespace STBEverywhere_back_APIClient.Controllers
                 return stream.ToArray();
             }
         }
+        [HttpPost("upload-profile-image")]
+        [Authorize]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            var clientId = GetClientIdFromToken();
+            if (clientId == null)
+            {
+                return Unauthorized(new { message = "Utilisateur non authentifié" });
+            }
 
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Aucun fichier sélectionné.");
+            }
+
+            // Générer un nom de fichier unique
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine("wwwroot/Images", fileName);
+
+            // Enregistrer le fichier sur le serveur
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Mettre à jour le nom de la photo dans la base de données
+            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            if (client == null)
+            {
+                return NotFound(new { message = "Client non trouvé" });
+            }
+
+
+            client.PhotoClient = fileName;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { fileName });
+        }
+
+        [HttpDelete("remove-profile-image")]
+        [Authorize]
+        public async Task<IActionResult> RemoveProfileImage()
+        {
+            var clientId = GetClientIdFromToken();
+            if (clientId == null)
+            {
+                return Unauthorized(new { message = "Utilisateur non authentifié" });
+            }
+
+            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            if (client == null)
+            {
+                return NotFound(new { message = "Client non trouvé" });
+            }
+
+
+            // Supprimer le fichier du serveur
+            if (!string.IsNullOrEmpty(client.PhotoClient))
+            {
+                var filePath = Path.Combine("wwwroot/Images", client.PhotoClient);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
+            // Mettre à jour la base de données
+            client.PhotoClient = null;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
         private string GenerateKycHtml(Client client)
         {
             return $@"
@@ -119,9 +195,9 @@ namespace STBEverywhere_back_APIClient.Controllers
                 </style>
             </head>
             <body>
-                <div class='photo-container'>
-                    <img src='{client.PhotoClient}' alt='Photo du client' />
-                </div>
+                
+                   <img [src]=""'wwwroot/Images/' + client?.photoClient"" alt=""Profile"" class=""rounded-circle"" />
+               
                 <h1>Fiche KYC - {client.Nom} {client.Prenom}</h1>
 
                 <!-- Informations personnelles -->
@@ -216,6 +292,9 @@ namespace STBEverywhere_back_APIClient.Controllers
         </html>
     ";
         }
+
+
+
         private int? GetClientIdFromToken()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
