@@ -6,25 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 // Configuration de la base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-<<<<<<< HEAD
-  options.UseMySql(
-      builder.Configuration.GetConnectionString("DefaultConnection"),
-      ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
-  ));
-=======
+
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
     ));
 
 builder.Services.AddHttpClient();
->>>>>>> c203fd537e6a4f176f657b2246101800931efb3f
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IClientService, ClientService>();
@@ -159,7 +154,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngularOrigins"); // Appliquer CORS
-
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")), // Dossier contenant les images
+    RequestPath = "/Images" // URL pour accéder aux images
+});
 app.UseAuthentication();
 app.UseAuthorization();
 

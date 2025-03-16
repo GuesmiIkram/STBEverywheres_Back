@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Images\mahmoud.jpg" />
+    <Content Remove="wwwroot\Images\STBlogo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="HtmlRenderer.Core" Version="1.5.0.6" />
     <PackageReference Include="HtmlRenderer.PdfSharp" Version="1.5.0.6" />
@@ -30,6 +35,11 @@
   <ItemGroup>
     <ProjectReference Include="..\STBEverywhere_back_APICompte\STBEverywhere_back_APICompte.csproj" />
     <ProjectReference Include="..\STBEverywhere_Back_SharedModels\STBEverywhere_Back_SharedModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\mahmoud.jpg" />
+    <None Include="wwwroot\Images\STBlogo.jpg" />
   </ItemGroup>
 
 

@@ -4,11 +4,7 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
 {
     public class RegisterDto
     {
-        [Required]
-        public string Nom { get; set; }
-
-        [Required]
-        public string Prenom { get; set; }
+      
 
         [Required]
         public string RIB { get; set; }

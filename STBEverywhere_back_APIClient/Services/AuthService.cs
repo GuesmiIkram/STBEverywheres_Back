@@ -134,7 +134,7 @@ namespace STBEverywhere_back_APIClient.Services
                 {
                     new Claim("userId", client.Id.ToString()) // Utiliser un nom de claim explicite
                 }),
-                Expires = DateTime.UtcNow.AddDays(1), // Durée de vie plus longue pour le refresh token
+                Expires = DateTime.UtcNow.AddDays(7), // Durée de vie plus longue pour le refresh token
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -142,30 +142,28 @@ namespace STBEverywhere_back_APIClient.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public  void SetTokenCookies(string accessToken, string refreshToken)
+        public void SetTokenCookies(string accessToken, string refreshToken)
         {
-            var cookieOptions = new CookieOptions
+            var accessTokenCookieOptions = new CookieOptions
             {
                 HttpOnly = false, // Angular peut accéder au cookie
-                Secure = false,
+                Secure = false, // Secure=false en développement (HTTP)
                 SameSite = SameSiteMode.Lax,
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddMinutes(15), // Aligné avec l'access token
                 Path = "/"
             };
 
-            // Ajouter des logs pour vérifier les cookies avant de les définir
-            _logger.LogInformation("Tentative de définition des cookies :");
-            _logger.LogInformation("AccessToken : {AccessToken}", accessToken);
-            _logger.LogInformation("RefreshToken : {RefreshToken}", refreshToken);
-            _logger.LogInformation("Options des cookies : HttpOnly={HttpOnly}, Expires={Expires}, SameSite={SameSite}, Secure={Secure}, Path={Path}",
-                cookieOptions.HttpOnly, cookieOptions.Expires, cookieOptions.SameSite, cookieOptions.Secure, cookieOptions.Path);
+            var refreshTokenCookieOptions = new CookieOptions
+            {
+                HttpOnly = false, // Angular peut accéder au cookie
+                Secure = false, // Secure=false en développement (HTTP)
+                SameSite = SameSiteMode.Lax,
+                Expires = DateTime.UtcNow.AddDays(7), // Aligné avec le refresh token
+                Path = "/"
+            };
 
-            // Définir les cookies dans la réponse HTTP
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("AccessToken", accessToken, cookieOptions);
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("RefreshToken", refreshToken, cookieOptions);
-
-            // Ajouter un log pour confirmer que les cookies ont été définis
-            _logger.LogInformation("Cookies définis avec succès : AccessToken et RefreshToken");
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("AccessToken", accessToken, accessTokenCookieOptions);
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("RefreshToken", refreshToken, refreshTokenCookieOptions);
         }
         /*
         private void SetAccessTokenCookie(string accessToken)
