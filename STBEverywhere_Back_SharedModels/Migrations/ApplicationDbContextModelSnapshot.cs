@@ -87,6 +87,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CarteAjouter = false,
                             ClientId = 1,
                             DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6574),
+
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -102,7 +103,10 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6679),
+
+
+                            DateCreation = new DateTime(2025, 3, 9, 21, 36, 20, 83, DateTimeKind.Local).AddTicks(4996),
+
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -236,9 +240,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guesmiimahmoud@gmail.com",
                             EtatCivil = "Célibataire",
+
+
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$xVf7sbaLWfM6/kdlwXAnOevjWGoraQEgvvF3VCLqOxLAVs6de/wM2",
+                            MotDePasse = "$2a$11$wkcRMXy.iSj9j/WpA9073enTPsP.YLTs6hrRcqSfdjqS.QtHANucq",
+
+
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -267,7 +275,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-                            MotDePasse = "$2a$11$P830J74dpZbyHyDv0nSg0uMP5t.FBuOSksGvi1/iE5QV0TKu3ukGi",
+
+                            MotDePasse = "$2a$11$kr1VNWBmxojCwv4UofisW.lfJiyknxOU.5T8CcTh2BIVs7srLmd3C",
+
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
