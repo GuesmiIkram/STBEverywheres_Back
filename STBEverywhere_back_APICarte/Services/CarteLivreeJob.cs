@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -31,7 +32,7 @@ namespace STBEverywhere_back_APICarte.Services
                         var carteService = scope.ServiceProvider.GetRequiredService<ICarteService>();
 
                         // Récupérer les demandes avec le statut "Livrée" et où l'email n'a pas encore été envoyé
-                        var demandesLivrees = await carteService.GetDemandesByStatutAsync("Livree");
+                        var demandesLivrees = await carteService.GetDemandesByStatutAsync(StatutDemande.Livree);
 
                         _logger.LogInformation("Nombre de demandes livrées : {Count}", demandesLivrees.Count());
 

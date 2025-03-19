@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -30,7 +31,7 @@ namespace STBEverywhere_back_APICarte.Services
                     {
                         var carteService = scope.ServiceProvider.GetRequiredService<ICarteService>();
 
-                        var demandesDisponibles = await carteService.GetDemandesByStatutAsync("Disponible a lagence");
+                        var demandesDisponibles = await carteService.GetDemandesByStatutAsync(StatutDemande.DisponibleEnAgence);
 
                         _logger.LogInformation("Nombre de demandes disponibles à l'agence : {Count}", demandesDisponibles.Count());
 

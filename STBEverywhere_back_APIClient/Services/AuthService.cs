@@ -108,7 +108,7 @@ namespace STBEverywhere_back_APIClient.Services
                     new Claim(ClaimTypes.NameIdentifier, client.Id.ToString()),
                     new Claim(ClaimTypes.Email, client.Email)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15), // Durée de vie courte pour l'access token
+                Expires = DateTime.UtcNow.AddMinutes(120), // Durée de vie courte pour l'access token
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

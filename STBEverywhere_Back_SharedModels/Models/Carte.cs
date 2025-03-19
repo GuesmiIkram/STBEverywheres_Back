@@ -1,56 +1,60 @@
 ﻿using STBEverywhere_Back_SharedModels.Models;
-using STBEverywhere_Back_SharedModels;
-using System.ComponentModel.DataAnnotations.Schema;
+using STBEverywhere_Back_SharedModels.Models.enums;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Carte
+namespace STBEverywhere_Back_SharedModels.Models
 {
-    [Key] 
-    [Required]
-    public string NumCarte { get; set; } // Numéro de la carte (identifiant unique)
+    public class Carte
+    {
+        [Key]
+        [Required]
+        public string NumCarte { get; set; } // Numéro de la carte (identifiant unique)
 
-    [Required]
-    public string NomCarte { get; set; } // Visa, Mastercard, Tecno, etc.
+        [Required]
+        public NomCarte NomCarte { get; set; } // Utilisation de l'enum pour le nom de la carte
 
-    [Required]
-    public string TypeCarte { get; set; }  // "National" ou "International"
+        [Required]
+        public TypeCarte TypeCarte { get; set; }  // Utilisation de l'enum pour le type de carte
 
-    [Required]
-    public DateTime DateCreation { get; set; } // Date de création de la carte
+        [Required]
+        public DateTime DateCreation { get; set; } // Date de création de la carte
 
-    [Required]
-    public DateTime DateExpiration { get; set; } // Date d'expiration de la carte
+        [Required]
+        public DateTime DateExpiration { get; set; } // Date d'expiration de la carte
 
-    [Required]
-    public string Statut { get; set; }  // Statut actif/inactif 
-    public string? Nature { get; set; }  // postpayee pépayee
+        [Required]
+        public StatutCarte Statut { get; set; }  // Utilisation de l'enum pour le statut de la carte
 
-    [Required]
-    public int Iddemande { get; set; } // Référence à la demande de carte
+        public string? Nature { get; set; }  // postpayee, prepayee
 
-    [ForeignKey("Iddemande")]
-    public DemandeCarte DemandeCarte { get; set; }
+        [Required]
+        public int Iddemande { get; set; } // Référence à la demande de carte
 
-    // Clé étrangère vers Compte
-    [Required]
-    public string RIB { get; set; }
-    public decimal? Solde { get; set; }// Référence au compte
+        [ForeignKey("Iddemande")]
+        public DemandeCarte DemandeCarte { get; set; }
 
-    [ForeignKey("RIB")]
-    public Compte Compte { get; set; } // Relation avec Compte
+        // Clé étrangère vers Compte
+        [Required]
+        public string RIB { get; set; }
+        public decimal? Solde { get; set; } // Référence au compte
 
-    // Nouveaux champs
-    public DateTime? DateRecuperation { get; set; } // Date de récupération de la carte (nullable)
+        [ForeignKey("RIB")]
+        public Compte Compte { get; set; } // Relation avec Compte
 
+        // Nouveaux champs
+        public DateTime? DateRecuperation { get; set; } // Date de récupération de la carte (nullable)
 
-    [Required]
-     // Code PIN à 4 chiffres
-    public String CodePIN { get; set; }
+        [Required]
+        public string CodePIN { get; set; } // Code PIN à 4 chiffres
 
-    [Required]
-     // Code CVV à 3 chiffres
-    public String  CodeCVV { get; set; }
-     [Column(TypeName = "decimal(18, 2)")] 
-    public decimal PlafondTPE { get; set; }//par defaut 4000 pour toute les carte 
-    public decimal PlafondDAP{ get; set; }//par defaut 2000 pour toute les carte 
+        [Required]
+        public string CodeCVV { get; set; } // Code CVV à 3 chiffres
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal PlafondTPE { get; set; } // Par défaut 4000 pour toutes les cartes
+
+        public decimal PlafondDAP { get; set; } // Par défaut 2000 pour toutes les cartes
+    }
 }

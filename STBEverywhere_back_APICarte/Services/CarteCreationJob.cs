@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -32,7 +33,7 @@ namespace STBEverywhere_back_APICarte.Services
                         var carteService = scope.ServiceProvider.GetRequiredService<ICarteService>();
 
                         // Récupérer toutes les demandes avec le statut "Récupérée"
-                        var demandesRecuperees = await carteService.GetDemandesByStatutAsync("Recuperee");
+                        var demandesRecuperees = await carteService.GetDemandesByStatutAsync(StatutDemande.Recuperee);
 
                         _logger.LogInformation("Nombre de demandes récupérées : {Count}", demandesRecuperees.Count());
 

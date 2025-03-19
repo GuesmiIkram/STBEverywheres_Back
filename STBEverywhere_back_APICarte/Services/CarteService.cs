@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Security.Claims;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -49,8 +50,26 @@ namespace STBEverywhere_back_APICarte.Services
                 RIB = c.RIB
             });
         }
+        public async Task<IEnumerable<CarteDTO>> GetCartesByClientIdAsync(int clientId)
+        {
+            var cartes = await _dbContext.Cartes
+                .Include(c => c.DemandeCarte) // Inclure la demande de carte
+                .Where(c => c.DemandeCarte.ClientId == clientId) // Filtrer par ClientId
+                .Select(c => new CarteDTO
+                {
+                    NumCarte = c.NumCarte,
+                    TypeCarte = c.TypeCarte,
+                    NomCarte = c.NomCarte,
+                    DateExpiration = c.DateExpiration,
+                    Statut = c.Statut,
+                    RIB = c.RIB
+                })
+                .ToListAsync();
 
-    
+            return cartes;
+        }
+
+
         public async Task<bool> CreateCarteIfDemandeRecupereeAsync(int demandeId)
         {
             _logger.LogInformation("Tentative de création de carte pour la demande : {DemandeId}", demandeId);
@@ -65,7 +84,7 @@ namespace STBEverywhere_back_APICarte.Services
             }
 
             // Vérifier si le statut de la demande est "Récupérée"
-            if (demande.Statut != "Recuperee")
+            if (demande.Statut != STBEverywhere_Back_SharedModels.Models.enums.StatutDemande.Recuperee)
             {
                 _logger.LogWarning("La carte n'est pas encore récupérée : {DemandeId}", demandeId);
                 throw new InvalidOperationException("La carte ne peut être créée que si la demande est récupérée.");
@@ -78,7 +97,7 @@ namespace STBEverywhere_back_APICarte.Services
             var encryptedCVV = EncryptCode(int.Parse(codeCVV));
 
             // Générer un numéro de carte unique en fonction du type de carte
-            var numCarte = await GenerateUniqueCardNumberAsync(demande.NomCarte);
+            var numCarte = await GenerateUniqueCardNumberAsync(demande.NomCarte.ToString());
 
             // Créer la carte
             var carte = new Carte
@@ -88,7 +107,7 @@ namespace STBEverywhere_back_APICarte.Services
                 TypeCarte = demande.TypeCarte,
                 DateCreation = demande.DateCreation,
                 DateExpiration = demande.DateCreation.AddYears(3),
-                Statut = "Active",
+                Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Active,
                 RIB = demande.NumCompte,
                 PlafondTPE = 4000,
                 PlafondDAP = 2000,
@@ -122,7 +141,7 @@ namespace STBEverywhere_back_APICarte.Services
             return BCrypt.Net.BCrypt.HashPassword(codeString);
         }
 
-        public async Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(string statut)
+        public async Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(StatutDemande statut)
         {
             _logger.LogInformation("Récupération des demandes avec le statut : {Statut}", statut);
 
@@ -269,8 +288,18 @@ namespace STBEverywhere_back_APICarte.Services
             // Retourner les détails de la carte sous forme de CarteDetails
             return new CarteDetails
             {
-                Statut = carte.Statut,  // Statut de la carte
-                Plafond = carte.PlafondTPE // Plafond de la carte
+                NumCarte = carte.NumCarte, // Numéro de la carte
+                NomCarte = carte.NomCarte, // Nom de la carte
+                TypeCarte = carte.TypeCarte, // Type de la carte
+                DateCreation = carte.DateCreation, // Date de création
+                DateExpiration = carte.DateExpiration, // Date d'expiration
+                Statut = carte.Statut, // Statut de la carte
+                RIB = carte.RIB, // RIB associé
+                DateRecuperation = carte.DateRecuperation, // Date de récupération
+                // Code CVV
+                Iddemande = carte.Iddemande, // Référence à la demande
+                PlafondDAP = carte.PlafondDAP, // Plafond DAP
+                PlafondTPE = carte.PlafondTPE // Plafond TPE
             };
         }
 
@@ -341,23 +370,17 @@ namespace STBEverywhere_back_APICarte.Services
             }
 
             // Vérifier si la carte est déjà inactive
-            if (carte.Statut == "Inactif")
+            if (carte.Statut == STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Inactive)
             {
                 throw new InvalidOperationException("La carte est déjà inactive.");
             }
             // Vérifier si le solde est égal à 0
-            if (carte.Solde == 0)
-            {
+           
                 // Mettre à jour le statut de la carte à "Inactif"
-                carte.Statut = "Inactif";
-                await _carteRepository.UpdateCarteAsync(carte);
-                return "Carte bloquée avec succès.";
-            }
-            else
-            {
-                // Le solde n'est pas égal à 0, on ne peut pas bloquer la carte
-                throw new InvalidOperationException("La carte contient de l'argent. Veuillez récupérer l'argent avant de bloquer la carte.");
-            }
+           carte.Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Inactive;
+           await _carteRepository.UpdateCarteAsync(carte);
+           return "Carte bloquée avec succès.";
+           
         }
 
 
@@ -377,17 +400,17 @@ namespace STBEverywhere_back_APICarte.Services
                 throw new InvalidOperationException("Carte introuvable.");
             }
 
-            // Vérifier si la carte est déjà inactive
-            if (carte.Statut == "Active")
+            // Vérifier si la carte est déjà active
+            if (carte.Statut == STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Active)
             {
                 throw new InvalidOperationException("La carte est déjà active.");
             }
-            // Vérifier si le solde est égal à 0
+            
 
             else
             {
                 // Mettre à jour le statut de la carte à "Inactif"
-                carte.Statut = "Active";
+                carte.Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Active;
                 await _carteRepository.UpdateCarteAsync(carte);
                 return "Carte debloquée avec succès.";
             }
