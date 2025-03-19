@@ -1,4 +1,5 @@
 ﻿using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Models.enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,10 +13,8 @@ public class DemandeCarte
     public string NumCompte { get; set; } // Référence au compte
 
     [Required]
-    public string NomCarte { get; set; } // Visa, Mastercard, Tecno, etc.
-
-    [Required]
-    public string TypeCarte { get; set; }  // "National" ou "International"
+    public NomCarte NomCarte { get; set; }
+    public TypeCarte TypeCarte { get; set; }
 
     [Required]
     public string CIN { get; set; } // Numéro CIN du client
@@ -31,7 +30,7 @@ public class DemandeCarte
 
     // Statut de la demande
     [Required]
-    public String Statut { get; set; } // Statut de la demande
+    public StatutDemande Statut { get; set; }
 
     // Clé étrangère vers Client
     [Required]

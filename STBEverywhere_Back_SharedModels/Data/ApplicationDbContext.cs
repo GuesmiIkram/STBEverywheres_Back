@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Models;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_Back_SharedModels.Data
 {
@@ -148,20 +149,25 @@ namespace STBEverywhere_Back_SharedModels.Data
             modelBuilder.Entity<Carte>(entity =>
             {
                 entity.HasKey(c => c.NumCarte);
-                entity.Property(c => c.NomCarte).IsRequired().HasMaxLength(50);
-                entity.Property(c => c.TypeCarte).IsRequired().HasMaxLength(20);
-                entity.Property(c => c.Statut).IsRequired().HasMaxLength(20);
+                entity.Property(c => c.NomCarte)
+             .HasConversion<string>(); // Convertir l'enum en string
+
+                entity.Property(c => c.TypeCarte)
+                      .HasConversion<string>(); // Convertir l'enum en string
+
+                entity.Property(c => c.Statut)
+                      .HasConversion<string>(); // Convertir l'enum en string
 
                 // Ajouter des données initiales pour les cartes
                 entity.HasData(
                     new Carte
                     {
                         NumCarte = "1111222233334444",
-                        NomCarte = "Visa",
-                        TypeCarte = "International",
+                        NomCarte = NomCarte.VisaClassic, // Utilisation de l'enum
+                        TypeCarte = TypeCarte.International,
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
-                        Statut = "Active",
+                        Statut = StatutCarte.Active,
                         Iddemande = 1,
                         CodeCVV = "",
                         Nature = "postpayée",
@@ -174,11 +180,11 @@ namespace STBEverywhere_Back_SharedModels.Data
                     new Carte
                     {
                         NumCarte = "5555666677778888",
-                        NomCarte = "Mastercard",
-                        TypeCarte = "National",
+                        NomCarte = NomCarte.Mastercard, // Utilisation de l'enum
+                        TypeCarte = TypeCarte.National,
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
-                        Statut = "Active",
+                        Statut = StatutCarte.Active,
                         Iddemande = 2,
                         CodeCVV = "",
                         Solde = 5000.00m,
@@ -196,12 +202,18 @@ namespace STBEverywhere_Back_SharedModels.Data
             {
                 entity.HasKey(d => d.Iddemande); // Définir Iddemande comme clé primaire
                 entity.Property(d => d.NumCompte).IsRequired().HasMaxLength(20);
-                entity.Property(d => d.NomCarte).IsRequired().HasMaxLength(50);
-                entity.Property(d => d.TypeCarte).IsRequired().HasMaxLength(20);
+                entity.Property(d => d.NomCarte)
+                     .HasConversion<string>(); // Convertir l'enum en string
+
+                entity.Property(d => d.TypeCarte)
+                      .HasConversion<string>(); // Convertir l'enum en string
+
+                entity.Property(d => d.Statut)
+                      .HasConversion<string>(); // Convertir l'enum en string
                 entity.Property(d => d.CIN).IsRequired().HasMaxLength(20);
                 entity.Property(d => d.Email).IsRequired().HasMaxLength(100);
                 entity.Property(d => d.NumTel).IsRequired().HasMaxLength(20);
-                entity.Property(d => d.Statut).IsRequired().HasMaxLength(20);
+
 
                 // Relation Many-to-One : Une demande de carte est associée à un client
                 entity.HasOne(d => d.Client)
@@ -215,12 +227,12 @@ namespace STBEverywhere_Back_SharedModels.Data
                     {
                         Iddemande = 1,
                         NumCompte = "12345678923537902652",
-                        NomCarte = "Visa",
-                        TypeCarte = "International",
+                        NomCarte = NomCarte.VisaClassic, // Utilisation de l'enum
+                        TypeCarte = TypeCarte.International,
                         CIN = "14668061",
                         Email = "john.doe@example.com",
                         NumTel = "12345678",
-                        Statut = "DisponibleAgence",
+                        Statut = StatutDemande.DisponibleEnAgence,
                         EmailEnvoye = false,
                         EmailEnvoyeLivree = false,
                         CarteAjouter = false,
@@ -230,12 +242,12 @@ namespace STBEverywhere_Back_SharedModels.Data
                     {
                         Iddemande = 2,
                         NumCompte = "65432110223463790345",
-                        NomCarte = "Mastercard",
-                        TypeCarte = "National",
+                        NomCarte = NomCarte.Mastercard, // Utilisation de l'enum
+                        TypeCarte = TypeCarte.National,
                         CIN = "14668062",
                         Email = "jane.smith@example.com",
                         NumTel = "87654321",
-                        Statut = "DisponibleAgence",
+                        Statut = StatutDemande.EnPreparation,
                         EmailEnvoye = false,
                         EmailEnvoyeLivree = false,
                         CarteAjouter = false,
