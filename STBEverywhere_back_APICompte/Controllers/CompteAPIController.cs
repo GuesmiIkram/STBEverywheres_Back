@@ -62,32 +62,57 @@ namespace STBEverywhere_back_APICompte.Controllers
             return Ok(comptes);
         }
 
-       /* public async Task<IActionResult> GetComptesByCin(string numCin)
+        /* public async Task<IActionResult> GetComptesByCin(string numCin)
+         {
+             var clientId = GetClientIdFromToken();
+             if (clientId == null)
+             {
+                 return Unauthorized(new { message = "Utilisateur non authentifié" });
+             }
+             //var comptes = await _context.Compte
+             var comptes = await _dbCompte.GetAllAsync(c => c.NumCin == numCin && c.Statut != "Clôturé");
+             /*.Where(c => c.NumCin == numCin && c.statut != "Clôturé")
+             .Select(c => new
+             {
+                 c.RIB,
+                 c.type,
+                 c.solde
+             })
+             .ToListAsync();
+
+             if (comptes == null || !comptes.Any())
+             {
+                 return NotFound(new { message = "Aucun compte actif trouvé pour vous." });
+             }
+             _logger.LogInformation("Getting all comptes");
+             return Ok(comptes);
+         }*/
+        //les comptes qui peuvent effectuer des virements 
+        [HttpGet("listecompteVirement")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetComptesVirementByClientId()
         {
             var clientId = GetClientIdFromToken();
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
             }
-            //var comptes = await _context.Compte
-            var comptes = await _dbCompte.GetAllAsync(c => c.NumCin == numCin && c.Statut != "Clôturé");
-            /*.Where(c => c.NumCin == numCin && c.statut != "Clôturé")
-            .Select(c => new
-            {
-                c.RIB,
-                c.type,
-                c.solde
-            })
-            .ToListAsync();
+
+            // Exclure les comptes avec statut "Clôturé" et les comptes d'épargne
+            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower()!= "epargne");
 
             if (comptes == null || !comptes.Any())
             {
                 return NotFound(new { message = "Aucun compte actif trouvé pour vous." });
             }
-            _logger.LogInformation("Getting all comptes");
-            return Ok(comptes);
-        }*/
 
+            _logger.LogInformation("Récupération des comptes actifs non épargne réussie.");
+            return Ok(comptes);
+        }
 
         [HttpPost("CreateCompte")]
         [Authorize]
@@ -99,6 +124,8 @@ namespace STBEverywhere_back_APICompte.Controllers
         public async Task<IActionResult> CreateCompte([FromBody] CreateCompteDto compteDto)
          {
             var clientId = GetClientIdFromToken();
+            _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
+
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
@@ -109,7 +136,11 @@ namespace STBEverywhere_back_APICompte.Controllers
                  return BadRequest(new { message = "Type  obligatoires." });
             }
             var clientList = await _compteService.GetAllAsync(c => c.ClientId == clientId );
+            _logger.LogInformation($"Nombre de clients trouvés : {clientList.Count()}");
+
             var client = clientList.FirstOrDefault();
+            _logger.LogInformation($"Client trouvé ? {(client != null ? "Oui" : "Non")}");
+
             /*if (client == null)
             {
                 return BadRequest(new { message = "Aucun client trouvé avec ce NumCin." });
@@ -137,6 +168,9 @@ namespace STBEverywhere_back_APICompte.Controllers
              compte.Statut = "Actif";
              compte.ClientId = (int)clientId;
             compte.NumCin = client.NumCin;
+            compte.NbrOperationsAutoriseesParJour = "illimité";
+            compte.MontantMaxAutoriseParJour = 2000.000m;
+
 
             await _compteService.CreateAsync(compte);
 
@@ -156,30 +190,20 @@ namespace STBEverywhere_back_APICompte.Controllers
         
 
         [HttpGet("GetByRIB/{rib}")]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCompteByRIB(string rib)
         {
            
-            /*var clientId = GetClientIdFromToken();
+            var clientId = GetClientIdFromToken();
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }*/
+            }
             var compte = await _compteService.GetAllAsync(c => c.RIB == rib);
-            /*var compte = await _context.Compte
-                .Where(c => c.RIB == rib)
-                .Select(c => new
-                {
-                    c.RIB,
-                    c.type
-                    c.solde,
-                    c.date_creation,
-                    c.statut
-                })
-                .ToListAsync();*/
+           
 
 
             if (compte == null || !compte.Any())
@@ -259,6 +283,8 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
     }
+
+
 
 
 

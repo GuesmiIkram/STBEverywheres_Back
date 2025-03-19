@@ -114,6 +114,11 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.Property(c => c.Solde).HasColumnType("decimal(18,3)");
                 entity.Property(c => c.Statut).HasMaxLength(20);
 
+                entity.HasOne(c => c.Client)
+         .WithMany(c => c.Comptes)
+         .HasForeignKey(c => c.ClientId)
+         .OnDelete(DeleteBehavior.Cascade);  // Supprime les comptes si le client est supprimé
+
                 // Ajouter des données initiales pour les comptes
                 entity.HasData(
                     new Compte
@@ -122,7 +127,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         NumCin = "14668061",
                         Type = "Courant",
                         Solde = 1000.50m,
-                        DateCreation = new DateTime(2024, 1, 1),
+                        DateCreation = new DateTime(2024, 5, 1),
                         Statut = "Actif",
                         ClientId = 1
                     },
@@ -132,9 +137,9 @@ namespace STBEverywhere_Back_SharedModels.Data
                         NumCin = "14668062",
                         Type = "Epargne",
                         Solde = 5000.00m,
-                        DateCreation = new DateTime(2024, 1, 1),
+                        DateCreation = new DateTime(2025, 1, 1),
                         Statut = "Actif",
-                        ClientId = 1
+                        ClientId = 2
                     }
                 );
             });

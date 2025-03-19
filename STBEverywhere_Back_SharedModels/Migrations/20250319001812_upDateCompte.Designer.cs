@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STBEverywhere_Back_SharedModels.Data;
 
@@ -10,9 +11,11 @@ using STBEverywhere_Back_SharedModels.Data;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319001812_upDateCompte")]
+    partial class upDateCompte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 19, 1, 33, 56, 569, DateTimeKind.Local).AddTicks(4096),
+                            DateCreation = new DateTime(2025, 3, 19, 1, 18, 11, 295, DateTimeKind.Local).AddTicks(81),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -206,7 +209,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 19, 1, 33, 56, 569, DateTimeKind.Local).AddTicks(4116),
+                            DateCreation = new DateTime(2025, 3, 19, 1, 18, 11, 295, DateTimeKind.Local).AddTicks(100),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -342,7 +345,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Célibataire",
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$Ot9sGyph.Wct7y4VmCsg7e/nbzagUCY0mzOuQp7dK3d5oIkv4Frbu",
+                            MotDePasse = "$2a$11$XUuE32HP7CcOrJvjYS.CDOFBASn69Oa78cRfVS4k5LwUkGdg7glPm",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -371,7 +374,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-                            MotDePasse = "$2a$11$agsvQ0.u0m7iGMo4z2Z5zechaDjUDbYOxuXy.jOMafLMgdtVyQ/yK",
+                            MotDePasse = "$2a$11$84obSXOXS8g359rjbr7MOuD0cY8xBH1lTrQpptb8PFEgo17c9L3we",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
@@ -435,7 +438,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             RIB = "12345678923537902652",
                             ClientId = 1,
-                            DateCreation = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668061",
                             Solde = 1000.50m,
@@ -445,8 +448,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             RIB = "65432110223463790345",
-                            ClientId = 2,
-                            DateCreation = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ClientId = 1,
+                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668062",
                             Solde = 5000.00m,
