@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Repository
 {
@@ -36,7 +37,7 @@ namespace STBEverywhere_back_APICarte.Repository
             return await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(string statut)
+        public async Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(StatutDemande statut)
         {
             _logger.LogInformation("Exécution de la requête pour récupérer les demandes avec le statut : {Statut}", statut);
 
@@ -81,7 +82,7 @@ namespace STBEverywhere_back_APICarte.Repository
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<DemandeCarte>> GetDemandesByCompteAndNomAndTypeAsync(string numCompte, string nomCarte, string typeCarte)
+        public async Task<IEnumerable<DemandeCarte>> GetDemandesByCompteAndNomAndTypeAsync(string numCompte,NomCarte nomCarte,TypeCarte typeCarte)
         {
             return await _context.DemandesCarte
                 .Where(d => d.NumCompte == numCompte && d.NomCarte == nomCarte && d.TypeCarte == typeCarte)

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using STBEverywhere_Back_SharedModels.Models;
-
 using STBEverywhere_back_APICarte.Repository;
 using STBEverywhere_back_APICarte.Services;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +30,12 @@ builder.Services.AddHostedService<CarteCreationJob>();
 builder.Services.AddHostedService<CarteDisponibleJob>();
 builder.Services.AddHostedService<CarteLivreeJob>();
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+// Configuration de la sérialisation JSON pour les enums
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new StringEnumConverter()); // Ajoutez cette ligne
+    });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -67,8 +72,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-
-
 
 // Configuration de l'authentification JWT
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
