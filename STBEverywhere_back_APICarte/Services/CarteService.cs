@@ -257,19 +257,18 @@ namespace STBEverywhere_back_APICarte.Services
         {
             _logger.LogInformation("Récupération des demandes de carte pour le RIB : {RIB}", rib);
             var demandes = await _carteRepository.GetDemandesByRIBAsync(rib);
-            return demandes.Select(d => new DemandeCarteDTO
+
+            var demandesDTO = demandes.Select(d => new DemandeCarteDTO
             {
-                Iddemande = d.Iddemande,
                 NumCompte = d.NumCompte,
                 NomCarte = d.NomCarte,
                 TypeCarte = d.TypeCarte,
                 CIN = d.CIN,
                 Email = d.Email,
-                NumTel = d.NumTel,
-                DateCreation = d.DateCreation,
-                Statut = d.Statut,
-                ClientId = d.ClientId
-            });
+                NumTel = d.NumTel
+            }).ToList();
+
+            return demandesDTO;
         }
 
         public async Task<CarteDetails> GetCarteDetailsAsync(string numCarte)

@@ -102,8 +102,8 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
             }
 
-            // Exclure les comptes avec statut "Clôturé" et les comptes d'épargne
-            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower()!= "epargne");
+            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne");
+
 
             if (comptes == null || !comptes.Any())
             {
@@ -122,7 +122,7 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
         public async Task<IActionResult> CreateCompte([FromBody] CreateCompteDto compteDto)
-         {
+        {
             var clientId = GetClientIdFromToken();
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
@@ -130,12 +130,14 @@ namespace STBEverywhere_back_APICompte.Controllers
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
             }
-            if (compteDto == null ||  string.IsNullOrEmpty(compteDto.type))
-             {
-                 _logger.LogError(" Type  obligatoire");
-                 return BadRequest(new { message = "Type  obligatoires." });
+            if (compteDto == null || string.IsNullOrEmpty(compteDto.type))
+            {
+                _logger.LogError(" Type  obligatoire");
+                return BadRequest(new { message = "Type  obligatoires." });
             }
-            var clientList = await _compteService.GetAllAsync(c => c.ClientId == clientId );
+
+            var clientList = await _compteService.GetAllAsync(c => c.ClientId == clientId);
+
             _logger.LogInformation($"Nombre de clients trouvés : {clientList.Count()}");
 
             var client = clientList.FirstOrDefault();
@@ -146,27 +148,27 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return BadRequest(new { message = "Aucun client trouvé avec ce NumCin." });
             }*/
             if (compteDto.type.ToLower() == "epargne")
-             {
-                 //var epargneCount = (await _dbCompte.GetAllAsync(c => c.NumCin == compteDto.NumCin && c.Type.ToLower() == "epargne")).Count;
+            {
+                //var epargneCount = (await _dbCompte.GetAllAsync(c => c.NumCin == compteDto.NumCin && c.Type.ToLower() == "epargne")).Count;
 
                 var epargneCount = (await _compteService.GetAllAsync(c => c.Type.ToLower() == "epargne")).Count;
                 if (epargneCount >= 3)
-                 {
-                     return BadRequest(new { message = "Vous ne pouvez pas avoir plus de 3 comptes d'épargne." });
-                 }
-             }
+                {
+                    return BadRequest(new { message = "Vous ne pouvez pas avoir plus de 3 comptes d'épargne." });
+                }
+            }
 
-             string generatedRIB = _compteService.GenerateUniqueRIB();
-             decimal initialSolde = compteDto.type.ToLower() == "epargne" ? 10 : 0;
-             // Utilisation d'AutoMapper pour convertir compteDto en Compte
-             var compte = _mapper.Map<Compte>(compteDto);
+            string generatedRIB = _compteService.GenerateUniqueRIB();
+            decimal initialSolde = compteDto.type.ToLower() == "epargne" ? 10 : 0;
+            // Utilisation d'AutoMapper pour convertir compteDto en Compte
+            var compte = _mapper.Map<Compte>(compteDto);
 
-             // Ajout des valeurs manquantes
-             compte.RIB = generatedRIB;
-             compte.Solde = initialSolde;
-             compte.DateCreation = DateTime.Now;
-             compte.Statut = "Actif";
-             compte.ClientId = (int)clientId;
+            // Ajout des valeurs manquantes
+            compte.RIB = generatedRIB;
+            compte.Solde = initialSolde;
+            compte.DateCreation = DateTime.Now;
+            compte.Statut = "Actif";
+            compte.ClientId = (int)clientId;
             compte.NumCin = client.NumCin;
             compte.NbrOperationsAutoriseesParJour = "illimité";
             compte.MontantMaxAutoriseParJour = 2000.000m;
@@ -180,14 +182,14 @@ namespace STBEverywhere_back_APICompte.Controllers
             // await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetCompteByRIB), new { rib = compte.RIB }, compte);
-         }
+        }
 
 
 
 
 
 
-        
+
 
         [HttpGet("GetByRIB/{rib}")]
         [Authorize]
@@ -196,14 +198,21 @@ namespace STBEverywhere_back_APICompte.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCompteByRIB(string rib)
         {
+
+
+           /* var clientId = GetClientIdFromToken();
+
            
             var clientId = GetClientIdFromToken();
+
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+            }*/
             var compte = await _compteService.GetAllAsync(c => c.RIB == rib);
-           
+
+
+
 
 
             if (compte == null || !compte.Any())
@@ -284,10 +293,6 @@ namespace STBEverywhere_back_APICompte.Controllers
 
     }
 
-
-
-
-
-
-
 }
+
+

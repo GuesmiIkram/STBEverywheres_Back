@@ -188,8 +188,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                           
-                            DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6574),
+
+                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4874),
 
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
@@ -207,11 +207,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CarteAjouter = false,
                             ClientId = 2,
 
-
-
-                            DateCreation = new DateTime(2025, 3, 9, 21, 36, 20, 83, DateTimeKind.Local).AddTicks(4996),
-
-               Email = "jane.smith@example.com",
+                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4895),
+                            Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
                             NomCarte = "Mastercard",
@@ -344,14 +341,10 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guesmiimahmoud@gmail.com",
                             EtatCivil = "Célibataire",
-
-
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
 
                             MotDePasse = "$2a$11$wkcRMXy.iSj9j/WpA9073enTPsP.YLTs6hrRcqSfdjqS.QtHANucq",
-
-
 
                             Nationalite = "US",
                             NiveauEducation = "Master",
@@ -382,8 +375,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
 
-
-                            MotDePasse = "$2a$11$kr1VNWBmxojCwv4UofisW.lfJiyknxOU.5T8CcTh2BIVs7srLmd3C",
+                            MotDePasse = "$2a$11$JX8hh5xjlULr28xXmVfP5unYP4/8m2b4CL0peASvc9LSiwZYLCN2a",
 
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
@@ -448,7 +440,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             RIB = "12345678923537902652",
                             ClientId = 1,
-                            DateCreation = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+
+                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668061",
                             Solde = 1000.50m,
@@ -458,8 +452,10 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             RIB = "65432110223463790345",
-                            ClientId = 2,
-                            DateCreation = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+
+                            ClientId = 1,
+                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668062",
                             Solde = 5000.00m,
