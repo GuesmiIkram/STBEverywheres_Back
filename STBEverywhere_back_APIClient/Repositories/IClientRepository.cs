@@ -11,5 +11,6 @@ namespace STBEverywhere_back_APIClient.Repositories
 
         Task UpdateClientAsync(Client client);
         Client GetClientByResetToken(string token);
+        Task AddClientAsync(Client client);
     }
 }

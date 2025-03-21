@@ -1,5 +1,7 @@
-﻿
-using STBEverywhere_Back_SharedModels;
+﻿using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Models.DTO;
+using System.Threading.Tasks;
+
 namespace STBEverywhere_back_APIClient.Services
 {
     public interface IAuthService
@@ -7,24 +9,46 @@ namespace STBEverywhere_back_APIClient.Services
         /// <summary>
         /// Authentifie un utilisateur avec son email et son mot de passe.
         /// </summary>
-        /// <param name="email">L'email de l'utilisateur.</param>
-        /// <param name="motDePasse">Le mot de passe de l'utilisateur.</param>
-        /// <returns>Un message indiquant le succès de l'authentification.</returns>
-        string Authenticate(string email, string motDePasse);
+         Task<Client> Authenticate(string email, string password);
+
+        /// <summary>
+        /// Enregistre un nouvel utilisateur.
+        /// </summary>
+        Task<string> RegisterAsync(RegisterDto registerDto);
+
+        /// <summary>
+        /// Rafraîchit un token JWT expiré en utilisant un refresh token.
+        /// </summary>
+        Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync();
+
+        /// <summary>
+        /// Envoie un e-mail de réinitialisation de mot de passe.
+        /// </summary>
+        Task<string> ForgotPasswordAsync(string email);
+
+        /// <summary>
+        /// Réinitialise le mot de passe d'un utilisateur.
+        /// </summary>
+        Task<string> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+
+        /// <summary>
+        /// Permet à un utilisateur de changer son mot de passe.
+        /// </summary>
+        Task<string> ChangePasswordAsync(int clientId, ChangePasswordDto changePasswordDto);
 
         /// <summary>
         /// Génère un token JWT pour un client.
         /// </summary>
-        /// <param name="client">Le client pour lequel générer le token.</param>
-        /// <returns>Le token JWT généré.</returns>
         string GenerateJwtToken(Client client);
 
         /// <summary>
         /// Rafraîchit un token JWT expiré en utilisant un refresh token.
         /// </summary>
-        /// <returns>Un nouveau token JWT.</returns>
         (string AccessToken, string RefreshToken) RefreshToken();
-        void SetTokenCookies(string accessToken, string refreshToken);
 
+        /// <summary>
+        /// Stocke les tokens dans les cookies.
+        /// </summary>
+        void SetTokenCookies(string accessToken, string refreshToken);
     }
 }
