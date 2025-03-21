@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEverywhere_ApiGateway")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a33027bd83e469eac92f4cc9f355f9fe561da379")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfbb590eb429762bcaf7965e3442920a8c1b70c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEverywhere_ApiGateway")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEverywhere_ApiGateway")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

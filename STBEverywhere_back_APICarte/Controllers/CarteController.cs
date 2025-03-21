@@ -37,30 +37,23 @@ namespace STBEverywhere_back_APICarte.Controllers
         }
         //API pour recuperer les Carte par RIB Compte se sont les Cartes prepayee
         [HttpGet("rib/{rib}")]
-
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<CarteDTO>>> GetCartesByRIB(string rib)
         {
 
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-            else
-            {
-                var cartes = await _carteService.GetCartesByRIBAsync(rib);
-                return Ok(cartes);
+            
+           
+      
+           var cartes = await _carteService.GetCartesByRIBAsync(rib);
+           return Ok(cartes);
 
-            }
+            
 
         }
         [HttpPost("demande")]
-        [Authorize]
+      
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,10 +62,7 @@ namespace STBEverywhere_back_APICarte.Controllers
         {
             // Récupérer le ClientId depuis le token
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+           
 
             try
             {
@@ -190,18 +180,15 @@ namespace STBEverywhere_back_APICarte.Controllers
 
 
         [HttpGet("demandes/rib/{rib}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+       
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<DemandeCarteDTO>>> GetDemandesByRIB(string rib)
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+           
 
             var demandes = await _carteService.GetDemandesByRIBAsync(rib);
             return Ok(demandes);
@@ -222,19 +209,15 @@ namespace STBEverywhere_back_APICarte.Controllers
         }
 
         [HttpGet("details/{numCarte}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+      
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CarteDTO>> GetCarteDetails(string numCarte)
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
+           
             try
             {
                 var carteDetails = await _carteService.GetCarteDetailsAsync(numCarte);
@@ -247,19 +230,14 @@ namespace STBEverywhere_back_APICarte.Controllers
         }
 
         [HttpPost("block/{numCarte}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> BlockCarte(string numCarte)
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
+          
             try
             {
                 var result = await _carteService.BlockCarteAsync(numCarte);
@@ -274,19 +252,12 @@ namespace STBEverywhere_back_APICarte.Controllers
 
 
         [HttpPost("deblock/{numCarte}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeBlockCarte(string numCarte)
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
             try
             {
                 var result = await _carteService.DeBlockCarteAsync(numCarte);
@@ -300,8 +271,6 @@ namespace STBEverywhere_back_APICarte.Controllers
 
 
         [HttpGet("cartes/by-client")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -309,10 +278,7 @@ namespace STBEverywhere_back_APICarte.Controllers
         {
             // Récupérer le ClientId depuis le token
             var clientIdFromToken = GetClientIdFromToken();
-            if (clientIdFromToken == null)
-            {
-                return Unauthorized(new { message = "Vous n'êtes pas autorisé à accéder à ces informations." });
-            }
+          
 
             try
             {

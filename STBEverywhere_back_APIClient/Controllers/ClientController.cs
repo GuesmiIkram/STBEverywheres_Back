@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using STBEverywhere_Back_SharedModels;
 using STBEverywhere_back_APIClient.Services;
 using PdfSharpCore;
@@ -10,11 +9,13 @@ using TheArtOfDev.HtmlRenderer.PdfSharp;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Data;
+using System.Security.Claims;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   // Applique l'authentification à toutes les méthodes du contrôleur
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
@@ -26,21 +27,15 @@ namespace STBEverywhere_back_APIClient.Controllers
             _context = context;
         }
 
+        // Récupérer les informations du client
         [HttpGet("me")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetClientInfo()
         {
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
-            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
+            var client = await _clientService.GetClientByIdAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
@@ -49,22 +44,15 @@ namespace STBEverywhere_back_APIClient.Controllers
             return Ok(client);
         }
 
-
+        // Mettre à jour les informations du client
         [HttpPut("update")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientInfo([FromBody] Client updatedClient)
-        {
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
-            bool isUpdated = await _clientService.UpdateClientInfoAsync(clientId.Value, updatedClient);
+        { 
+            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
+            bool isUpdated = await _clientService.UpdateClientInfoAsync(clientId, updatedClient);
             if (!isUpdated)
             {
                 return NotFound(new { message = "Client non trouvé" });
@@ -73,21 +61,15 @@ namespace STBEverywhere_back_APIClient.Controllers
             return Ok(new { message = "Informations mises à jour avec succès !" });
         }
 
+        // Télécharger le fichier KYC
         [HttpGet("kyc/download")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DownloadKYC()
         {
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
-            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
+            var client = await _clientService.GetClientByIdAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
@@ -97,25 +79,11 @@ namespace STBEverywhere_back_APIClient.Controllers
             return File(pdfBytes, "application/pdf", $"Fiche_KYC_{client.Nom}_{client.Prenom}.pdf");
         }
 
-        private byte[] GenerateKYCReport(Client client)
-        {
-            var pdf = PdfGenerator.GeneratePdf(GenerateKycHtml(client), (PdfSharp.PageSize)PageSize.A4);
-            using (var stream = new MemoryStream())
-            {
-                pdf.Save(stream, false);
-                return stream.ToArray();
-            }
-        }
+        // Uploader une image de profil
         [HttpPost("upload-profile-image")]
-        [Authorize]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
+            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
             if (file == null || file.Length == 0)
             {
                 return BadRequest("Aucun fichier sélectionné.");
@@ -132,12 +100,11 @@ namespace STBEverywhere_back_APIClient.Controllers
             }
 
             // Mettre à jour le nom de la photo dans la base de données
-            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            var client = await _clientService.GetClientByIdAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
             }
-
 
             client.PhotoClient = fileName;
             await _context.SaveChangesAsync();
@@ -145,22 +112,16 @@ namespace STBEverywhere_back_APIClient.Controllers
             return Ok(new { fileName });
         }
 
+        // Supprimer la photo de profil
         [HttpDelete("remove-profile-image")]
-        [Authorize]
         public async Task<IActionResult> RemoveProfileImage()
         {
-            var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
-            var client = await _clientService.GetClientByIdAsync(clientId.Value);
+            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
+            var client = await _clientService.GetClientByIdAsync(clientId);
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
             }
-
 
             // Supprimer le fichier du serveur
             if (!string.IsNullOrEmpty(client.PhotoClient))
@@ -178,6 +139,19 @@ namespace STBEverywhere_back_APIClient.Controllers
 
             return Ok();
         }
+
+        // Générer un rapport KYC au format PDF
+        private byte[] GenerateKYCReport(Client client)
+        {
+            var pdf = PdfGenerator.GeneratePdf(GenerateKycHtml(client), (PdfSharp.PageSize)PageSize.A4);
+            using (var stream = new MemoryStream())
+            {
+                pdf.Save(stream, false);
+                return stream.ToArray();
+            }
+        }
+
+        // Générer le HTML pour le rapport KYC
         private string GenerateKycHtml(Client client)
         {
             return $@"
@@ -195,9 +169,6 @@ namespace STBEverywhere_back_APIClient.Controllers
                 </style>
             </head>
             <body>
-                
-                   <img [src]=""'wwwroot/Images/' + client?.photoClient"" alt=""Profile"" class=""rounded-circle"" />
-               
                 <h1>Fiche KYC - {client.Nom} {client.Prenom}</h1>
 
                 <!-- Informations personnelles -->
@@ -291,22 +262,6 @@ namespace STBEverywhere_back_APIClient.Controllers
             </body>
         </html>
     ";
-        }
-
-
-
-        private int? GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                if (clientIdClaim != null)
-                {
-                    return int.Parse(clientIdClaim.Value);
-                }
-            }
-            return null;
         }
     }
 }

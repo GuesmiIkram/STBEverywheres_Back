@@ -8,10 +8,14 @@ namespace STBEverywhere_back_APIClient.Repositories
     public class ClientRepository : IClientRepository
     {
         private readonly ApplicationDbContext _context;
-
+        private readonly List<Client> _clients = new List<Client>();
         public ClientRepository(ApplicationDbContext context)
         {
             _context = context;
+        }
+        public async Task AddClientAsync(Client client)
+        {
+            await Task.Run(() => _clients.Add(client));
         }
         public async Task<Client> GetClientByNumCinAsync(string numCin)
         {
