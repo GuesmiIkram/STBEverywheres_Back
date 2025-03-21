@@ -24,5 +24,7 @@ STBEverywhere_ApiGateway/obj/STBEverywhere_ApiGateway.csproj.nuget.g.props
 STBEverywhere_ApiGateway/obj/STBEverywhere_ApiGateway.csproj.nuget.g.targets
 STBEverywhere_ApiGateway/obj/project.assets.json
 STBEverywhere_ApiGateway/obj/project.nuget.cache
+STBEverywhere_ApiGateway/obj/
+STBEverywhere_ApiGateway/obj/**/*
 
 
