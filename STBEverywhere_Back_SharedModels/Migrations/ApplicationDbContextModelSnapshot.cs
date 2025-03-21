@@ -86,8 +86,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6574),
-
+                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4874),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -103,10 +102,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-
-
-                            DateCreation = new DateTime(2025, 3, 9, 21, 36, 20, 83, DateTimeKind.Local).AddTicks(4996),
-
+                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4895),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -240,13 +236,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateNaissance = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "guesmiimahmoud@gmail.com",
                             EtatCivil = "Célibataire",
-
-
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$wkcRMXy.iSj9j/WpA9073enTPsP.YLTs6hrRcqSfdjqS.QtHANucq",
-
-
+                            MotDePasse = "$2a$11$CuzoT6knnZo7y2cdmbVS1elhg1zREp.aMZI2/78GsaJknW4dlwJN.",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -275,9 +267,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-
-                            MotDePasse = "$2a$11$kr1VNWBmxojCwv4UofisW.lfJiyknxOU.5T8CcTh2BIVs7srLmd3C",
-
+                            MotDePasse = "$2a$11$JX8hh5xjlULr28xXmVfP5unYP4/8m2b4CL0peASvc9LSiwZYLCN2a",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
@@ -306,6 +296,12 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
                     b.Property<DateTime>("DateCreation")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("MontantMaxAutoriseParJour")
+                        .HasColumnType("decimal(18,3)");
+
+                    b.Property<string>("NbrOperationsAutoriseesParJour")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NumCin")
                         .IsRequired()
@@ -336,6 +332,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             RIB = "12345678923537902652",
                             ClientId = 1,
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668061",
                             Solde = 1000.50m,
                             Statut = "Actif",
@@ -346,6 +343,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             RIB = "65432110223463790345",
                             ClientId = 1,
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668062",
                             Solde = 5000.00m,
                             Statut = "Actif",

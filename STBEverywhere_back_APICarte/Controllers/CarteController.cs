@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using STBEverywhere_Back_SharedModels.Data;
 using STBEverywhere_back_APICarte.Repository;
+using STBEverywhere_Back_SharedModels.Models.enums;
 
 namespace STBEverywhere_back_APICarte.Controllers
 {
@@ -82,7 +83,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("RIB invalide : {NumCompte}", demandeCarteDTO.NumCompte);
-                    return BadRequest("RIB invalide.");
+                    return BadRequest(new { success = false, message = "RIB invalide." });
                 }
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -99,24 +100,24 @@ namespace STBEverywhere_back_APICarte.Controllers
                 if (comptes == null || !comptes.Any())
                 {
                     _logger.LogWarning("Compte introuvable : {NumCompte}", demandeCarteDTO.NumCompte);
-                    return NotFound("Le compte associé n'existe pas.");
+                    return NotFound(new { success = false, message = "Le compte associé n'existe pas." });
                 }
 
                 // Extraire le premier compte de la liste
                 var compte = comptes.First();
 
                 // Condition : Si le compte est de type "Épargne", la carte doit être de type "Épargne"
-                if (compte.Type == "Épargne" && demandeCarteDTO.NomCarte != STBEverywhere_Back_SharedModels.Models.enums.NomCarte.Épargne)
+                if (compte.Type == "Epargne" && demandeCarteDTO.NomCarte != NomCarte.Épargne)
                 {
                     _logger.LogWarning("Tentative de création d'une carte non Épargne pour un compte Épargne : {NumCompte}", demandeCarteDTO.NumCompte);
-                    return BadRequest("Un compte Épargne ne peut avoir qu'une carte Épargne.");
+                    return BadRequest("Un compte Épargne ne peut avoir qu'une  carte Épargne.");
                 }
 
                 // Vérifier si la demande est pour une carte Épargne
-                if (demandeCarteDTO.NomCarte == STBEverywhere_Back_SharedModels.Models.enums.NomCarte.Épargne)
+                if (demandeCarteDTO.NomCarte == NomCarte.Épargne)
                 {
                     // Vérifier que le type de compte est "Épargne"
-                    if (compte.Type != "Épargne")
+                    if (compte.Type != "Epargne")
                     {
                         _logger.LogWarning("Tentative de création d'une carte Épargne pour un compte non Épargne : {NumCompte}", demandeCarteDTO.NumCompte);
                         return BadRequest("Une carte Épargne ne peut être demandée que pour un compte de type Épargne.");
@@ -126,21 +127,21 @@ namespace STBEverywhere_back_APICarte.Controllers
                 var cartes = await _carteRepository.GetCartesByRIBAsync(demandeCarteDTO.NumCompte);
 
                 // Condition 1: Maximum 2 cartes internationales par compte
-                if (demandeCarteDTO.TypeCarte ==STBEverywhere_Back_SharedModels.Models.enums.TypeCarte.International && cartes.Count(c => c.TypeCarte == STBEverywhere_Back_SharedModels.Models.enums.TypeCarte.International) >= 2)
+                if (demandeCarteDTO.TypeCarte == TypeCarte.International && cartes.Count(c => c.TypeCarte == TypeCarte.International) >= 2)
                 {
                     _logger.LogWarning("Tentative de création d'une troisième carte internationale pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Un compte ne peut avoir que 2 cartes internationales.");
                 }
 
                 // Condition 2: Maximum 2 cartes nationales par compte
-                if (demandeCarteDTO.TypeCarte == STBEverywhere_Back_SharedModels.Models.enums.TypeCarte.National && cartes.Count(c => c.TypeCarte ==STBEverywhere_Back_SharedModels.Models.enums.TypeCarte.National) >= 2)
+                if (demandeCarteDTO.TypeCarte == TypeCarte.National && cartes.Count(c => c.TypeCarte == TypeCarte.National) >= 2)
                 {
                     _logger.LogWarning("Tentative de création d'une troisième carte nationale pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Un compte ne peut avoir que 2 cartes nationales.");
                 }
 
                 // Condition 3: Une seule carte épargne par compte
-                if (demandeCarteDTO.NomCarte == STBEverywhere_Back_SharedModels.Models.enums.NomCarte.Épargne  && cartes.Any(c => c.NomCarte == STBEverywhere_Back_SharedModels.Models.enums.NomCarte.Épargne))
+                if (demandeCarteDTO.NomCarte == NomCarte.Épargne && cartes.Any(c => c.NomCarte == NomCarte.Épargne))
                 {
                     _logger.LogWarning("Tentative de création d'une deuxième carte épargne pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Un compte ne peut avoir qu'une seule carte épargne.");
@@ -149,11 +150,11 @@ namespace STBEverywhere_back_APICarte.Controllers
                 // Condition 4: Pas de demande en cours avec le même nom et type de carte
                 var demandesExistantes = await _carteRepository.GetDemandesByCompteAndNomAndTypeAsync(
                     demandeCarteDTO.NumCompte,
-                     demandeCarteDTO.NomCarte, // Convertir NomCarte en string
-                     demandeCarteDTO.TypeCarte
+                    demandeCarteDTO.NomCarte,
+                    demandeCarteDTO.TypeCarte
                 );
 
-                if (demandesExistantes.Any(d => d.Statut != STBEverywhere_Back_SharedModels.Models.enums.StatutDemande.Recuperee))
+                if (demandesExistantes.Any(d => d.Statut != StatutDemande.Recuperee))
                 {
                     _logger.LogWarning("Une demande existe déjà avec le même nom et type de carte pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Une demande est déjà en cours avec le même nom et type de carte.");
@@ -168,21 +169,22 @@ namespace STBEverywhere_back_APICarte.Controllers
                     CIN = demandeCarteDTO.CIN,
                     Email = demandeCarteDTO.Email,
                     NumTel = demandeCarteDTO.NumTel,
-                    DateCreation = DateTime.Now,
-                    Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutDemande.EnPreparation, // Statut initial
+                    DateCreation = DateTime.Now, // Date de création définie sur maintenant
+                    Statut = StatutDemande.EnPreparation, // Statut initial
                     ClientId = clientId // Utiliser le ClientId récupéré du token
                 };
 
-                // Enregistrer la demande de carte
+                // Enregistrer la demande de carte// Enregistrer la demande de carte
                 _dbContext.DemandesCarte.Add(demandeCarte);
                 await _dbContext.SaveChangesAsync();
 
-                return Ok("Demande de carte créée avec succès.");
+                // Retourner une réponse JSON structurée
+                return Ok(new { success = true, message = "Demande de carte créée avec succès." });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erreur lors de la création de la demande de carte.");
-                return StatusCode(StatusCodes.Status500InternalServerError, "Une erreur interne est survenue.");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { success = false, message = "Une erreur interne est survenue." });
             }
         }
 

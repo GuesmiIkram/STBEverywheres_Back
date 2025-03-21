@@ -11,8 +11,8 @@ using STBEverywhere_Back_SharedModels.Data;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250316234157_up")]
-    partial class up
+    [Migration("20250320213951_globalmigration")]
+    partial class globalmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6574),
+                            DateCreation = new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4724),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -105,7 +105,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 16, 23, 41, 56, 984, DateTimeKind.Local).AddTicks(6679),
+                            DateCreation = new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4743),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -241,7 +241,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Célibataire",
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$xVf7sbaLWfM6/kdlwXAnOevjWGoraQEgvvF3VCLqOxLAVs6de/wM2",
+                            MotDePasse = "$2a$11$FHiP9xVORVvxow3IEAqiz.tSXLCEGRuMCsQv8N8lL63Xx4let./am",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -270,7 +270,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-                            MotDePasse = "$2a$11$P830J74dpZbyHyDv0nSg0uMP5t.FBuOSksGvi1/iE5QV0TKu3ukGi",
+                            MotDePasse = "$2a$11$qrRUYFXxgwvXHPSNUC0ng.aaUWAazoOjlvC3haD/VO62GiwkzQJ.6",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",

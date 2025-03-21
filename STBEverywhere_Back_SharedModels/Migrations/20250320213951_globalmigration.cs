@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     /// <inheritdoc />
-    public partial class migrationinitial : Migration
+    public partial class globalmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -143,8 +143,10 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NumCompte = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NomCarte = table.Column<int>(type: "int", maxLength: 50, nullable: false),
-                    TypeCarte = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    NomCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TypeCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CIN = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -152,7 +154,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     NumTel = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Statut = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    Statut = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     EmailEnvoye = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     EmailEnvoyeLivree = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -219,11 +222,14 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 {
                     NumCarte = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NomCarte = table.Column<int>(type: "int", maxLength: 50, nullable: false),
-                    TypeCarte = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    NomCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TypeCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DateCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateExpiration = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Statut = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    Statut = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Nature = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Iddemande = table.Column<int>(type: "int", nullable: false),
@@ -336,8 +342,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Id", "Adresse", "Civilite", "DateDelivranceCIN", "DateExpirationCIN", "DateNaissance", "Email", "EtatCivil", "Genre", "LieuDelivranceCIN", "MotDePasse", "Nationalite", "NiveauEducation", "Nom", "NomMere", "NomPere", "NombreEnfants", "NumCIN", "PaysNaissance", "PhotoClient", "Prenom", "Profession", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Residence", "RevenuMensuel", "SituationProfessionnelle", "Telephone" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "$2a$11$b47f1ZKXEBKGFn2OKTaTFO4MGpSLWx0AkyqIXcrNwZQad7q4zmpf.", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789" },
-                    { 2, "456 Elm St", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "$2a$11$cvTSbwr/Tx2txwysz/DuW.CsFbJldRqsgSBVpA8CICoJc/5/vHPEa", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321" }
+                    { 1, "123 Main St", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "$2a$11$FHiP9xVORVvxow3IEAqiz.tSXLCEGRuMCsQv8N8lL63Xx4let./am", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789" },
+                    { 2, "456 Elm St", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "$2a$11$qrRUYFXxgwvXHPSNUC0ng.aaUWAazoOjlvC3haD/VO62GiwkzQJ.6", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321" }
                 });
 
             migrationBuilder.InsertData(
@@ -354,8 +360,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Iddemande", "CIN", "CarteAjouter", "ClientId", "DateCreation", "Email", "EmailEnvoye", "EmailEnvoyeLivree", "NomCarte", "NumCompte", "NumTel", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { 1, "14668061", false, 1, new DateTime(2025, 3, 16, 23, 25, 23, 152, DateTimeKind.Local).AddTicks(2252), "john.doe@example.com", false, false, 0, "12345678923537902652", "12345678", 1, 1 },
-                    { 2, "14668062", false, 2, new DateTime(2025, 3, 16, 23, 25, 23, 152, DateTimeKind.Local).AddTicks(2352), "jane.smith@example.com", false, false, 1, "65432110223463790345", "87654321", 5, 0 }
+                    { 1, "14668061", false, 1, new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4724), "john.doe@example.com", false, false, "VisaClassic", "12345678923537902652", "12345678", "DisponibleEnAgence", "International" },
+                    { 2, "14668062", false, 2, new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4743), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "EnPreparation", "National" }
                 });
 
             migrationBuilder.InsertData(
@@ -363,8 +369,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "NumCarte", "CodeCVV", "CodePIN", "DateCreation", "DateExpiration", "DateRecuperation", "Iddemande", "Nature", "NomCarte", "PlafondDAP", "PlafondTPE", "RIB", "Solde", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { "1111222233334444", "", "", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, "postpayée", 0, 20000m, 40000m, "12345678923537902652", 1000.50m, 0, 1 },
-                    { "5555666677778888", "", "", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 2, "postpayée", 1, 20000m, 40000m, "65432110223463790345", 5000.00m, 0, 0 }
+                    { "1111222233334444", "", "", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, "postpayée", "VisaClassic", 20000m, 40000m, "12345678923537902652", 1000.50m, "Active", "International" },
+                    { "5555666677778888", "", "", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 2, "postpayée", "Mastercard", 20000m, 40000m, "65432110223463790345", 5000.00m, "Active", "National" }
                 });
 
             migrationBuilder.CreateIndex(
