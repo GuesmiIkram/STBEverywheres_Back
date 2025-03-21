@@ -102,8 +102,8 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
             }
 
-            // Exclure les comptes avec statut "Clôturé" et les comptes d'épargne
             var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne");
+
 
             if (comptes == null || !comptes.Any())
             {
@@ -135,7 +135,9 @@ namespace STBEverywhere_back_APICompte.Controllers
                 _logger.LogError(" Type  obligatoire");
                 return BadRequest(new { message = "Type  obligatoires." });
             }
+
             var clientList = await _compteService.GetAllAsync(c => c.ClientId == clientId);
+
             _logger.LogInformation($"Nombre de clients trouvés : {clientList.Count()}");
 
             var client = clientList.FirstOrDefault();
@@ -190,19 +192,26 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
         [HttpGet("GetByRIB/{rib}")]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCompteByRIB(string rib)
         {
 
+
            /* var clientId = GetClientIdFromToken();
+
+           
+            var clientId = GetClientIdFromToken();
+
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
             }*/
             var compte = await _compteService.GetAllAsync(c => c.RIB == rib);
+
+
 
 
 
@@ -284,10 +293,6 @@ namespace STBEverywhere_back_APICompte.Controllers
 
     }
 
-
-
-
-
-
-
 }
+
+

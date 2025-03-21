@@ -23,7 +23,6 @@ namespace STBEverywhere_Back_SharedModels
 
         public string? NbrOperationsAutoriseesParJour { get; set; }
 
-
         [Column(TypeName = "decimal(18,3)")]
         public decimal MontantMaxAutoriseParJour { get; set; }
 
