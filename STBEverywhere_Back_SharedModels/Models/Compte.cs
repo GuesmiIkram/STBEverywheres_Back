@@ -21,6 +21,11 @@ namespace STBEverywhere_Back_SharedModels
         public string Statut { get; set; }
         public string NumCin { get; set; }
 
+        public string? NbrOperationsAutoriseesParJour { get; set; }
+
+        [Column(TypeName = "decimal(18,3)")]
+        public decimal MontantMaxAutoriseParJour { get; set; }
+
         // Clé étrangère vers Client
         [Required]
         public int ClientId { get; set; } // Clé étrangère

@@ -8,5 +8,6 @@ namespace STBEverywhere_back_APIClient.Services
     {
         Task<Client> GetClientByIdAsync(int clientId);
         Task<bool> UpdateClientInfoAsync(int clientId, Client updatedClient);
+        
     }
 }

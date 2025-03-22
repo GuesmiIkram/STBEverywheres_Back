@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Hosting;
 using System.Text.RegularExpressions;
 using System.Text.RegularExpressions;
 using STBEverywhere_back_APICompte.Services;
+using Microsoft.Extensions.Logging;
 
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
-    [Route("api/VirementApi")]
+    [Route("api/virement")]
     [ApiController]
     public class VirementApiController : ControllerBase
     {
@@ -51,6 +52,8 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         public async Task<IActionResult> Virement([FromBody] VirementUnitaireDto virementDto)
         {
+            _logger.LogInformation("Requête reçue pour un virement. Données : {@virementDto}", virementDto);
+
             var clientId = GetClientIdFromToken();
             if (clientId == null)
             {
@@ -450,4 +453,50 @@ namespace STBEverywhere_back_APICompte.Controllers
             return null;
         }
     }
-}
+
+
+
+   /* [HttpGet("HistoriqueVirementsEnvoyes/{RIB_Emetteur}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> HistoriqueVirementsEnvoyes(string RIB_Emetteur)
+        {
+            _logger.LogInformation("Requête reçue pour l'historique des virements envoyés. RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
+
+            // Vérification si le RIB émetteur est valide
+            if (string.IsNullOrEmpty(RIB_Emetteur))
+            {
+                return BadRequest(new { message = "Le RIB émetteur est obligatoire." });
+            }
+
+            // Récupération de tous les virements où le RIB émetteur correspond
+            var virements = await _dbVirement.GetAllAsync(v => v.RIB_Emetteur == RIB_Emetteur);
+
+            if (virements == null || !virements.Any())
+            {
+                _logger.LogWarning("Aucun virement trouvé pour le RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
+                return NotFound(new { message = "Aucun virement trouvé pour ce RIB émetteur." });
+            }
+
+            // Sélection des données pertinentes à retourner
+            var result = virements.Select(v => new
+            {
+                v.RIB_Recepteur,
+                v.Montant,
+                v.DateVirement,
+                v.Motif,
+                v.Description
+            }).ToList();
+
+            _logger.LogInformation("Historique des virements envoyés récupéré avec succès. Nombre de virements : {Count}", result.Count);
+
+            return Ok(result);
+        }*/
+
+
+
+    }

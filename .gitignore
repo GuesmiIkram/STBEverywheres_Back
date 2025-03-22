@@ -11,7 +11,7 @@ STBEverywhere_back__APIChequier/bin/
 STBEverywhere_back_APIChequier/obj/
 STBEverywhere_back_APIChequier/bin
 STBEverywhere_ApiGateway/bin/
-
+STBEverywhere_ApiGateway/obj/
 STBEverywhere_ApiGateway/obj/Debug/net8.0/CombinedComponentSchema.json
 STBEverywhere_ApiGateway/obj/Debug/net8.0/STBEverywhere_ApiGateway.AssemblyInfo.cs
 STBEverywhere_ApiGateway/obj/Debug/net8.0/STBEverywhere_ApiGateway.AssemblyInfoInputs.cache
@@ -23,6 +23,7 @@ STBEverywhere_ApiGateway/obj/STBEverywhere_ApiGateway.csproj.nuget.g.props
 STBEverywhere_ApiGateway/obj/STBEverywhere_ApiGateway.csproj.nuget.g.targets
 STBEverywhere_ApiGateway/obj/project.assets.json
 STBEverywhere_ApiGateway/obj/project.nuget.cache
+
 
 
 
