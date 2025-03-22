@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
-    [Route("api/VirementApi")]
+    [Route("api/virement")]
     [ApiController]
     public class VirementApiController : ControllerBase
     {

@@ -13,7 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_back_APICarte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_back_APIChequier", "STBEverywhere_back_APIChequier\STBEverywhere_back_APIChequier.csproj", "{6D5D05CE-9A89-4080-9747-DB31B1F0803B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhereApiGateway", "STBEverywhereApiGateway\STBEverywhereApiGateway.csproj", "{37482D9A-E4B1-4E4E-A822-DB83CD264B72}"
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_ApiGateway", "STBEverywhere_ApiGateway\STBEverywhere_ApiGateway.csproj", "{165D49AC-DF5B-45ED-98C1-D56EF549A62C}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +43,12 @@ Global
 		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5D05CE-9A89-4080-9747-DB31B1F0803B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37482D9A-E4B1-4E4E-A822-DB83CD264B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37482D9A-E4B1-4E4E-A822-DB83CD264B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37482D9A-E4B1-4E4E-A822-DB83CD264B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37482D9A-E4B1-4E4E-A822-DB83CD264B72}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{165D49AC-DF5B-45ED-98C1-D56EF549A62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{165D49AC-DF5B-45ED-98C1-D56EF549A62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{165D49AC-DF5B-45ED-98C1-D56EF549A62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{165D49AC-DF5B-45ED-98C1-D56EF549A62C}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

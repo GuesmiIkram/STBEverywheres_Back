@@ -11,7 +11,7 @@ using STBEverywhere_back_APICompte.Services;
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
-    [Route("api/CompteApi")]
+    [Route("api/compte")]
     [ApiController]
     public class CompteAPIController : ControllerBase
     {
@@ -34,22 +34,18 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
 
-
         [HttpGet("listecompte")]
-        [Authorize]
+       
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+      
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> GetComptesByClientId()
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+            
             //var comptes = await _context.Compte
             // var comptes = await _dbCompte.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé");
 
@@ -89,19 +85,15 @@ namespace STBEverywhere_back_APICompte.Controllers
          }*/
         //les comptes qui peuvent effectuer des virements 
         [HttpGet("listecompteVirement")]
-        [Authorize]
+       
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetComptesVirementByClientId()
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
-
+          
             var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne");
 
 
@@ -115,8 +107,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
         [HttpPost("CreateCompte")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+ 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
@@ -126,10 +117,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             var clientId = GetClientIdFromToken();
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+          
             if (compteDto == null || string.IsNullOrEmpty(compteDto.type))
             {
                 _logger.LogError(" Type  obligatoire");
@@ -192,29 +180,13 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
         [HttpGet("GetByRIB/{rib}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+       
+    
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCompteByRIB(string rib)
         {
-
-
-           /* var clientId = GetClientIdFromToken();
-
-           
-            var clientId = GetClientIdFromToken();
-
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }*/
             var compte = await _compteService.GetAllAsync(c => c.RIB == rib);
-
-
-
-
-
             if (compte == null || !compte.Any())
             {
                 return NotFound(new { message = "Compte introuvable." });
@@ -225,18 +197,14 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
         [HttpPut("Cloturer/{rib}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CloturerCompte(string rib)
         {
             var clientId = GetClientIdFromToken();
-            if (clientId == null)
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+          
             var compte = ((await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault());
             //var compte = await _context.Compte.FirstOrDefaultAsync(c => c.RIB == rib);
 
@@ -274,7 +242,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         [HttpGet("GetSoldeByRIB/{rib}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+ 
         public async Task<IActionResult> GetSoldeByRIB(string rib)
         {
             try
@@ -294,5 +262,3 @@ namespace STBEverywhere_back_APICompte.Controllers
     }
 
 }
-
-
