@@ -1,0 +1,6 @@
+@STBEverywhereApiGateway_HostAddress = http://localhost:5119
+
+GET {{STBEverywhereApiGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
