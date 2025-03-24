@@ -6,106 +6,92 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     /// <inheritdoc />
-    public partial class comptemigration : Migration
+    public partial class BeneficiaireType : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "MontantMaxAutoriseParJour",
-                table: "Comptes",
-                type: "decimal(18,3)",
-                nullable: false,
-                defaultValue: 0m);
-
             migrationBuilder.AddColumn<string>(
-                name: "NbrOperationsAutoriseesParJour",
-                table: "Comptes",
+                name: "RaisonSociale",
+                table: "Beneficiaires",
                 type: "longtext",
-                nullable: true)
+                nullable: false)
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.AddColumn<int>(
+                name: "Type",
+                table: "Beneficiaires",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.UpdateData(
                 table: "Clients",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "MotDePasse",
-                value: "$2a$11$CuzoT6knnZo7y2cdmbVS1elhg1zREp.aMZI2/78GsaJknW4dlwJN.");
+                value: "$2a$11$tN7IisJTBnuRGXIQY9h.0.122S/DXsfu/.TLq9HCGCXnFpeqMwKoq");
 
             migrationBuilder.UpdateData(
                 table: "Clients",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "MotDePasse",
-                value: "$2a$11$JX8hh5xjlULr28xXmVfP5unYP4/8m2b4CL0peASvc9LSiwZYLCN2a");
-
-            migrationBuilder.UpdateData(
-                table: "Comptes",
-                keyColumn: "RIB",
-                keyValue: "12345678923537902652",
-                columns: new[] { "MontantMaxAutoriseParJour", "NbrOperationsAutoriseesParJour" },
-                values: new object[] { 0m, null });
-
-            migrationBuilder.UpdateData(
-                table: "Comptes",
-                keyColumn: "RIB",
-                keyValue: "65432110223463790345",
-                columns: new[] { "MontantMaxAutoriseParJour", "NbrOperationsAutoriseesParJour" },
-                values: new object[] { 0m, null });
+                value: "$2a$11$fFEqstai1B7GR.JyGtryqeLiZ/aNUJzUMpnicu3EDbWSuGDPsccJq");
 
             migrationBuilder.UpdateData(
                 table: "DemandesCarte",
                 keyColumn: "Iddemande",
                 keyValue: 1,
                 column: "DateCreation",
-                value: new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4874));
+                value: new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1911));
 
             migrationBuilder.UpdateData(
                 table: "DemandesCarte",
                 keyColumn: "Iddemande",
                 keyValue: 2,
                 column: "DateCreation",
-                value: new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4895));
+                value: new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1992));
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "MontantMaxAutoriseParJour",
-                table: "Comptes");
+                name: "RaisonSociale",
+                table: "Beneficiaires");
 
             migrationBuilder.DropColumn(
-                name: "NbrOperationsAutoriseesParJour",
-                table: "Comptes");
+                name: "Type",
+                table: "Beneficiaires");
 
             migrationBuilder.UpdateData(
                 table: "Clients",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "MotDePasse",
-                value: "$2a$11$FHiP9xVORVvxow3IEAqiz.tSXLCEGRuMCsQv8N8lL63Xx4let./am");
+                value: "$2a$11$Ww/cyFVJTVUIp/ZLYqryL.CeDRRbjYGcRFE4xKZUvNyGVFn1j5LHK");
 
             migrationBuilder.UpdateData(
                 table: "Clients",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "MotDePasse",
-                value: "$2a$11$qrRUYFXxgwvXHPSNUC0ng.aaUWAazoOjlvC3haD/VO62GiwkzQJ.6");
+                value: "$2a$11$8yoiCN8YAi.ICHMndmUs0ufJMBnsvLcI.crvb/82oOkLYvm9xmedC");
 
             migrationBuilder.UpdateData(
                 table: "DemandesCarte",
                 keyColumn: "Iddemande",
                 keyValue: 1,
                 column: "DateCreation",
-                value: new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4724));
+                value: new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5310));
 
             migrationBuilder.UpdateData(
                 table: "DemandesCarte",
                 keyColumn: "Iddemande",
                 keyValue: 2,
                 column: "DateCreation",
-                value: new DateTime(2025, 3, 20, 22, 39, 50, 552, DateTimeKind.Local).AddTicks(4743));
+                value: new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5337));
         }
     }
 }

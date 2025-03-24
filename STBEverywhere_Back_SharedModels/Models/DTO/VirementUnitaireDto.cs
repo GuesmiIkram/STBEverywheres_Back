@@ -8,6 +8,7 @@
         public string Description { get; set; }
 
         public string motif { get; set; }
+        public string TypeVirement { get; set; }
     }
 }
 

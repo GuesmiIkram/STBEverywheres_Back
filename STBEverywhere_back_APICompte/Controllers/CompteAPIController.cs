@@ -83,7 +83,9 @@ namespace STBEverywhere_back_APICompte.Controllers
              _logger.LogInformation("Getting all comptes");
              return Ok(comptes);
          }*/
-        //les comptes qui peuvent effectuer des virements 
+
+        //liste des comptes qui peuvent effectuer des virements (tous les comptes sauf compte epargne) 
+        
         [HttpGet("listecompteVirement")]
        
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -189,7 +191,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             var compte = await _compteService.GetAllAsync(c => c.RIB == rib);
             if (compte == null || !compte.Any())
             {
-                return NotFound(new { message = "Compte introuvable." });
+                return NotFound(new { message = "Aucun compte n'est associé à ce RIB." });
             }
 
             return Ok(compte);
@@ -204,9 +206,8 @@ namespace STBEverywhere_back_APICompte.Controllers
         public async Task<IActionResult> CloturerCompte(string rib)
         {
             var clientId = GetClientIdFromToken();
-          
-            var compte = ((await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault());
-            //var compte = await _context.Compte.FirstOrDefaultAsync(c => c.RIB == rib);
+
+            var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault(); // Correction appliquée
 
             if (compte == null)
             {
@@ -215,12 +216,10 @@ namespace STBEverywhere_back_APICompte.Controllers
 
             if (compte.Solde != 0)
             {
-                ModelState.AddModelError("", "Vous devez mettre votre compte à zéro puis réessayer de le clôturer.");
-                return BadRequest(ModelState);
+                return BadRequest(new { message = "Vous devez mettre votre compte à zéro puis réessayer de le clôturer." });
             }
 
             compte.Statut = "Clôturé";
-            //await _context.SaveChangesAsync();
             await _compteService.SaveAsync();
             return Ok(new { message = "Le compte a été clôturé avec succès." });
         }
@@ -255,6 +254,10 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+
+
+
 
 
 
