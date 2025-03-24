@@ -11,8 +11,8 @@ using STBEverywhere_Back_SharedModels.Data;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250321002326_comptemigration")]
-    partial class comptemigration
+    [Migration("20250324005254_BeneficiaireTable")]
+    partial class BeneficiaireTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4874),
+                            DateCreation = new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5310),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -105,7 +105,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4895),
+                            DateCreation = new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5337),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -241,7 +241,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Célibataire",
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$CuzoT6knnZo7y2cdmbVS1elhg1zREp.aMZI2/78GsaJknW4dlwJN.",
+                            MotDePasse = "$2a$11$Ww/cyFVJTVUIp/ZLYqryL.CeDRRbjYGcRFE4xKZUvNyGVFn1j5LHK",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -270,7 +270,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-                            MotDePasse = "$2a$11$JX8hh5xjlULr28xXmVfP5unYP4/8m2b4CL0peASvc9LSiwZYLCN2a",
+                            MotDePasse = "$2a$11$8yoiCN8YAi.ICHMndmUs0ufJMBnsvLcI.crvb/82oOkLYvm9xmedC",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
@@ -334,7 +334,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             RIB = "12345678923537902652",
                             ClientId = 1,
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreation = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668061",
                             Solde = 1000.50m,
@@ -344,14 +344,50 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             RIB = "65432110223463790345",
-                            ClientId = 1,
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ClientId = 2,
+                            DateCreation = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668062",
                             Solde = 5000.00m,
                             Statut = "Actif",
                             Type = "Epargne"
                         });
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Beneficiaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RIBCompte")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Beneficiaires");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Carte", b =>
@@ -669,6 +705,17 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Beneficiaire", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
+                        .WithMany("Beneficiaires")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Carte", b =>
                 {
                     b.HasOne("DemandeCarte", "DemandeCarte")
@@ -734,6 +781,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
                 {
+                    b.Navigation("Beneficiaires");
+
                     b.Navigation("Comptes");
 
                     b.Navigation("DemandesCarte");

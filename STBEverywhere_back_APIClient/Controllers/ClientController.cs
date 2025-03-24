@@ -10,6 +10,8 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Data;
 using System.Security.Claims;
+using STBEverywhere_Back_SharedModels.Models.DTO;
+using STBEverywhere_Back_SharedModels.Models;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -26,6 +28,103 @@ namespace STBEverywhere_back_APIClient.Controllers
             _clientService = clientService;
             _context = context;
         }
+
+       /* [HttpPost("CreateBeneficiaire")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> CreateBeneficiaire(CreateBeneficiaireDto compteDto)
+        {
+            // 1. Extraire le ClientId du token JWT
+            var clientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            /*if (string.IsNullOrEmpty(clientIdClaim))
+            {
+                return Unauthorized("ClientId non trouvé dans le token.");
+            }
+
+            if (!int.TryParse(clientIdClaim, out int clientId))
+            {
+                return Unauthorized("ClientId invalide dans le token.");
+            }*/
+
+            // 2. Valider les données du DTO
+           /* if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // 3. Validation spécifique au type de bénéficiaire
+            if (compteDto.Type == BeneficiaireType.PersonnePhisique)
+            {
+                if (string.IsNullOrEmpty(compteDto.Nom) || string.IsNullOrEmpty(compteDto.Prenom))
+                {
+                    return BadRequest("Le nom et le prénom sont obligatoires pour une personne physique.");
+                }
+            }
+            else if (compteDto.Type == BeneficiaireType.PersonneMorale)
+            {
+                if (string.IsNullOrEmpty(compteDto.RaisonSociale))
+                {
+                    return BadRequest("La raison sociale est obligatoire pour une personne morale.");
+                }
+            }
+
+            // 4. Créer un nouveau bénéficiaire
+            var beneficiaire = new Beneficiaire
+            {
+                Nom = compteDto.Nom,
+                Prenom = compteDto.Prenom,
+                RIBCompte = compteDto.RIBCompte,
+                Telephone = compteDto.Telephone,
+                Email = compteDto.Email,
+                RaisonSociale = compteDto.RaisonSociale,
+                Type = compteDto.Type,
+                ClientId = clientIdClaim // Associer le ClientId extrait du token
+            };
+
+            // 5. Enregistrer le bénéficiaire dans la base de données
+            _context.Beneficiaires.Add(beneficiaire);
+            await _context.SaveChangesAsync();
+
+            // 6. Retourner une réponse 201 avec l'URI de la ressource créée
+            return CreatedAtAction(nameof(CreateBeneficiaire), new { id = beneficiaire.Id }, beneficiaire);
+        }*/
+
+        [HttpGet("GetBeneficiairesByClientId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetBeneficiairesByClientId()
+        {
+            // 1. Extraire le ClientId du token JWT
+            var clientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(clientIdClaim))
+            {
+                return Unauthorized("ClientId non trouvé dans le token.");
+            }
+
+            if (!int.TryParse(clientIdClaim, out int clientId))
+            {
+                return Unauthorized("ClientId invalide dans le token.");
+            }
+
+            // 2. Récupérer la liste des bénéficiaires pour ce ClientId
+            var beneficiaires = await _context.Beneficiaires
+                .Where(b => b.ClientId == clientId)
+                .ToListAsync();
+
+            // 3. Vérifier si des bénéficiaires ont été trouvés
+            if (beneficiaires == null || !beneficiaires.Any())
+            {
+                return NotFound("Aucun bénéficiaire trouvé pour ce client.");
+            }
+
+            // 4. Retourner la liste des bénéficiaires
+            return Ok(beneficiaires);
+        }
+
+
+
 
         // Récupérer les informations du client
         [HttpGet("me")]

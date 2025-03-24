@@ -55,5 +55,7 @@ namespace STBEverywhere_Back_SharedModels
         public ICollection<Compte> Comptes { get; set; } = new List<Compte>();
         public ICollection<DemandeCarte> DemandesCarte { get; set; } = new List<DemandeCarte>();
 
+        public ICollection<Beneficiaire> Beneficiaires { get; set; } = new List<Beneficiaire>();
+
     }
 }

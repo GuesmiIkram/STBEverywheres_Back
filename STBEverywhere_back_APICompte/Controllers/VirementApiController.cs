@@ -30,14 +30,14 @@ namespace STBEverywhere_back_APICompte.Controllers
         //private readonly IVirementService _virementService;
 
 
-        public VirementApiController(/*VirementService virementService,*/ IWebHostEnvironment webHostEnvironment,ICompteRepository dbCompte, IVirementRepository dbVirement, ILogger<VirementApiController> logger, IMapper mapper)
+        public VirementApiController(/*VirementService virementService,*/ IWebHostEnvironment webHostEnvironment, ICompteRepository dbCompte, IVirementRepository dbVirement, ILogger<VirementApiController> logger, IMapper mapper)
         {
             _dbCompte = dbCompte;
             _dbVirement = dbVirement;
             _logger = logger;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
-           // _virementService = virementService;
+            // _virementService = virementService;
 
         }
 
@@ -104,8 +104,8 @@ namespace STBEverywhere_back_APICompte.Controllers
                     DateVirement = DateTime.Now,
                     Statut = "Réussi",
                     Motif = virementDto.motif,
-                    TypeVirement = "Virement Unitaire",
-                    FichierBeneficaires =null,
+                    TypeVirement = virementDto.TypeVirement,
+                    FichierBeneficaires = null,
 
                     Description = virementDto.Description
                 };
@@ -452,51 +452,104 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
             return null;
         }
-    }
 
 
 
-   /* [HttpGet("HistoriqueVirementsEnvoyes/{RIB_Emetteur}")]
-        [Authorize]
+        [HttpGet("historiqueVirements/{rib}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> HistoriqueVirementsEnvoyes(string RIB_Emetteur)
+        public async Task<IActionResult> GetHistoriqueVirements(string rib, string filter = "all")
         {
-            _logger.LogInformation("Requête reçue pour l'historique des virements envoyés. RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
-
-            // Vérification si le RIB émetteur est valide
-            if (string.IsNullOrEmpty(RIB_Emetteur))
+            try
             {
-                return BadRequest(new { message = "Le RIB émetteur est obligatoire." });
+                IEnumerable<Virement> virementsEnvoyes = new List<Virement>();
+                IEnumerable<Virement> virementsRecus = new List<Virement>();
+
+                if (filter == "all" || filter == "sent")
+                {
+                    virementsEnvoyes = await _dbVirement.GetAllAsync(v => v.RIB_Emetteur == rib);
+                }
+
+                if (filter == "all" || filter == "received")
+                {
+                    virementsRecus = await _dbVirement.GetAllAsync(v => v.RIB_Recepteur == rib);
+                }
+
+                var historiqueVirements = new
+                {
+                    VirementsEnvoyes = virementsEnvoyes.Select(v => new
+                    {
+                        Date = v.DateVirement,
+                        Montant = v.Montant,
+                        Motif = v.Motif,
+                        RIB_Recepteur = v.RIB_Recepteur
+                    }),
+                    VirementsRecus = virementsRecus.Select(v => new
+                    {
+                        Date = v.DateVirement,
+                        Montant = v.Montant,
+                        Motif = v.Motif,
+                        RIB_Emetteur = v.RIB_Emetteur
+                    })
+                };
+
+                if (!virementsEnvoyes.Any() && !virementsRecus.Any())
+                {
+                    return NotFound(new { message = "Aucun virement trouvé pour ce compte." });
+                }
+
+                return Ok(historiqueVirements);
             }
-
-            // Récupération de tous les virements où le RIB émetteur correspond
-            var virements = await _dbVirement.GetAllAsync(v => v.RIB_Emetteur == RIB_Emetteur);
-
-            if (virements == null || !virements.Any())
+            catch (Exception ex)
             {
-                _logger.LogWarning("Aucun virement trouvé pour le RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
-                return NotFound(new { message = "Aucun virement trouvé pour ce RIB émetteur." });
+                _logger.LogError(ex, "Erreur lors de la récupération de l'historique des virements.");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Une erreur est survenue lors de la récupération de l'historique des virements." });
             }
+        }
 
-            // Sélection des données pertinentes à retourner
-            var result = virements.Select(v => new
-            {
-                v.RIB_Recepteur,
-                v.Montant,
-                v.DateVirement,
-                v.Motif,
-                v.Description
-            }).ToList();
 
-            _logger.LogInformation("Historique des virements envoyés récupéré avec succès. Nombre de virements : {Count}", result.Count);
+        /* [HttpGet("HistoriqueVirementsEnvoyes/{RIB_Emetteur}")]
+             [Authorize]
+             [ProducesResponseType(StatusCodes.Status200OK)]
+             [ProducesResponseType(StatusCodes.Status400BadRequest)]
+             [ProducesResponseType(StatusCodes.Status404NotFound)]
+             [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+             public async Task<IActionResult> HistoriqueVirementsEnvoyes(string RIB_Emetteur)
+             {
+                 _logger.LogInformation("Requête reçue pour l'historique des virements envoyés. RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
 
-            return Ok(result);
-        }*/
+                 // Vérification si le RIB émetteur est valide
+                 if (string.IsNullOrEmpty(RIB_Emetteur))
+                 {
+                     return BadRequest(new { message = "Le RIB émetteur est obligatoire." });
+                 }
+
+                 // Récupération de tous les virements où le RIB émetteur correspond
+                 var virements = await _dbVirement.GetAllAsync(v => v.RIB_Emetteur == RIB_Emetteur);
+
+                 if (virements == null || !virements.Any())
+                 {
+                     _logger.LogWarning("Aucun virement trouvé pour le RIB émetteur : {RIB_Emetteur}", RIB_Emetteur);
+                     return NotFound(new { message = "Aucun virement trouvé pour ce RIB émetteur." });
+                 }
+
+                 // Sélection des données pertinentes à retourner
+                 var result = virements.Select(v => new
+                 {
+                     v.RIB_Recepteur,
+                     v.Montant,
+                     v.DateVirement,
+                     v.Motif,
+                     v.Description
+                 }).ToList();
+
+                 _logger.LogInformation("Historique des virements envoyés récupéré avec succès. Nombre de virements : {Count}", result.Count);
+
+                 return Ok(result);
+             }*/
 
 
 
     }
+}

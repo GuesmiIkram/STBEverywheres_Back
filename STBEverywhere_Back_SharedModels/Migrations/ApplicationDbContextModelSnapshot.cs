@@ -19,108 +19,6 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Carte", b =>
-                {
-                    b.Property<string>("NumCarte")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("CodeCVV")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("CodePIN")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("DateCreation")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DateExpiration")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DateRecuperation")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Iddemande")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nature")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NomCarte")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<decimal>("PlafondDAP")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<decimal>("PlafondTPE")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("RIB")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<decimal?>("Solde")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<string>("Statut")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("TypeCarte")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.HasKey("NumCarte");
-
-                    b.HasIndex("Iddemande");
-
-                    b.HasIndex("RIB");
-
-                    b.ToTable("Cartes");
-
-                    b.HasData(
-                        new
-                        {
-                            NumCarte = "1111222233334444",
-                            CodeCVV = "",
-                            CodePIN = "",
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Iddemande = 1,
-                            Nature = "postpayée",
-                            NomCarte = "Visa",
-                            PlafondDAP = 20000m,
-                            PlafondTPE = 40000m,
-                            RIB = "12345678923537902652",
-                            Solde = 1000.50m,
-                            Statut = "Active",
-                            TypeCarte = "International"
-                        },
-                        new
-                        {
-                            NumCarte = "5555666677778888",
-                            CodeCVV = "",
-                            CodePIN = "",
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Iddemande = 2,
-                            Nature = "postpayée",
-                            NomCarte = "Mastercard",
-                            PlafondDAP = 20000m,
-                            PlafondTPE = 40000m,
-                            RIB = "65432110223463790345",
-                            Solde = 5000.00m,
-                            Statut = "Active",
-                            TypeCarte = "National"
-                        });
-                });
-
-
             modelBuilder.Entity("DemandeCarte", b =>
                 {
                     b.Property<int>("Iddemande")
@@ -188,9 +86,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-
-                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4874),
-
+                            DateCreation = new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1911),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -206,8 +102,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-
-                            DateCreation = new DateTime(2025, 3, 21, 1, 23, 25, 397, DateTimeKind.Local).AddTicks(4895),
+                            DateCreation = new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1992),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -343,9 +238,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Célibataire",
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-
-                            MotDePasse = "$2a$11$wkcRMXy.iSj9j/WpA9073enTPsP.YLTs6hrRcqSfdjqS.QtHANucq",
-
+                            MotDePasse = "$2a$11$tN7IisJTBnuRGXIQY9h.0.122S/DXsfu/.TLq9HCGCXnFpeqMwKoq",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -374,9 +267,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-
-                            MotDePasse = "$2a$11$JX8hh5xjlULr28xXmVfP5unYP4/8m2b4CL0peASvc9LSiwZYLCN2a",
-
+                            MotDePasse = "$2a$11$fFEqstai1B7GR.JyGtryqeLiZ/aNUJzUMpnicu3EDbWSuGDPsccJq",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
@@ -440,9 +331,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             RIB = "12345678923537902652",
                             ClientId = 1,
-
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
+                            DateCreation = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668061",
                             Solde = 1000.50m,
@@ -452,16 +341,57 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             RIB = "65432110223463790345",
-
-                            ClientId = 1,
-                            DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
+                            ClientId = 2,
+                            DateCreation = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MontantMaxAutoriseParJour = 0m,
                             NumCin = "14668062",
                             Solde = 5000.00m,
                             Statut = "Actif",
                             Type = "Epargne"
                         });
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Beneficiaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RIBCompte")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RaisonSociale")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Beneficiaires");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Carte", b =>
@@ -779,6 +709,17 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Beneficiaire", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
+                        .WithMany("Beneficiaires")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Carte", b =>
                 {
                     b.HasOne("DemandeCarte", "DemandeCarte")
@@ -844,6 +785,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
                 {
+                    b.Navigation("Beneficiaires");
+
                     b.Navigation("Comptes");
 
                     b.Navigation("DemandesCarte");

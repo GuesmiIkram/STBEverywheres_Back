@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using STBEverywhere_Back_SharedModels.Data;
 using STBEverywhere_back_APICompte.Repository.IRepository;
 using STBEverywhere_Back_SharedModels;
+using System.Linq.Expressions;
 namespace STBEverywhere_back_APICompte.Repository
 {
     public class VirementRepository: Repository<Virement>,IVirementRepository
@@ -12,17 +13,37 @@ namespace STBEverywhere_back_APICompte.Repository
 
 
         public VirementRepository(ApplicationDbContext db) : base(db) { _db = db; }
-       /* public async Task CreateAsync(Virement virement)
-        {
-            await _db.Virement.AddAsync(virement);
-            await SaveAsync();
-        }*/
 
 
-       /* public async Task SaveAsync()
+
+        public async Task<List<Virement>> GetAllAsync(Expression<Func<Virement, bool>> filter = null)
+
         {
-            await _db.SaveChangesAsync();
-        }*/
+            IQueryable<Virement> query = _db.Virements;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.ToListAsync();
+        }
+
+
+        
+
+
+        /* public async Task CreateAsync(Virement virement)
+         {
+             await _db.Virement.AddAsync(virement);
+             await SaveAsync();
+         }*/
+
+
+        /* public async Task SaveAsync()
+         {
+             await _db.SaveChangesAsync();
+         }*/
 
         public async Task BeginTransactionAsync()
         {
