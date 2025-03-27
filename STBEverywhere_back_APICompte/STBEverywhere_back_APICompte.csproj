@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\STBEverywheres_Back_ApiAuth\STBEverywheres_Back_ApiAuth.csproj" />
     <ProjectReference Include="..\STBEverywhere_Back_SharedModels\STBEverywhere_Back_SharedModels.csproj" />
   </ItemGroup>
 

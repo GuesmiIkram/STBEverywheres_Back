@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace STBEverywhere_Back_SharedModels
 {
@@ -38,7 +39,7 @@ namespace STBEverywhere_Back_SharedModels
         public DateTime? DateExpirationCIN { get; set; }
         public string? LieuDelivranceCIN { get; set; }
         public string? PhotoClient { get; set; }
-        public string? MotDePasse { get; set; }
+  
         public string? ResetPasswordToken { get; set; }
         public string Genre { get; set; } // Nouveau champ : Genre (Masculin, Féminin, Autre)
         public string Profession { get; set; } // Nouveau champ : Profession
@@ -50,8 +51,13 @@ namespace STBEverywhere_Back_SharedModels
         public string? PaysNaissance { get; set; }
         public string? NomMere { get; set; }
         public string?NomPere { get; set; }
+        public int? UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
         public DateTime? ResetPasswordTokenExpiry { get; set; }
         // Relation One-to-Many : Un client peut avoir plusieurs comptes
+        [JsonIgnore]
         public ICollection<Compte> Comptes { get; set; } = new List<Compte>();
         public ICollection<DemandeCarte> DemandesCarte { get; set; } = new List<DemandeCarte>();
 

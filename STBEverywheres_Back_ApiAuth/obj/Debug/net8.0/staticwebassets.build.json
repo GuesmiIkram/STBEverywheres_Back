@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "XMLi/EXe3kzoGThqir1ZdiuHael/FRwdEAyDXFq0BYM=",
+  "Source": "STBEverywheres_Back_ApiAuth",
+  "BasePath": "_content/STBEverywheres_Back_ApiAuth",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_Back_SharedModels\\STBEverywhere_Back_SharedModels.csproj",
+      "Version": 2,
+      "Source": "STBEverywhere_Back_SharedModels",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

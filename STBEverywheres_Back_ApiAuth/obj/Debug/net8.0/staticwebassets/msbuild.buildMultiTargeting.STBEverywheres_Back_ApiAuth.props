@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\STBEverywheres_Back_ApiAuth.props" />
+</Project>
