@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 using System.Text.RegularExpressions;
 using STBEverywhere_back_APICompte.Services;
 using Microsoft.Extensions.Logging;
+using System.IdentityModel.Tokens.Jwt;
+using STBEverywhere_ApiAuth.Repositories;
 
 
 namespace STBEverywhere_back_APICompte.Controllers
@@ -23,38 +25,40 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         private readonly ICompteRepository _dbCompte;
         private readonly IVirementRepository _dbVirement;
-
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<VirementApiController> _logger;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _webHostEnvironment;
         //private readonly IVirementService _virementService;
 
 
-        public VirementApiController(/*VirementService virementService,*/ IWebHostEnvironment webHostEnvironment, ICompteRepository dbCompte, IVirementRepository dbVirement, ILogger<VirementApiController> logger, IMapper mapper)
+        public VirementApiController(/*VirementService virementService,*/ IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository,ICompteRepository dbCompte, IVirementRepository dbVirement, ILogger<VirementApiController> logger, IMapper mapper)
         {
             _dbCompte = dbCompte;
             _dbVirement = dbVirement;
             _logger = logger;
             _mapper = mapper;
+            _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
+            _httpContextAccessor = httpContextAccessor;
             // _virementService = virementService;
 
         }
 
         [HttpPost("Virement")]
-        [Authorize]
+  
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> Virement([FromBody] VirementUnitaireDto virementDto)
         {
             _logger.LogInformation("Requête reçue pour un virement. Données : {@virementDto}", virementDto);
-
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
@@ -131,12 +135,12 @@ namespace STBEverywhere_back_APICompte.Controllers
         //[HttpPost("UploadFichier")]
 
         [HttpPost("VirementDeMasse")]
-        [Authorize]
+    
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+   
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> VirementDeMasse([FromForm] UploadFichierRequest request)
@@ -204,8 +208,9 @@ namespace STBEverywhere_back_APICompte.Controllers
                  _logger.LogWarning("Fichier introuvable : {FichierPath}", fichier);
                  return BadRequest(new { message = "Fichier introuvable." });
              }*/
-
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
             if (clientId == null)
             {
                 _logger.LogWarning("Utilisateur non authentifié.");
@@ -372,15 +377,16 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
         [HttpPost("BlocageRetrait")]
-        [Authorize]
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> BlocageRetrait([FromBody] string rib)
         {
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
@@ -403,15 +409,16 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
         [HttpPost("DeblocageRetrait")]
-        [Authorize]
+      
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeblocageRetrait([FromBody] string rib)
         {
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
             if (clientId == null)
             {
                 return Unauthorized(new { message = "Utilisateur non authentifié" });
@@ -436,22 +443,63 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
-
-
-
-        private int? GetClientIdFromToken()
+        private int GetUserIdFromToken()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
+            try
             {
-                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                if (clientIdClaim != null)
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                if (string.IsNullOrEmpty(authHeader))
                 {
-                    return int.Parse(clientIdClaim.Value);
+                    throw new UnauthorizedAccessException("Header Authorization manquant");
                 }
+
+                var tokenParts = authHeader.Split(' ');
+                if (tokenParts.Length != 2 || !tokenParts[0].Equals("Bearer", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException("Format d'autorisation invalide");
+                }
+
+                var token = tokenParts[1].Trim();
+                var handler = new JwtSecurityTokenHandler();
+
+                if (!handler.CanReadToken(token))
+                {
+                    throw new UnauthorizedAccessException("Le token n'est pas un JWT valide");
+                }
+
+                var jwtToken = handler.ReadJwtToken(token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == JwtRegisteredClaimNames.Sub ||
+                    c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+                }
+
+                return userId;
             }
-            return null;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
+                throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
         }
+
+
+        /* private int? GetClientIdFromToken()
+         {
+             var identity = HttpContext.User.Identity as ClaimsIdentity;
+             if (identity != null)
+             {
+                 var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                 if (clientIdClaim != null)
+                 {
+                     return int.Parse(clientIdClaim.Value);
+                 }
+             }
+             return null;
+         }*/
 
 
 

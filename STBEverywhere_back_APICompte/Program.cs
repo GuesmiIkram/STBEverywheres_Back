@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using STBEverywhere_back_APICompte.Services;
 using STBEverywhere_back_APICompte.Filters;
+using STBEverywhere_ApiAuth.Repositories;
+using Newtonsoft.Json;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
   ));
 builder.Services.AddScoped<ICompteRepository, CompteRepository>();
 builder.Services.AddScoped<IVirementRepository, VirementRepository>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICompteService, CompteService>();
 //builder.Services.AddScoped<IVirementService, VirementService>();
 
@@ -98,6 +102,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
         };
+    });
+//ignorer le json relation circulaire 
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
 

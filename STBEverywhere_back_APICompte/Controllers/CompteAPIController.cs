@@ -8,6 +8,8 @@ using System.Numerics;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using STBEverywhere_back_APICompte.Services;
+using System.IdentityModel.Tokens.Jwt;
+using STBEverywhere_ApiAuth.Repositories;
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
@@ -20,17 +22,19 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         //private readonly ICompteRepository _dbCompte;
         private readonly IVirementRepository _dbVirement;
-
-
+        private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CompteAPIController> _logger;
         private readonly IMapper _mapper;
-        public CompteAPIController(ICompteService compteService /*ICompteRepository dbCompte*/, IVirementRepository dbVirement, ILogger<CompteAPIController> logger, IMapper mapper)
+        public CompteAPIController(ICompteService compteService, IUserRepository userRepository /*ICompteRepository dbCompte*/, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
         {
             _compteService = compteService;
             //_dbCompte = dbCompte;
             _dbVirement = dbVirement;
             _logger = logger;
             _mapper = mapper;
+            _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -44,8 +48,10 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         public async Task<IActionResult> GetComptesByClientId()
         {
-            var clientId = GetClientIdFromToken();
-            
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
             //var comptes = await _context.Compte
             // var comptes = await _dbCompte.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé");
 
@@ -94,8 +100,10 @@ namespace STBEverywhere_back_APICompte.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetComptesVirementByClientId()
         {
-            var clientId = GetClientIdFromToken();
-          
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
             var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne");
 
 
@@ -116,7 +124,9 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         public async Task<IActionResult> CreateCompte([FromBody] CreateCompteDto compteDto)
         {
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var Client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = Client.Id;
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
           
@@ -205,7 +215,10 @@ namespace STBEverywhere_back_APICompte.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CloturerCompte(string rib)
         {
-            var clientId = GetClientIdFromToken();
+
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
 
             var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault(); // Correction appliquée
 
@@ -224,18 +237,47 @@ namespace STBEverywhere_back_APICompte.Controllers
             return Ok(new { message = "Le compte a été clôturé avec succès." });
         }
 
-        private int? GetClientIdFromToken()
+        private int GetUserIdFromToken()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
+            try
             {
-                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                if (clientIdClaim != null)
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                if (string.IsNullOrEmpty(authHeader))
                 {
-                    return int.Parse(clientIdClaim.Value);
+                    throw new UnauthorizedAccessException("Header Authorization manquant");
                 }
+
+                var tokenParts = authHeader.Split(' ');
+                if (tokenParts.Length != 2 || !tokenParts[0].Equals("Bearer", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException("Format d'autorisation invalide");
+                }
+
+                var token = tokenParts[1].Trim();
+                var handler = new JwtSecurityTokenHandler();
+
+                if (!handler.CanReadToken(token))
+                {
+                    throw new UnauthorizedAccessException("Le token n'est pas un JWT valide");
+                }
+
+                var jwtToken = handler.ReadJwtToken(token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == JwtRegisteredClaimNames.Sub ||
+                    c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+                }
+
+                return userId;
             }
-            return null;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
+                throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
         }
 
         [HttpGet("GetSoldeByRIB/{rib}")]

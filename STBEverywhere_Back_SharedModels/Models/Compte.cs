@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace STBEverywhere_Back_SharedModels
 {
@@ -29,8 +30,9 @@ namespace STBEverywhere_Back_SharedModels
         // Clé étrangère vers Client
         [Required]
         public int ClientId { get; set; } // Clé étrangère
-
+        [JsonIgnore]
         [ForeignKey("ClientId")]
+      
         public Client Client { get; set; } // Relation avec Client
 
         // Relation One-to-Many avec Carte
