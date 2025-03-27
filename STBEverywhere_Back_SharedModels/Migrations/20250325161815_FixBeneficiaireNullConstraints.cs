@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     /// <inheritdoc />
-    public partial class BeneficiaireTable : Migration
+    public partial class FixBeneficiaireNullConstraints : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -117,11 +117,15 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Prenom = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    RaisonSociale = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     RIBCompte = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telephone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<string>(type: "varchar(50)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -375,8 +379,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Id", "Adresse", "Civilite", "DateDelivranceCIN", "DateExpirationCIN", "DateNaissance", "Email", "EtatCivil", "Genre", "LieuDelivranceCIN", "MotDePasse", "Nationalite", "NiveauEducation", "Nom", "NomMere", "NomPere", "NombreEnfants", "NumCIN", "PaysNaissance", "PhotoClient", "Prenom", "Profession", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Residence", "RevenuMensuel", "SituationProfessionnelle", "Telephone" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "$2a$11$Ww/cyFVJTVUIp/ZLYqryL.CeDRRbjYGcRFE4xKZUvNyGVFn1j5LHK", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789" },
-                    { 2, "456 Elm St", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "$2a$11$8yoiCN8YAi.ICHMndmUs0ufJMBnsvLcI.crvb/82oOkLYvm9xmedC", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321" }
+                    { 1, "123 Main St", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "$2a$11$joucjZP8AUiI1Ly7YakK3uzJ52RrbS363KYFn7rlkhVdn3Yr1q7Ai", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789" },
+                    { 2, "456 Elm St", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "$2a$11$qNMhkLr6pyfKJLIiVXPrUOegfS2kyl3/Dfpc8gFNbInbS.6mAFxSu", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321" }
                 });
 
             migrationBuilder.InsertData(
@@ -393,8 +397,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Iddemande", "CIN", "CarteAjouter", "ClientId", "DateCreation", "Email", "EmailEnvoye", "EmailEnvoyeLivree", "NomCarte", "NumCompte", "NumTel", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { 1, "14668061", false, 1, new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5310), "john.doe@example.com", false, false, "VisaClassic", "12345678923537902652", "12345678", "DisponibleEnAgence", "International" },
-                    { 2, "14668062", false, 2, new DateTime(2025, 3, 24, 1, 52, 53, 822, DateTimeKind.Local).AddTicks(5337), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "EnPreparation", "National" }
+                    { 1, "14668061", false, 1, new DateTime(2025, 3, 25, 17, 18, 14, 620, DateTimeKind.Local).AddTicks(1503), "john.doe@example.com", false, false, "VisaClassic", "12345678923537902652", "12345678", "DisponibleEnAgence", "International" },
+                    { 2, "14668062", false, 2, new DateTime(2025, 3, 25, 17, 18, 14, 620, DateTimeKind.Local).AddTicks(2124), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "EnPreparation", "National" }
                 });
 
             migrationBuilder.InsertData(

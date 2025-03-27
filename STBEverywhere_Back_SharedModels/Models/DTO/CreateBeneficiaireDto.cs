@@ -12,14 +12,10 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
 {
     public class CreateBeneficiaireDto
     {
-        [Required(ErrorMessage = "Le nom est obligatoire pour une personne physique.")]
         public string Nom { get; set; }
 
-        [Required(ErrorMessage = "Le prénom est obligatoire pour une personne physique.")]
         public string Prenom { get; set; }
 
-        // Required for Personne Morale
-        [Required(ErrorMessage = "La raison sociale est obligatoire pour une personne morale.")]
         public string RaisonSociale { get; set; }
 
         // Required for all beneficiary types
@@ -32,7 +28,7 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Le type de bénéficiaire est obligatoire.")]
-        public BeneficiaireType Type { get; set; }
+        public string Type { get; set; }
     }
 }
 

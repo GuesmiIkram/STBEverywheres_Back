@@ -86,7 +86,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668061",
                             CarteAjouter = false,
                             ClientId = 1,
-                            DateCreation = new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1911),
+                            DateCreation = new DateTime(2025, 3, 25, 17, 18, 14, 620, DateTimeKind.Local).AddTicks(1503),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -102,7 +102,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             CIN = "14668062",
                             CarteAjouter = false,
                             ClientId = 2,
-                            DateCreation = new DateTime(2025, 3, 24, 4, 24, 26, 172, DateTimeKind.Local).AddTicks(1992),
+                            DateCreation = new DateTime(2025, 3, 25, 17, 18, 14, 620, DateTimeKind.Local).AddTicks(2124),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -238,7 +238,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Célibataire",
                             Genre = "Masculin",
                             LieuDelivranceCIN = "New York",
-                            MotDePasse = "$2a$11$tN7IisJTBnuRGXIQY9h.0.122S/DXsfu/.TLq9HCGCXnFpeqMwKoq",
+                            MotDePasse = "$2a$11$joucjZP8AUiI1Ly7YakK3uzJ52RrbS363KYFn7rlkhVdn3Yr1q7Ai",
                             Nationalite = "US",
                             NiveauEducation = "Master",
                             Nom = "Doe",
@@ -267,7 +267,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             EtatCivil = "Marié(e)",
                             Genre = "Féminin",
                             LieuDelivranceCIN = "Toronto",
-                            MotDePasse = "$2a$11$fFEqstai1B7GR.JyGtryqeLiZ/aNUJzUMpnicu3EDbWSuGDPsccJq",
+                            MotDePasse = "$2a$11$qNMhkLr6pyfKJLIiVXPrUOegfS2kyl3/Dfpc8gFNbInbS.6mAFxSu",
                             Nationalite = "CA",
                             NiveauEducation = "Doctorat",
                             Nom = "Smith",
@@ -384,8 +384,9 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
