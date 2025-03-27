@@ -7,7 +7,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
-using STBEverywhere_ApiGateway.Service;
+
+using STBEverywhere_ApiAuth.Repositories;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -17,15 +20,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.Parse("8.0.30-mysql") // Mets la version exacte de MySQL ici
+        ServerVersion.Parse("8.0.0-mysql") // Mets la version exacte de MySQL ici
     ));
 
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+
 builder.Services.AddScoped<EmailService>();
 
 // Configuration de l'authentification JWT
@@ -34,19 +39,29 @@ var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = false; // À activer en production
-        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
+            ClockSkew = TimeSpan.Zero,
+            NameClaimType = "clientid",
+            RoleClaimType = ClaimTypes.Role
         };
-    });
 
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Erreur d'authentification: {context.Exception}");
+                return Task.CompletedTask;
+            }
+        };
+    }); 
 builder.Services.AddHttpContextAccessor();
 
 // Configuration CORS

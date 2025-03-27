@@ -1,34 +1,53 @@
-﻿using STBEverywhere_Back_SharedModels.Data;
-
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Data;
+using STBEverywhere_Back_SharedModels.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace STBEverywhere_back_APIClient.Repositories
 {
     public class ClientRepository : IClientRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly List<Client> _clients = new List<Client>();
+
         public ClientRepository(ApplicationDbContext context)
         {
             _context = context;
         }
+
         public async Task AddClientAsync(Client client)
         {
-            await Task.Run(() => _clients.Add(client));
+            await _context.Clients.AddAsync(client);
+            await _context.SaveChangesAsync();
         }
+
         public async Task<Client> GetClientByNumCinAsync(string numCin)
         {
             return await _context.Clients
-                                 .FirstOrDefaultAsync(c => c.NumCIN == numCin);
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.NumCIN == numCin);
         }
-        public Client GetClientByEmail(string email)
+
+        public async Task<Client> GetClientByEmailAsync(string email)
         {
-            return _context.Clients.AsNoTracking().FirstOrDefault(c => c.Email == email);
+            return await _context.Clients
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.Email == email);
         }
+
         public async Task<Client> GetClientByIdAsync(int id)
         {
-            return await _context.Clients.FindAsync(id);
+            return await _context.Clients
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<Client> GetClientByUserIdAsync(int userId)
+        {
+            return await _context.Clients
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
         public async Task UpdateClientAsync(Client client)
@@ -36,14 +55,13 @@ namespace STBEverywhere_back_APIClient.Repositories
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
         }
-        public Client GetClientById(int id) // Implémentez cette méthode
-        {
-            return _context.Clients.FirstOrDefault(c => c.Id == id);
-        }
 
-        public Client GetClientByResetToken(string token)
+ 
+        public async Task<IEnumerable<Client>> GetAllClientsAsync()
         {
-            return _context.Clients.FirstOrDefault(c => c.ResetPasswordToken == token);
+            return await _context.Clients
+                .Include(c => c.User)
+                .ToListAsync();
         }
-    } 
+    }
 }

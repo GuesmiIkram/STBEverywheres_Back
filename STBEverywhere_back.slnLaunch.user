@@ -3,22 +3,7 @@
     "Name": "Nouveau profil",
     "Projects": [
       {
-        "Path": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
-        "Action": "Start",
-        "DebugTarget": "http"
-      },
-      {
-        "Path": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
-        "Action": "Start",
-        "DebugTarget": "http"
-      },
-      {
-        "Path": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
-        "Action": "Start",
-        "DebugTarget": "http"
-      },
-      {
-        "Path": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
+        "Path": "STBEverywheres_Back_ApiAuth\\STBEverywheres_Back_ApiAuth.csproj",
         "Action": "Start",
         "DebugTarget": "http"
       },
@@ -26,6 +11,15 @@
         "Path": "STBEverywhere_ApiGateway\\STBEverywhere_ApiGateway.csproj",
         "Action": "Start",
         "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
+        "Action": "Start"
       }
     ]
   }

@@ -10,7 +10,9 @@ namespace STBEverywhere_Back_SharedModels.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        // Définir les DbSets pour toutes les entités
+        // DbSets
+        public DbSet<User> Users { get; set; }
+        public DbSet<Agent> Agents { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Compte> Comptes { get; set; }
         public DbSet<Virement> Virements { get; set; }
@@ -26,6 +28,48 @@ namespace STBEverywhere_Back_SharedModels.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configuration de l'entité User
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(u => u.Id);
+                entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
+                entity.Property(u => u.PasswordHash).IsRequired();
+                entity.Property(u => u.Role).IsRequired().HasConversion<string>();
+                entity.Property(u => u.IsActive).HasDefaultValue(true);
+                entity.Property(u => u.ResetPasswordToken).HasMaxLength(255);
+                entity.Property(u => u.ResetPasswordTokenExpiry);
+
+                // Données initiales
+                entity.HasData(
+                    new User { Id = 1, Email = "guesmiimahmoud@gmail.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password123"), Role = UserRole.Client },
+                    new User { Id = 2, Email = "jane.smith@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password456"), Role = UserRole.Client },
+                    new User { Id = 3, Email = "agent@stb.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("agent123"), Role = UserRole.Agent }
+                );
+            });
+
+            // Configuration de l'entité Agent
+            modelBuilder.Entity<Agent>(entity =>
+            {
+                entity.HasKey(a => a.Id);
+                entity.Property(a => a.Nom).IsRequired().HasMaxLength(50);
+                entity.Property(a => a.Prenom).IsRequired().HasMaxLength(50);
+                entity.Property(a => a.Departement).HasMaxLength(100);
+
+                // Remove the IsRequired(false) since the property is now nullable by type
+                // entity.Property(a => a.UserId).IsRequired(false); // No longer needed
+
+                // Relation with User
+                entity.HasOne(a => a.User)
+                    .WithOne()
+                    .HasForeignKey<Agent>(a => a.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            
+
+            entity.HasData(
+                    new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3 }
+                );
+            });
+
             // Configuration de l'entité Client
             modelBuilder.Entity<Client>(entity =>
             {
@@ -35,14 +79,27 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.Property(c => c.Email).IsRequired().HasMaxLength(100);
                 entity.Property(c => c.Telephone).IsRequired().HasMaxLength(20);
                 entity.Property(c => c.Adresse).IsRequired().HasMaxLength(200);
-                entity.Property(c => c.MotDePasse).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.UserId).IsRequired(false);
 
-                // Relation One-to-Many : Un client peut avoir plusieurs demandes de carte
+                // Relation avec User (sans navigation inverse)
+                entity.HasOne(c => c.User)
+                    .WithOne()
+                    .HasForeignKey<Client>(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
+
+                // Relations One-to-Many
+                entity.HasMany(c => c.Comptes)
+                    .WithOne(c => c.Client)
+                    .HasForeignKey(c => c.ClientId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 entity.HasMany(c => c.DemandesCarte)
-                      .WithOne(d => d.Client)
-                      .HasForeignKey(d => d.ClientId);
+                    .WithOne(d => d.Client)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                // Ajouter des données initiales pour les clients
+                // Données initiales
                 entity.HasData(
                     new Client
                     {
@@ -62,7 +119,6 @@ namespace STBEverywhere_Back_SharedModels.Data
                         DateExpirationCIN = new DateTime(2030, 1, 1),
                         LieuDelivranceCIN = "New York",
                         PhotoClient = "mahmoud.jpg",
-                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password123"),
                         Genre = "Masculin",
                         Profession = "Ingénieur",
                         SituationProfessionnelle = "Employé",
@@ -72,7 +128,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         PaysNaissance = "USA",
                         NomMere = "Jane Doe",
                         NomPere = "John Doe Sr.",
-                        ResetPasswordTokenExpiry = null
+                        UserId = 1
                     },
                     new Client
                     {
@@ -92,7 +148,6 @@ namespace STBEverywhere_Back_SharedModels.Data
                         DateExpirationCIN = new DateTime(2035, 5, 15),
                         LieuDelivranceCIN = "Toronto",
                         PhotoClient = "mahmoud.jpg",
-                        MotDePasse = BCrypt.Net.BCrypt.HashPassword("password456"),
                         Genre = "Féminin",
                         Profession = "Médecin",
                         SituationProfessionnelle = "Indépendant",
@@ -102,7 +157,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         PaysNaissance = "Canada",
                         NomMere = "Mary Smith",
                         NomPere = "Robert Smith",
-                        ResetPasswordTokenExpiry = null
+                        UserId = 2
                     }
                 );
             });
@@ -115,12 +170,6 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.Property(c => c.Solde).HasColumnType("decimal(18,3)");
                 entity.Property(c => c.Statut).HasMaxLength(20);
 
-                entity.HasOne(c => c.Client)
-         .WithMany(c => c.Comptes)
-         .HasForeignKey(c => c.ClientId)
-         .OnDelete(DeleteBehavior.Cascade);  // Supprime les comptes si le client est supprimé
-
-                // Ajouter des données initiales pour les comptes
                 entity.HasData(
                     new Compte
                     {
@@ -149,21 +198,21 @@ namespace STBEverywhere_Back_SharedModels.Data
             modelBuilder.Entity<Carte>(entity =>
             {
                 entity.HasKey(c => c.NumCarte);
-                entity.Property(c => c.NomCarte)
-             .HasConversion<string>(); // Convertir l'enum en string
+                entity.Property(c => c.NomCarte).HasConversion<string>();
+                entity.Property(c => c.TypeCarte).HasConversion<string>();
+                entity.Property(c => c.Statut).HasConversion<string>();
 
-                entity.Property(c => c.TypeCarte)
-                      .HasConversion<string>(); // Convertir l'enum en string
+                // Relation avec Compte
+                entity.HasOne(c => c.Compte)
+                    .WithMany()
+                    .HasForeignKey(c => c.RIB)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(c => c.Statut)
-                      .HasConversion<string>(); // Convertir l'enum en string
-
-                // Ajouter des données initiales pour les cartes
                 entity.HasData(
                     new Carte
                     {
                         NumCarte = "1111222233334444",
-                        NomCarte = NomCarte.VisaClassic, // Utilisation de l'enum
+                        NomCarte = NomCarte.VisaClassic,
                         TypeCarte = TypeCarte.International,
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
@@ -172,15 +221,15 @@ namespace STBEverywhere_Back_SharedModels.Data
                         CodeCVV = "",
                         Nature = "postpayée",
                         PlafondTPE = 40000,
-                        PlafondDAP= 20000,
+                        PlafondDAP = 20000,
                         Solde = 1000.50m,
                         CodePIN = "",
-                        RIB = "12345678923537902652" // RIB du compte associé
+                        RIB = "12345678923537902652"
                     },
                     new Carte
                     {
                         NumCarte = "5555666677778888",
-                        NomCarte = NomCarte.Mastercard, // Utilisation de l'enum
+                        NomCarte = NomCarte.Mastercard,
                         TypeCarte = TypeCarte.National,
                         DateCreation = new DateTime(2024, 1, 1),
                         DateExpiration = new DateTime(2027, 1, 1),
@@ -192,7 +241,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         CodePIN = "",
                         PlafondTPE = 40000,
                         PlafondDAP = 20000,
-                        RIB = "65432110223463790345" // RIB du compte associé
+                        RIB = "65432110223463790345"
                     }
                 );
             });
@@ -200,34 +249,21 @@ namespace STBEverywhere_Back_SharedModels.Data
             // Configuration de l'entité DemandeCarte
             modelBuilder.Entity<DemandeCarte>(entity =>
             {
-                entity.HasKey(d => d.Iddemande); // Définir Iddemande comme clé primaire
+                entity.HasKey(d => d.Iddemande);
                 entity.Property(d => d.NumCompte).IsRequired().HasMaxLength(20);
-                entity.Property(d => d.NomCarte)
-                     .HasConversion<string>(); // Convertir l'enum en string
-
-                entity.Property(d => d.TypeCarte)
-                      .HasConversion<string>(); // Convertir l'enum en string
-
-                entity.Property(d => d.Statut)
-                      .HasConversion<string>(); // Convertir l'enum en string
+                entity.Property(d => d.NomCarte).HasConversion<string>();
+                entity.Property(d => d.TypeCarte).HasConversion<string>();
+                entity.Property(d => d.Statut).HasConversion<string>();
                 entity.Property(d => d.CIN).IsRequired().HasMaxLength(20);
                 entity.Property(d => d.Email).IsRequired().HasMaxLength(100);
                 entity.Property(d => d.NumTel).IsRequired().HasMaxLength(20);
 
-
-                // Relation Many-to-One : Une demande de carte est associée à un client
-                entity.HasOne(d => d.Client)
-                      .WithMany(c => c.DemandesCarte)
-                      .HasForeignKey(d => d.ClientId)
-                      .OnDelete(DeleteBehavior.Cascade);
-
-                // Ajouter des données initiales pour les demandes de carte
                 entity.HasData(
                     new DemandeCarte
                     {
                         Iddemande = 1,
                         NumCompte = "12345678923537902652",
-                        NomCarte = NomCarte.VisaClassic, // Utilisation de l'enum
+                        NomCarte = NomCarte.VisaClassic,
                         TypeCarte = TypeCarte.International,
                         CIN = "14668061",
                         Email = "john.doe@example.com",
@@ -242,7 +278,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                     {
                         Iddemande = 2,
                         NumCompte = "65432110223463790345",
-                        NomCarte = NomCarte.Mastercard, // Utilisation de l'enum
+                        NomCarte = NomCarte.Mastercard,
                         TypeCarte = TypeCarte.National,
                         CIN = "14668062",
                         Email = "jane.smith@example.com",
@@ -254,8 +290,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         ClientId = 2
                     }
                 );
-            }
-            );
+            });
 
             // Configuration de l'entité Virement
             modelBuilder.Entity<Virement>(entity =>

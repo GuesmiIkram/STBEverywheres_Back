@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using STBEverywhere_Back_SharedModels;
 using STBEverywhere_back_APIClient.Services;
 using PdfSharpCore;
+using System.IdentityModel.Tokens.Jwt; // Pour JwtRegisteredClaimNames
 using PdfSharpCore.Pdf;
 using TheArtOfDev.HtmlRenderer.PdfSharp;
 using System.IO;
@@ -12,83 +13,106 @@ using STBEverywhere_Back_SharedModels.Data;
 using System.Security.Claims;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_Back_SharedModels.Models;
+using STBEverywhere_ApiAuth.Repositories;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   // Applique l'authentification à toutes les méthodes du contrôleur
+    // Applique l'authentification à toutes les méthodes du contrôleur
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ClientController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserRepository _userRepository;
 
-        public ClientController(IClientService clientService, ApplicationDbContext context)
+
+        public ClientController(IClientService clientService, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context, ILogger<ClientController> logger)
         {
             _clientService = clientService;
             _context = context;
+            _logger = logger;
+            _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
+        }
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        {
+            try
+            {
+                _logger.LogInformation("Tentative d'enregistrement client pour {Email}", registerDto.Email);
+                var result = await _clientService.RegisterAsync(registerDto);
+                return Ok(new { Message = result });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur d'enregistrement client");
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
-       /* [HttpPost("CreateBeneficiaire")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateBeneficiaire(CreateBeneficiaireDto compteDto)
-        {
-            // 1. Extraire le ClientId du token JWT
-            var clientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            /*if (string.IsNullOrEmpty(clientIdClaim))
-            {
-                return Unauthorized("ClientId non trouvé dans le token.");
-            }
+        /* [HttpPost("CreateBeneficiaire")]
+         [ProducesResponseType(StatusCodes.Status201Created)]
+         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+         public async Task<IActionResult> CreateBeneficiaire(CreateBeneficiaireDto compteDto)
+         {
+             // 1. Extraire le ClientId du token JWT
+             var clientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+             /*if (string.IsNullOrEmpty(clientIdClaim))
+             {
+                 return Unauthorized("ClientId non trouvé dans le token.");
+             }
 
-            if (!int.TryParse(clientIdClaim, out int clientId))
-            {
-                return Unauthorized("ClientId invalide dans le token.");
-            }*/
+             if (!int.TryParse(clientIdClaim, out int clientId))
+             {
+                 return Unauthorized("ClientId invalide dans le token.");
+             }*/
 
-            // 2. Valider les données du DTO
-           /* if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        // 2. Valider les données du DTO
+        /* if (!ModelState.IsValid)
+         {
+             return BadRequest(ModelState);
+         }
 
-            // 3. Validation spécifique au type de bénéficiaire
-            if (compteDto.Type == BeneficiaireType.PersonnePhisique)
-            {
-                if (string.IsNullOrEmpty(compteDto.Nom) || string.IsNullOrEmpty(compteDto.Prenom))
-                {
-                    return BadRequest("Le nom et le prénom sont obligatoires pour une personne physique.");
-                }
-            }
-            else if (compteDto.Type == BeneficiaireType.PersonneMorale)
-            {
-                if (string.IsNullOrEmpty(compteDto.RaisonSociale))
-                {
-                    return BadRequest("La raison sociale est obligatoire pour une personne morale.");
-                }
-            }
+         // 3. Validation spécifique au type de bénéficiaire
+         if (compteDto.Type == BeneficiaireType.PersonnePhisique)
+         {
+             if (string.IsNullOrEmpty(compteDto.Nom) || string.IsNullOrEmpty(compteDto.Prenom))
+             {
+                 return BadRequest("Le nom et le prénom sont obligatoires pour une personne physique.");
+             }
+         }
+         else if (compteDto.Type == BeneficiaireType.PersonneMorale)
+         {
+             if (string.IsNullOrEmpty(compteDto.RaisonSociale))
+             {
+                 return BadRequest("La raison sociale est obligatoire pour une personne morale.");
+             }
+         }
 
-            // 4. Créer un nouveau bénéficiaire
-            var beneficiaire = new Beneficiaire
-            {
-                Nom = compteDto.Nom,
-                Prenom = compteDto.Prenom,
-                RIBCompte = compteDto.RIBCompte,
-                Telephone = compteDto.Telephone,
-                Email = compteDto.Email,
-                RaisonSociale = compteDto.RaisonSociale,
-                Type = compteDto.Type,
-                ClientId = clientIdClaim // Associer le ClientId extrait du token
-            };
+         // 4. Créer un nouveau bénéficiaire
+         var beneficiaire = new Beneficiaire
+         {
+             Nom = compteDto.Nom,
+             Prenom = compteDto.Prenom,
+             RIBCompte = compteDto.RIBCompte,
+             Telephone = compteDto.Telephone,
+             Email = compteDto.Email,
+             RaisonSociale = compteDto.RaisonSociale,
+             Type = compteDto.Type,
+             ClientId = clientIdClaim // Associer le ClientId extrait du token
+         };
 
-            // 5. Enregistrer le bénéficiaire dans la base de données
-            _context.Beneficiaires.Add(beneficiaire);
-            await _context.SaveChangesAsync();
+         // 5. Enregistrer le bénéficiaire dans la base de données
+         _context.Beneficiaires.Add(beneficiaire);
+         await _context.SaveChangesAsync();
 
-            // 6. Retourner une réponse 201 avec l'URI de la ressource créée
-            return CreatedAtAction(nameof(CreateBeneficiaire), new { id = beneficiaire.Id }, beneficiaire);
-        }*/
+         // 6. Retourner une réponse 201 avec l'URI de la ressource créée
+         return CreatedAtAction(nameof(CreateBeneficiaire), new { id = beneficiaire.Id }, beneficiaire);
+     }
 
         [HttpGet("GetBeneficiairesByClientId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -122,42 +146,55 @@ namespace STBEverywhere_back_APIClient.Controllers
             // 4. Retourner la liste des bénéficiaires
             return Ok(beneficiaires);
         }
-
+        */
 
 
 
         // Récupérer les informations du client
         [HttpGet("me")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetClientInfo()
         {
-            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
-            var client = await _clientService.GetClientByIdAsync(clientId);
-            if (client == null)
+            try
             {
-                return NotFound(new { message = "Client non trouvé" });
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+         
+                return Ok(client);
             }
-
-            return Ok(client);
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogError(ex, "Erreur d'authentification");
+                return Unauthorized(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur serveur");
+                return StatusCode(500, new { message = "Erreur interne" });
+            }
         }
-
-        // Mettre à jour les informations du client
         [HttpPut("update")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateClientInfo([FromBody] Client updatedClient)
-        { 
-            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
-            bool isUpdated = await _clientService.UpdateClientInfoAsync(clientId, updatedClient);
-            if (!isUpdated)
+        {
+            try
             {
-                return NotFound(new { message = "Client non trouvé" });
-            }
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+                updatedClient.Id = client.Id; // Ceci est crucial
 
-            return Ok(new { message = "Informations mises à jour avec succès !" });
+                bool isUpdated = await _clientService.UpdateClientInfoAsync(updatedClient.Id, updatedClient);
+
+                if (!isUpdated)
+                {
+                    return NotFound(new { message = "Client non trouvé" });
+                }
+
+                return Ok(new { message = "Informations mises à jour avec succès !" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la mise à jour");
+                return StatusCode(500, new { message = "Erreur interne" });
+            }
         }
 
         // Télécharger le fichier KYC
@@ -167,8 +204,9 @@ namespace STBEverywhere_back_APIClient.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DownloadKYC()
         {
-            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
-            var client = await _clientService.GetClientByIdAsync(clientId);
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
@@ -178,11 +216,11 @@ namespace STBEverywhere_back_APIClient.Controllers
             return File(pdfBytes, "application/pdf", $"Fiche_KYC_{client.Nom}_{client.Prenom}.pdf");
         }
 
-        // Uploader une image de profil
         [HttpPost("upload-profile-image")]
         public async Task<IActionResult> UploadProfileImage(IFormFile file)
         {
-            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
+            var userId = GetUserIdFromToken();
+            
             if (file == null || file.Length == 0)
             {
                 return BadRequest("Aucun fichier sélectionné.");
@@ -199,7 +237,7 @@ namespace STBEverywhere_back_APIClient.Controllers
             }
 
             // Mettre à jour le nom de la photo dans la base de données
-            var client = await _clientService.GetClientByIdAsync(clientId);
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
             if (client == null)
             {
                 return NotFound(new { message = "Client non trouvé" });
@@ -209,34 +247,6 @@ namespace STBEverywhere_back_APIClient.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { fileName });
-        }
-
-        // Supprimer la photo de profil
-        [HttpDelete("remove-profile-image")]
-        public async Task<IActionResult> RemoveProfileImage()
-        {
-            var clientId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value); // Récupère l'ID du client depuis le token
-            var client = await _clientService.GetClientByIdAsync(clientId);
-            if (client == null)
-            {
-                return NotFound(new { message = "Client non trouvé" });
-            }
-
-            // Supprimer le fichier du serveur
-            if (!string.IsNullOrEmpty(client.PhotoClient))
-            {
-                var filePath = Path.Combine("wwwroot/Images", client.PhotoClient);
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-            }
-
-            // Mettre à jour la base de données
-            client.PhotoClient = null;
-            await _context.SaveChangesAsync();
-
-            return Ok();
         }
 
         // Générer un rapport KYC au format PDF
@@ -362,5 +372,65 @@ namespace STBEverywhere_back_APIClient.Controllers
         </html>
     ";
         }
+        private int GetUserIdFromToken()
+        {
+            try
+            {
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    throw new UnauthorizedAccessException("Header Authorization manquant");
+                }
+
+                var tokenParts = authHeader.Split(' ');
+                if (tokenParts.Length != 2 || !tokenParts[0].Equals("Bearer", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException("Format d'autorisation invalide");
+                }
+
+                var token = tokenParts[1].Trim();
+                var handler = new JwtSecurityTokenHandler();
+
+                if (!handler.CanReadToken(token))
+                {
+                    throw new UnauthorizedAccessException("Le token n'est pas un JWT valide");
+                }
+
+                var jwtToken = handler.ReadJwtToken(token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == JwtRegisteredClaimNames.Sub ||
+                    c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+                }
+
+                return userId;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
+                throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
+        }
+        /* private async Task<int> GetClientIdFromToken()
+         {
+             // Récupérer l'ID de l'utilisateur depuis le token
+             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
+             if (identity == null)
+                 throw new UnauthorizedAccessException("Identité non trouvée");
+
+             var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+             if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                 throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+
+             // Récupérer le client associé à cet utilisateur
+             var client = await _userRepository.GetClientByUserIdAsync(userId);
+             if (client == null)
+                 throw new UnauthorizedAccessException("Client non trouvé pour cet utilisateur");
+
+             return client.Id;
+         }*/
     }
 }

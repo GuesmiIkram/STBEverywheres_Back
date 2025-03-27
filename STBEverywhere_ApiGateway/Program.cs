@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Activer les logs détaillés
+// Activer les logs d?taill?s
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
@@ -23,7 +24,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            NameClaimType = ClaimTypes.NameIdentifier, // Important
+            RoleClaimType = ClaimTypes.Role // Si vous utilisez les rôles
         };
     });
 
@@ -37,7 +40,7 @@ var app = builder.Build();
 app.Use(async (context, next) =>
 {
     var path = context.Request.Path;
-    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/auth/register") || path.StartsWithSegments("/api/compte/GetSoldeByRIB") )
+    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/compte/GetSoldeByRIB"))
     {
         // Ignorer l'authentification pour ces routes
         await next();
