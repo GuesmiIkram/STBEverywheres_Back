@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using STBEverywhere_Back_SharedModels.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace  STBEverywhere_Back_SharedModels
@@ -12,8 +13,8 @@ namespace  STBEverywhere_Back_SharedModels
         [Required]
         public string RIB_Emetteur { get; set; }
 
-        [Required]
-        public string RIB_Recepteur { get; set; }
+        //[Required]
+        //public string RIB_Recepteur { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,3)")]
@@ -34,6 +35,14 @@ namespace  STBEverywhere_Back_SharedModels
 
         // Champ spécifique aux virements de masse
         public string? FichierBeneficaires { get; set; } // Nullable
+
+
+
+        [Required]
+        public int BenefId { get; set; }
+
+        [ForeignKey(nameof(BenefId))]  // Correction ici
+        public Beneficiaire Beneficiaire { get; set; }
 
     }
 

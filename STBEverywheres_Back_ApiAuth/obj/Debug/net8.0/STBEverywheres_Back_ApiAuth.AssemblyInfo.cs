@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEverywheres_Back_ApiAuth")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae9d22159029cc2a81b4a19f0f092f5ec229c47a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+617f5e98273e9f8287aca37a548a0cfa7c807b5a")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEverywheres_Back_ApiAuth")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEverywheres_Back_ApiAuth")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -3,7 +3,9 @@
     public class VirementUnitaireDto
     {
         public string RIB_Emetteur { get; set; }   // RIB du compte émetteur (obligatoire)
-        public string RIB_Recepteur { get; set; }   // RIB du compte récepteur (obligatoire)
+                                                   //public string RIB_Recepteur { get; set; }   // RIB du compte récepteur (obligatoire)
+        public int BenefId { get; set; }
+
         public decimal Montant { get; set; }       // Montant à virer (obligatoire)
         public string Description { get; set; }
 

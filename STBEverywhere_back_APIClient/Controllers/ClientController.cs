@@ -53,6 +53,81 @@ namespace STBEverywhere_back_APIClient.Controllers
             }
         }
 
+
+        [HttpPost("CreateBeneficiaire")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+       public async Task<IActionResult> CreateBeneficiaire(CreateBeneficiaireDto CreateBenefDto)
+{
+    // 1. Extraire le ClientId du token JWT
+    var clientIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    if (string.IsNullOrEmpty(clientIdClaim))
+    {
+        return Unauthorized("ClientId non trouvé dans le token.");
+    }
+
+    if (!int.TryParse(clientIdClaim, out int clientId))
+    {
+        return Unauthorized("ClientId invalide dans le token.");
+    }
+
+    // 2. Valider les données du DTO
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
+
+    // 3. Convertir et valider le type
+    if (!Enum.TryParse(CreateBenefDto.Type, out BeneficiaireType beneficiaireType))
+    {
+        return BadRequest("Type de bénéficiaire invalide. Valeurs acceptées: PersonneMorale, PersonnePhisique");
+    }
+
+    // Validation spécifique au type
+    if (beneficiaireType == BeneficiaireType.PersonnePhisique)
+    {
+        if (string.IsNullOrEmpty(CreateBenefDto.Nom) )
+        {
+            return BadRequest("Le nom est obligatoires pour une personne physique.");
+        }
+        if (string.IsNullOrEmpty(CreateBenefDto.Prenom))
+        {
+                    return BadRequest("Le prénom est obligatoire pour une personne physique.");
+        }
+     }
+    else if (beneficiaireType == BeneficiaireType.PersonneMorale)
+    {
+        if (string.IsNullOrEmpty(CreateBenefDto.RaisonSociale))
+        {
+            return BadRequest("La raison sociale est obligatoire pour une personne morale.");
+        }
+                // Ne pas valider Nom et Prenom pour les personnes morales
+                CreateBenefDto.Nom = "";
+                CreateBenefDto.Prenom = "";
+      }
+
+    // 4. Créer un nouveau bénéficiaire
+    var beneficiaire = new Beneficiaire
+    {
+        Nom = CreateBenefDto.Nom,
+        Prenom = CreateBenefDto.Prenom,
+        RIBCompte = CreateBenefDto.RIBCompte,
+        Telephone = CreateBenefDto.Telephone,
+        Email = CreateBenefDto.Email,
+        RaisonSociale = CreateBenefDto.RaisonSociale,
+        Type = CreateBenefDto.Type, // Stocké comme string
+        ClientId = clientId
+    };
+
+    // 5. Enregistrer dans la base de données
+    _context.Beneficiaires.Add(beneficiaire);
+    await _context.SaveChangesAsync();
+
+    // 6. Retourner réponse 201
+    return CreatedAtAction(nameof(CreateBeneficiaire), new { id = beneficiaire.Id }, beneficiaire);
+}
+
         /* [HttpPost("CreateBeneficiaire")]
          [ProducesResponseType(StatusCodes.Status201Created)]
          [ProducesResponseType(StatusCodes.Status400BadRequest)]

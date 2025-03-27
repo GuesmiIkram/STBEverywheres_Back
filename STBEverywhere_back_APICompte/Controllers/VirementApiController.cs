@@ -103,7 +103,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                 var virement = new Virement
                 {
                     RIB_Emetteur = virementDto.RIB_Emetteur,
-                    RIB_Recepteur = virementDto.RIB_Recepteur,
+                    BenefId= virementDto.BenefId,
                     Montant = virementDto.Montant,
                     DateVirement = DateTime.Now,
                     Statut = "Réussi",
@@ -117,7 +117,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                 await _dbVirement.CreateAsync(virement);
                 await _dbVirement.CommitTransactionAsync();
                 _logger.LogInformation("Virement effectué avec succès. RIB émetteur : {RIB_Emetteur}, RIB récepteur : {RIB_Recepteur}, montant : {Montant}",
-                    virementDto.RIB_Emetteur, virementDto.RIB_Recepteur, virementDto.Montant);
+                    virementDto.RIB_Emetteur, virementDto.BenefId, virementDto.Montant);
 
                 return Ok(new { message = "Virement effectué avec succès." });
             }
