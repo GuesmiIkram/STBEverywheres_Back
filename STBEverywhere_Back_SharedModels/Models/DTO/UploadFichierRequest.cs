@@ -5,6 +5,6 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
     public class UploadFichierRequest
     {
         [Required]
-        public IFormFile Fichier { get; set; }
+        public IFormFile? Fichier { get; set; }
     }
 }

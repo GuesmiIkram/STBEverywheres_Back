@@ -1,4 +1,5 @@
 ﻿using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Models;
 using System.Linq.Expressions;
 
 
@@ -17,5 +18,13 @@ namespace STBEverywhere_back_APICompte.Repository.IRepository
         Task<decimal> GetSoldeByRIBAsync(string rib);
 
         //Task SaveAsync(); 
+
+        public Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes);
+
+
+        Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande);
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut);
+
+
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STBEverywhere_Back_SharedModels.Models;
 using STBEverywhere_Back_SharedModels.Models.enums;
 
@@ -23,7 +26,11 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<FeuilleChequier> FeuillesChequiers { get; set; }
         public DbSet<EmailLog> EmailLogs { get; set; }
         public DbSet<Beneficiaire> Beneficiaires { get; set; }
+        public DbSet<FraisCompte> FraisComptes { get; set; }
+        public DbSet<PeriodeDecouvert> PeriodeDecouverts { get; set; }
+        public DbSet<DemandeModificationDecouvert> DemandeModificationDecouverts { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -63,11 +70,11 @@ namespace STBEverywhere_Back_SharedModels.Data
                     .WithOne()
                     .HasForeignKey<Agent>(a => a.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
-            
 
-            entity.HasData(
-                    new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3 }
-                );
+
+                entity.HasData(
+                        new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3 }
+                    );
             });
 
             // Configuration de l'entité Client
@@ -179,6 +186,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Solde = 1000.50m,
                         DateCreation = new DateTime(2024, 5, 1),
                         Statut = "Actif",
+                        IBAN = "TN2110500678923537952",
                         ClientId = 1
                     },
                     new Compte
@@ -189,6 +197,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Solde = 5000.00m,
                         DateCreation = new DateTime(2025, 1, 1),
                         Statut = "Actif",
+                        IBAN = "TN1210500110223463745",
                         ClientId = 2
                     }
                 );
@@ -298,6 +307,20 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.HasKey(v => v.Id);
                 entity.HasIndex(v => new { v.RIB_Emetteur, v.DateVirement }).IsUnique();
             });
+
+
+            // le convertisseur de la liste des idvirement de l'entité FraisCompte
+
+
+            modelBuilder.Entity<FraisCompte>()
+        .Property(e => e.IdsVirementsStr)
+        .HasDefaultValue(""); // Valeur par défaut vide
+
+
+
+
         }
+
+       
     }
 }

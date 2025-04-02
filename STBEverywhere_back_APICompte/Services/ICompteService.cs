@@ -1,4 +1,5 @@
 ﻿using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Models;
 using System.Linq.Expressions;
 
 namespace STBEverywhere_back_APICompte.Services
@@ -11,9 +12,14 @@ namespace STBEverywhere_back_APICompte.Services
         Task<Compte> UpdateAsync(Compte entity);
         Task<Compte> CreateAsync(Compte entity);
         Task SaveAsync();
+        string GenerateIBANFromRIB(string rib);
+
         string GenerateUniqueRIB();
         Task<decimal> GetSoldeByRIBAsync(string rib);
-
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByClientIdAsync(int clientId);
+        Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande);
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut);
+        Task<Compte> GetByRIBAsync(string rib);
 
     }
 }
