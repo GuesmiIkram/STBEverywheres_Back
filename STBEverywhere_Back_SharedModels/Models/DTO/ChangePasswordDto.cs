@@ -1,9 +1,20 @@
-﻿namespace STBEverywhere_Back_SharedModels.Models.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace STBEverywhere_Back_SharedModels.Models.DTO
 {
     public class ChangePasswordDto
     {
-        public string CurrentPassword { get; set; } // Ancien mot de passe
-        public string NewPassword { get; set; } // Nouveau mot de passe
-        public string ConfirmNewPassword { get; set; } // Confirmation du nouveau mot de passe
+        [Required]
+        public string CurrentPassword { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [Compare("NewPassword", ErrorMessage = "Les mots de passe ne correspondent pas.")]
+        public string ConfirmNewPassword { get; set; }
+        [Required]
+        public string OTPCode { get; set; }
     }
 }

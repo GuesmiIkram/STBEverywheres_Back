@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 return Task.CompletedTask;
             }
         };
-    }); 
+    });
 builder.Services.AddHttpContextAccessor();
 
 // Configuration CORS
@@ -183,4 +183,4 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.Run();
+app.Run(); 

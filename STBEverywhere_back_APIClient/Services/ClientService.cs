@@ -6,6 +6,8 @@ using System.Net.Http;
 using STBEverywhere_ApiAuth.Repositories;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using STBEverywhere_Back_SharedModels.Data;
 
 namespace STBEverywhere_back_APIClient.Services
 {
@@ -15,17 +17,19 @@ namespace STBEverywhere_back_APIClient.Services
         private readonly IUserRepository _userRepository;
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationDbContext _context;
 
         public ClientService(
             IUserRepository userRepository,
             IClientRepository clientRepository,
             HttpClient httpClient,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
         {
             _clientRepository = clientRepository;
             _httpClient = httpClient;
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
 
@@ -34,26 +38,31 @@ namespace STBEverywhere_back_APIClient.Services
         {
             return await _clientRepository.GetClientByIdAsync(clientId);
         }
-
         public async Task<bool> UpdateClientInfoAsync(int clientId, Client updatedClient)
         {
+            // 1. Récupérer le client existant
             var existingClient = await _clientRepository.GetClientByIdAsync(clientId);
             if (existingClient == null)
                 return false;
 
-
-
+            // 2. Mapper uniquement les champs autorisés à modifier
             existingClient.Telephone = updatedClient.Telephone;
             existingClient.Email = updatedClient.Email;
             existingClient.Adresse = updatedClient.Adresse;
             existingClient.Civilite = updatedClient.Civilite;
             existingClient.EtatCivil = updatedClient.EtatCivil;
             existingClient.Residence = updatedClient.Residence;
+            existingClient.SituationProfessionnelle = updatedClient.SituationProfessionnelle;
+            existingClient.NiveauEducation = updatedClient.NiveauEducation;
+            existingClient.NombreEnfants = updatedClient.NombreEnfants;
+            existingClient.RevenuMensuel = updatedClient.RevenuMensuel;
 
 
+            // 3. Appliquer les modifications
             await _clientRepository.UpdateClientAsync(existingClient);
             return true;
         }
+
 
         public async Task<string> RegisterAsync(RegisterDto registerDto)
         {
@@ -101,7 +110,31 @@ namespace STBEverywhere_back_APIClient.Services
             var comptes = await response.Content.ReadFromJsonAsync<List<Compte>>();
             return comptes?.FirstOrDefault();
         }
+        public async Task<bool> UploadProfileImageAsync(int clientId, string fileName)
+        {
+            var client = await _context.Clients.FindAsync(clientId);
+            if (client == null)
+            {
+                return false;
+            }
 
+            client.PhotoClient = fileName;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RemoveProfileImageAsync(int clientId)
+        {
+            var client = await _context.Clients.FindAsync(clientId);
+            if (client == null || string.IsNullOrEmpty(client.PhotoClient))
+            {
+                return false;
+            }
+
+            client.PhotoClient = null;
+            await _context.SaveChangesAsync();
+            return true;
+        }
 
 
     }

@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -35,17 +36,29 @@ builder.Services.AddAuthorization();
 // Ajouter les services YARP
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+// Configuration Kestrel pour les requêtes volumineuses
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.MaxRequestBodySize = 5242880; // 5MB
+});
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 5242880; // 5MB
+    options.MultipartBoundaryLengthLimit = int.MaxValue;
+    options.MemoryBufferThreshold = int.MaxValue;
+});
 
 var app = builder.Build();
 app.Use(async (context, next) =>
 {
     var path = context.Request.Path;
-    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/compte/GetSoldeByRIB"))
+    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/client/upload-documents") || path.StartsWithSegments("/api/compte/GetSoldeByRIB"))
     {
         // Ignorer l'authentification pour ces routes
         await next();
         return;
     }
+  
 
     var endpoint = context.GetEndpoint();
     if (endpoint?.Metadata.GetMetadata<AuthorizeAttribute>() != null)
@@ -60,7 +73,8 @@ app.Use(async (context, next) =>
 
     await next();
 });
-
+app.UseStaticFiles();
+app.UseRouting();
 // Utiliser l'authentification et l'autorisation
 app.UseAuthentication();
 app.UseAuthorization();

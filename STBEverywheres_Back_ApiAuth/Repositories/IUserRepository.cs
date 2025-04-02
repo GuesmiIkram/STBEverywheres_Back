@@ -12,6 +12,8 @@ namespace STBEverywhere_ApiAuth.Repositories
         Task<User> GetByEmailAsync(string email, bool includeClient = false);
         Task<User> GetUserWithClientByEmailAsync(string email);
         Task AddAsync(User user);
+        bool VerifyPassword(User user, string password);
+        void UpdatePassword(User user, string newPassword);
         Task UpdateAsync(User user);
         Task DeleteAsync(int userId);
         Task<bool> EmailExistsAsync(string email);

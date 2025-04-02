@@ -13,13 +13,14 @@
         "DebugTarget": "http"
       },
       {
-        "Path": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+        "Path": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
         "Action": "Start",
         "DebugTarget": "http"
       },
       {
-        "Path": "STBEverywhere_back_APICompte\\STBEverywhere_back_APICompte.csproj",
-        "Action": "Start"
+        "Path": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
       }
     ]
   }

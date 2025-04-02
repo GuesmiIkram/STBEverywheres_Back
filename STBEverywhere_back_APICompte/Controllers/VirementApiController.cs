@@ -45,7 +45,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             // _virementService = virementService;
 
         }
-
+/*
         [HttpPost("Virement")]
   
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -66,7 +66,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             _logger.LogInformation("Début du traitement du virement.");
 
             if (virementDto == null || string.IsNullOrEmpty(virementDto.RIB_Emetteur) ||
-                string.IsNullOrEmpty(virementDto.RIB_Recepteur) || virementDto.Montant <= 0)
+               // string.IsNullOrEmpty(virementDto.RIB_Recepteur) || virementDto.Montant <= 0)
             {
                 _logger.LogWarning("Paramètres invalides : RIB émetteur, RIB récepteur ou montant manquants ou incorrects.");
                 return BadRequest(new { message = "RIB émetteur, RIB récepteur et montant sont obligatoires et le montant doit être positif." });
@@ -128,7 +128,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return StatusCode(500, new { message = "Une erreur est survenue lors du virement." });
             }
         }
-
+*/
 
 
 
@@ -343,7 +343,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                     var virement = new Virement
                     {
                         RIB_Emetteur = ribEmetteur,
-                        RIB_Recepteur = ribBeneficiaire,
+                        //RIB_Recepteur = ribBeneficiaire,
                         Montant = montant,
                         DateVirement = DateTime.Now,
                         Statut = "Réussi",
@@ -500,7 +500,7 @@ namespace STBEverywhere_back_APICompte.Controllers
              }
              return null;
          }*/
-
+        /*
 
 
         [HttpGet("historiqueVirements/{rib}")]
@@ -554,7 +554,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Une erreur est survenue lors de la récupération de l'historique des virements." });
             }
         }
-
+        */
 
         /* [HttpGet("HistoriqueVirementsEnvoyes/{RIB_Emetteur}")]
              [Authorize]
