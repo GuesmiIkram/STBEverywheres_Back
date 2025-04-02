@@ -221,6 +221,20 @@ namespace STBEverywhere_ApiAuth.Repositories
             return await _context.Clients
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+        public bool VerifyPassword(User user, string password)
+        {
+            // Implémentez la vérification du mot de passe (compare le hash)
+            // Par exemple, si vous utilisez BCrypt:
+            return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+        }
+
+        public void UpdatePassword(User user, string newPassword)
+        {
+            // Hash le nouveau mot de passe avant de le stocker
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            user.ResetPasswordToken = null;
+            user.ResetPasswordTokenExpiry = null;
+        }
 
     }
 }

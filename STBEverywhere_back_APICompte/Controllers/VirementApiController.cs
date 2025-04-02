@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using STBEverywhere_Back_SharedModels.Models;
 using STBEverywhere_Back_SharedModels.Models.DTO;

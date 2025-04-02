@@ -26,11 +26,15 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<FeuilleChequier> FeuillesChequiers { get; set; }
         public DbSet<EmailLog> EmailLogs { get; set; }
         public DbSet<Beneficiaire> Beneficiaires { get; set; }
+
+        public DbSet<PackStudent> PackStudents { get; set; }
+        public DbSet<PackElyssa> PackElyssa { get; set; }
+
         public DbSet<FraisCompte> FraisComptes { get; set; }
         public DbSet<PeriodeDecouvert> PeriodeDecouverts { get; set; }
         public DbSet<DemandeModificationDecouvert> DemandeModificationDecouverts { get; set; }
 
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
