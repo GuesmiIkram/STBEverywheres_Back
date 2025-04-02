@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using STBEverywhere_Back_SharedModels;
+using STBEverywhere_Back_SharedModels.Models;
 
 namespace STBEverywhere_back_APICompte.Repository
 {
@@ -17,6 +18,32 @@ namespace STBEverywhere_back_APICompte.Repository
         {
             _db = db;
         }
+
+        public async Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande)
+        {
+            await _db.DemandeModificationDecouverts.AddAsync(demande);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
+        {
+            return await _db.DemandeModificationDecouverts
+                .Where(d => d.RIBCompte == ribCompte && d.StatutDemande == statut)
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes)
+        {
+            return await _db.DemandeModificationDecouverts
+                                 .Where(d => ribComptes.Contains(d.RIBCompte))
+                                 .ToListAsync();
+        }
+
+
+
+
+
         public async Task<decimal> GetSoldeByRIBAsync(string rib)
         {
             // Récupérer le compte par son RIB

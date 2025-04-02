@@ -12,6 +12,10 @@ using STBEverywhere_back_APICompte.Services;
 using STBEverywhere_back_APICompte.Filters;
 using STBEverywhere_ApiAuth.Repositories;
 using Newtonsoft.Json;
+using STBEverywhere_back_APIClient.Repositories;
+using STBEverywhere_back_APICompte.Jobs;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,11 +32,20 @@ builder.Services.AddScoped<IVirementRepository, VirementRepository>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICompteService, CompteService>();
+builder.Services.AddScoped<IBeneficiaireRepository, BeneficiaireRepository>();
+builder.Services.AddScoped<IFraisCompteRepository, FraisCompteRepository>();
 //builder.Services.AddScoped<IVirementService, VirementService>();
+builder.Services.AddHostedService<DemandeModificationDecouvertJob>();
+builder.Services.AddScoped<IEmailLogRepository, EmailLogRepository>();
+builder.Services.AddScoped<EmailService>();
 
-
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 builder.Services.AddControllers().AddNewtonsoftJson();
+
+builder.Services.AddScoped<DecouvertTrackerService>();
+builder.Services.AddScoped<AgiosService>();
+builder.Services.AddHostedService<AgiosBackgroundService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -103,6 +116,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+
+
+
+
+
+
 //ignorer le json relation circulaire 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
@@ -125,6 +144,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var agiosService = scope.ServiceProvider.GetRequiredService<AgiosService>();
+    await agiosService.CalculerEtAppliquerAgiosMensuels();
+}
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

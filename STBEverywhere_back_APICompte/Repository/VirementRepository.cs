@@ -68,8 +68,14 @@ namespace STBEverywhere_back_APICompte.Repository
             await _db.Virements.AddAsync(entity);
             await _db.SaveChangesAsync();
         }
+        public async Task UpdateAsync(Virement entity)
+        {
 
-        
+            _db.Virements.Update(entity);
+            await
+                 _db.SaveChangesAsync();
+        }
+
 
         public async Task RollbackTransactionAsync()
         {
