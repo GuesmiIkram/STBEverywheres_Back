@@ -9,18 +9,26 @@ namespace STBEverywhere_Back_SharedModels
 {
     public class Compte
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string RIB { get; set; } // Clé primaire
 
+        [Required]
+        public string RIB { get; set; }
+
+        [Required]
+        public string IBAN { get; set; }
         [Required]
         public string Type { get; set; }
 
         [Column(TypeName = "decimal(18,3)")]
         public decimal Solde { get; set; }
+        [NotMapped]
+        public decimal SoldeDisponible => Solde + DecouvertAutorise; // Solde total disponible
 
         public DateTime DateCreation { get; set; }
         public string Statut { get; set; }
         public string NumCin { get; set; }
+
+        public decimal DecouvertAutorise { get; set; }
+
 
         public string? NbrOperationsAutoriseesParJour { get; set; }
 
@@ -37,5 +45,8 @@ namespace STBEverywhere_Back_SharedModels
 
         // Relation One-to-Many avec Carte
         public ICollection<Carte> Cartes { get; set; } = new List<Carte>(); // Collection de cartes
+        public ICollection<PeriodeDecouvert> PeriodesDecouvert { get; set; }
+        public ICollection<FraisCompte> FraisComptes { get; set; } = new List<FraisCompte>();
+
     }
 }

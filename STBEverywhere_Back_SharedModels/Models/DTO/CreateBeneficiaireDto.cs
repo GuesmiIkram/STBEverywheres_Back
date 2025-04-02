@@ -16,9 +16,7 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
 
         public string Prenom { get; set; }
 
-        public string RaisonSociale { get; set; }
 
-        // Required for all beneficiary types
         [Required(ErrorMessage = "Le RIB du compte est obligatoire.")]
         public string RIBCompte { get; set; }
 
@@ -27,8 +25,7 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
         [EmailAddress(ErrorMessage = "L'email doit être une adresse email valide.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Le type de bénéficiaire est obligatoire.")]
-        public string Type { get; set; }
+       
     }
 }
 
