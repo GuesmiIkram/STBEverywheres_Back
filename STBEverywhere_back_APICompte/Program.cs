@@ -16,6 +16,8 @@ using STBEverywhere_back_APIClient.Repositories;
 using STBEverywhere_back_APICompte.Jobs;
 using DinkToPdf.Contracts;
 using DinkToPdf;
+using System.Runtime.InteropServices;
+using System.Net.Http.Headers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +48,30 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddScoped<DecouvertTrackerService>();
 builder.Services.AddScoped<AgiosService>();
 builder.Services.AddHostedService<AgiosBackgroundService>();
+string agenceServiceUrl = "http://localhost:5036"; // URL définie en dur
+
+builder.Services.AddHttpClient("AgenceService", client =>
+{
+    client.BaseAddress = new Uri(agenceServiceUrl);
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+
+// pour generer le pdf 
+
+
+// Ajoutez ceci avant builder.Build()
+/*var c = new CustomAssemblyLoadContext();
+var dllPath = Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll");
+c.LoadUnmanagedLibrary(dllPath);
+
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));*/
+
+
+// Dans Program.cs
+/*Console.WriteLine($"OS Architecture: {RuntimeInformation.OSArchitecture}");
+Console.WriteLine($"Process Architecture: {RuntimeInformation.ProcessArchitecture}");*/
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

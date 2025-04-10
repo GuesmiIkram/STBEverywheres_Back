@@ -20,5 +20,11 @@ namespace STBEverywhere_Back_SharedModels.Models
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+
+
+
+        [Required]
+        [StringLength(24)] // Longueur fixe pour ObjectId MongoDB
+        public string AgenceId { get; set; }
     }
 }

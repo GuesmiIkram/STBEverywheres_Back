@@ -1,4 +1,6 @@
-﻿using STBEverywhere_Back_SharedModels.Models;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using STBEverywhere_Back_SharedModels.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -51,6 +53,15 @@ namespace STBEverywhere_Back_SharedModels
         public string? PaysNaissance { get; set; }
         public string? NomMere { get; set; }
         public string?NomPere { get; set; }
+
+
+        [Required]
+        [StringLength(24)] // Longueur fixe pour ObjectId MongoDB
+        public string AgenceId { get; set; }
+
+        
+
+
         public int? UserId { get; set; }
 
         [ForeignKey("UserId")]

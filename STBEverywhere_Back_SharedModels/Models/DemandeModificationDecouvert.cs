@@ -5,32 +5,41 @@ namespace STBEverywhere_Back_SharedModels.Models
 {
     public class DemandeModificationDecouvert
     {
-
-
         [Key]
-        public int Id { get; set; } // Clé primaire auto-incrémentée
+        public int Id { get; set; }
 
         [Required]
-        public string RIBCompte { get; set; } // RIB du compte concerné
+        public string RIBCompte { get; set; }
 
         [Required]
-        public decimal DecouvertDemande { get; set; } // Montant du découvert demandé
+        public decimal DecouvertDemande { get; set; }
 
         [Required]
-        public string StatutDemande { get; set; } = "En attente"; // Statut initial
+        public StatutDemandeEnum StatutDemande { get; set; } = StatutDemandeEnum.EnAttente;
 
         [Required]
-        public DateTime DateDemande { get; set; } = DateTime.Now; // Date de la demande
+        public DateTime DateDemande { get; set; } = DateTime.Now;
 
-        public bool NotificationEnvoyee { get; set; } = false; // Pour éviter les doublons de notifications en temps réel
-        public bool MailEnvoyee { get; set; } = false; // Pour éviter les doublons d'emails
+        public string? MotifRefus { get; set; }
 
+        public int? IdAgentRepondant { get; set; }
 
-        // Relation avec la table Compte (clé étrangère)
+        public bool NotificationEnvoyee { get; set; } = false;
+
+        public bool MailEnvoyee { get; set; } = false;
+
         [ForeignKey("RIBCompte")]
         public Compte Compte { get; set; }
     }
 
 
+    public enum StatutDemandeEnum
+    {
+        EnAttente = 0,
+        Accepte = 1,
+        Refuse = 2
+    }
 }
+
+
 

@@ -7,6 +7,7 @@ using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_Back_SharedModels.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using STBEverywhere_ApiAuth.Repositories;
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
@@ -17,15 +18,44 @@ namespace STBEverywhere_back_APICompte.Controllers
     {
 
         private readonly ICompteService _compteService;
-      
+        private readonly IUserRepository _userRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<DecouvertApiController> _logger;
   
-        public DecouvertApiController(ICompteService compteService, IHttpContextAccessor httpContextAccessor, ILogger<DecouvertApiController> logger)
+        public DecouvertApiController(IUserRepository userRepository,ICompteService compteService, IHttpContextAccessor httpContextAccessor, ILogger<DecouvertApiController> logger)
         {
             _compteService = compteService;
-           
+            _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
+        }
+
+
+
+
+        [HttpGet("getDemandesByAgence/{agenceId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDemandesByAgence(string agenceId)
+
+        {
+           
+            try
+            {
+                var demandes = await _compteService.GetDemandesByAgenceIdAsync(agenceId);
+
+                if (!demandes.Any())
+                {
+                    return NotFound(new { message = "Aucune demande trouvée pour cette agence." });
+                }
+
+                return Ok(demandes);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des demandes par agence");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur" });
+            }
         }
 
 
@@ -63,6 +93,10 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
         }
 
+
+
+        
+
         [HttpPost("demandeModificationDecouvert")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,7 +115,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
 
             // Vérifier si une demande pour ce compte est déjà en attente
-            var existingDemandes = await _compteService.GetDemandesModificationAsync(demandeDto.RIBCompte, "En attente");
+            var existingDemandes = await _compteService.GetDemandesModificationAsync(demandeDto.RIBCompte,StatutDemandeEnum.EnAttente);
             if (existingDemandes.Any())
             {
                 return BadRequest(new { message = "Une demande de modification de découvert est déjà en attente pour ce compte." });
@@ -92,8 +126,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             {
                 RIBCompte = demandeDto.RIBCompte,
                 DecouvertDemande = demandeDto.DecouvertDemande,
-                StatutDemande = "En attente",
+                StatutDemande = StatutDemandeEnum.EnAttente,
                 DateDemande = DateTime.Now
+
             };
 
             await _compteService.CreateDemandeModificationAsync(demande);

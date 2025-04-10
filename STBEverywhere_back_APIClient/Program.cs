@@ -11,6 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using STBEverywhere_ApiAuth.Repositories;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -32,6 +33,17 @@ builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
 builder.Services.AddScoped<EmailService>();
+
+
+
+// Configuration directe du client HTTP
+string agenceServiceUrl = "http://localhost:5036"; // URL définie en dur
+
+builder.Services.AddHttpClient("AgenceService", client =>
+{
+    client.BaseAddress = new Uri(agenceServiceUrl);
+    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+});
 
 // Configuration de l'authentification JWT
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);

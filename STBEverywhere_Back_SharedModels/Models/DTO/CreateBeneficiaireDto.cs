@@ -20,10 +20,10 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
         [Required(ErrorMessage = "Le RIB du compte est obligatoire.")]
         public string RIBCompte { get; set; }
 
-        public string Telephone { get; set; }
+        public string? Telephone { get; set; }
 
         [EmailAddress(ErrorMessage = "L'email doit être une adresse email valide.")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
        
     }

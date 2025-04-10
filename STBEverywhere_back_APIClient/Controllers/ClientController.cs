@@ -16,7 +16,6 @@ using STBEverywhere_Back_SharedModels.Models;
 using STBEverywhere_ApiAuth.Repositories;
 using MailKit.Security;
 using MimeKit;
-using STBEverywhere_Back_SharedModels.Migrations;
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -50,6 +49,66 @@ namespace STBEverywhere_back_APIClient.Controllers
             _emailService = emailService;
             _environment = environment;
         }
+
+
+
+
+
+
+
+
+        [HttpGet("my-agency")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetClientAgency(
+    [FromServices] IHttpClientFactory httpClientFactory)
+        {
+            try
+            {
+                // 1. Authentification
+                var userId = GetUserIdFromToken();
+
+                
+
+                // 2. Récupération du client
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+                if (client == null || string.IsNullOrEmpty(client.AgenceId))
+                {
+                    return NotFound(new { Message = "Client ou agence non trouvée" });
+                }
+
+                // 3. Appel HTTP au service Agence
+                var httpClient = httpClientFactory.CreateClient("AgenceService");
+                var response = await httpClient.GetAsync($"/api/AgenceApi/byId/{client.AgenceId}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogWarning("Échec de la récupération de l'agence. Status: {StatusCode}", response.StatusCode);
+                    return StatusCode((int)response.StatusCode, new { Message = "Erreur lors de la récupération de l'agence" });
+                }
+
+                // 4. Traitement de la réponse
+                var agence = await response.Content.ReadFromJsonAsync<AgenceDto>();
+                return Ok(agence);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération de l'agence du client");
+                return StatusCode(500, new { Message = "Erreur interne du serveur" });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {

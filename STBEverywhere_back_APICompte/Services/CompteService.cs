@@ -1,44 +1,53 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using STBEverywhere_ApiAuth.Repositories;
 using STBEverywhere_back_APICompte.Repository;
 using STBEverywhere_back_APICompte.Repository.IRepository;
 using STBEverywhere_Back_SharedModels;
 using STBEverywhere_Back_SharedModels.Models;
+using STBEverywhere_Back_SharedModels.Models.DTO;
 using System.Linq.Expressions;
+using System.Net.Http;
+using System.Text;
 namespace STBEverywhere_back_APICompte.Services
 {
     public class CompteService : ICompteService
     {
 
         private readonly ICompteRepository _compteRepository;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILogger<CompteService> _logger;
+        private readonly IUserRepository _userRepository;
 
-        public CompteService(ICompteRepository compteRepository)
+
+        
+        public CompteService(ICompteRepository compteRepository,IUserRepository userRepository,IHttpClientFactory httpClientFactory, ILogger<CompteService> logger)
         {
             _compteRepository = compteRepository;
+            _userRepository = userRepository;
+            _httpClientFactory = httpClientFactory; 
+            _logger = logger;
         }
 
-
-
-        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByClientIdAsync(int clientId)
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, StatutDemandeEnum statut)
         {
-            // Récupérer tous les comptes associés au client
-            var comptes = await _compteRepository.GetAllAsync(c => c.ClientId == clientId);
-
-            // Extraire tous les RIB des comptes
-            var ribComptes = comptes.Select(c => c.RIB).ToList();
-
-            // Récupérer toutes les demandes associées aux RIB des comptes du client
-            return await _compteRepository.GetDemandesModificationAsync(ribComptes);
+            return await _compteRepository.GetDemandesModificationAsync(ribCompte, statut.ToString());
         }
+       
 
         public async Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande)
         {
             await _compteRepository.CreateDemandeModificationAsync(demande);
         }
 
-        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
+        /*public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
         {
             return await _compteRepository.GetDemandesModificationAsync(ribCompte, statut);
-        }
+        }*/
+
+
+
+
+
 
         public async Task<Compte> GetByRIBAsync(string rib)
         {
@@ -46,6 +55,31 @@ namespace STBEverywhere_back_APICompte.Services
         }
 
 
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByAgenceIdAsync(string agenceId)
+        {
+            var allComptes = await _compteRepository.GetAllAsync();
+
+            var comptesAvecAgence = new List<Compte>();
+
+            foreach (var compte in allComptes)
+            {
+                var client = await _userRepository.GetClientByUserIdAsync(compte.ClientId);
+                if (client != null && client.AgenceId == agenceId)
+                {
+                    comptesAvecAgence.Add(compte);
+                }
+            }
+
+            var demandes = new List<DemandeModificationDecouvert>();
+
+            foreach (var compte in comptesAvecAgence)
+            {
+                var demandesPourCompte = await _compteRepository.GetDemandesModificationByCompteRibAsync(compte.RIB);
+                demandes.AddRange(demandesPourCompte);
+            }
+
+            return demandes;
+        }
 
 
 
@@ -108,26 +142,92 @@ namespace STBEverywhere_back_APICompte.Services
 
             return iban;
         }
-        
 
-
-
-        string ICompteService.GenerateUniqueRIB()
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByClientIdAsync(int clientId)
         {
-            string guidString = Guid.NewGuid().ToString("N");
+            // 1. Récupérer tous les comptes du client
+            var comptes = await _compteRepository.GetAllAsync(c => c.ClientId == clientId);
 
-            // Extrait uniquement les chiffres
-            string ribDigits = string.Concat(guidString.Where(c => char.IsDigit(c)));
+            // 2. Extraire les RIBs de ces comptes
+            var ribComptes = comptes.Select(c => c.RIB).ToList();
 
-            // Vérifie que la chaîne a bien au moins 20 chiffres
-            if (ribDigits.Length < 20)
+            // 3. Récupérer toutes les demandes pour ces RIBs
+            return await _compteRepository.GetDemandesModificationAsync(ribComptes);
+        }
+
+
+
+      
+
+
+
+
+        public async Task<string> GenerateUniqueRIB(string agenceid)
+        {
+            var agenceCode = await GetAgenceCodeAsync(agenceid);
+
+            if (string.IsNullOrEmpty(agenceCode) || agenceCode.Length != 3 || !agenceCode.All(char.IsDigit))
             {
-                ribDigits = ribDigits.PadRight(20, '0'); // Complète avec des zéros si nécessaire
+                throw new InvalidOperationException("Code agence invalide.");
             }
 
-            // Retourne les 20 premiers chiffres
-            return ribDigits.Substring(0, 20);
+            string rib;
+            var random = new Random();
+
+            do
+            {
+                var ribBuilder = new StringBuilder("10"); // les deux premiers chiffres
+
+                ribBuilder.Append(agenceCode); // les 3 suivants = code agence
+
+                // Le reste du rib est géneré aleatoirement
+                for (int i = 0; i < 15; i++)
+                {
+                    ribBuilder.Append(random.Next(0, 10)); // chiffre entre 0 et 9
+                }
+
+                rib = ribBuilder.ToString();
+            }
+            while (await _compteRepository.ExistsByRibAsync(rib));
+
+            return rib;
+        }
+
+        private async Task<string> GetAgenceCodeAsync(string agenceid)
+        {
+            try
+            {
+
+
+
+
+                var httpClient = _httpClientFactory.CreateClient("AgenceService");
+                var response = await httpClient.GetAsync($"/api/AgenceApi/byId/{agenceid}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogWarning("Erreur récupération agence: {Code}", response.StatusCode);
+                    throw new InvalidOperationException("Échec de la récupération de l'agence.");
+                }
+
+                var agence = await response.Content.ReadFromJsonAsync<AgenceDto>();
+                return agence?.CodeAgence; 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération du code agence.");
+                throw;
+            }
         }
     }
+
+
+
+
+
+
+
+
 }
+
 
