@@ -15,6 +15,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Security.Claims;
 using STBEverywhere_Back_SharedModels.Models.enums;
+using STBEverywhere_back_APICompte.Services;
 
 namespace STBEverywhere_back_APICarte.Services
 {
@@ -25,14 +26,22 @@ namespace STBEverywhere_back_APICarte.Services
         private readonly EmailService _emailService;
         private readonly ApplicationDbContext _dbContext;
         private readonly HttpClient _httpClient;
+        private readonly ICompteService _compteService; // Ajout du service Compte
 
-        public CarteService(ICarteRepository carteRepository, HttpClient httpClient, ILogger<CarteService> logger, EmailService emailService, ApplicationDbContext dbContext)
+        public CarteService(
+            ICarteRepository carteRepository,
+            HttpClient httpClient,
+            ILogger<CarteService> logger,
+            EmailService emailService,
+            ApplicationDbContext dbContext,
+            ICompteService compteService) // Injection du service
         {
             _carteRepository = carteRepository;
             _logger = logger;
             _emailService = emailService;
             _dbContext = dbContext;
             _httpClient = httpClient;
+            _compteService = compteService; // Initialisation
         }
 
         public async Task<IEnumerable<CarteDTO>> GetCartesByRIBAsync(string rib)
@@ -53,8 +62,8 @@ namespace STBEverywhere_back_APICarte.Services
         public async Task<IEnumerable<CarteDTO>> GetCartesByClientIdAsync(int clientId)
         {
             var cartes = await _dbContext.Cartes
-                .Include(c => c.DemandeCarte) // Inclure la demande de carte
-                .Where(c => c.DemandeCarte.ClientId == clientId) // Filtrer par ClientId
+                .Include(c => c.Compte) // Inclure le compte associé
+                .Where(c => c.Compte.ClientId == clientId) // Filtrer par ClientId
                 .Select(c => new CarteDTO
                 {
                     NumCarte = c.NumCarte,
@@ -62,7 +71,8 @@ namespace STBEverywhere_back_APICarte.Services
                     NomCarte = c.NomCarte,
                     DateExpiration = c.DateExpiration,
                     Statut = c.Statut,
-                    RIB = c.RIB
+                    RIB = c.RIB,
+                    Solde = c.Solde // Ajout du solde si nécessaire
                 })
                 .ToListAsync();
 
@@ -70,45 +80,40 @@ namespace STBEverywhere_back_APICarte.Services
         }
 
 
-        public async Task<bool> CreateCarteIfDemandeRecupereeAsync(int demandeId)
+        // Dans CarteService.cs - modifiez la méthode CreateCarteIfDemandeRecupereeAsync
+        public async Task<Carte> CreateCarteIfDemandeRecupereeAsync(int demandeId)
         {
             _logger.LogInformation("Tentative de création de carte pour la demande : {DemandeId}", demandeId);
 
-            // Récupérer la demande de carte
             var demande = await _carteRepository.GetDemandeCarteByIdAsync(demandeId);
-
             if (demande == null)
             {
                 _logger.LogWarning("Demande de carte introuvable : {DemandeId}", demandeId);
                 throw new InvalidOperationException("Demande de carte introuvable.");
             }
 
-            // Vérifier si le statut de la demande est "Récupérée"
-            if (demande.Statut != STBEverywhere_Back_SharedModels.Models.enums.StatutDemande.Recuperee)
+            if (demande.Statut != StatutDemande.Recuperee)
             {
                 _logger.LogWarning("La carte n'est pas encore récupérée : {DemandeId}", demandeId);
                 throw new InvalidOperationException("La carte ne peut être créée que si la demande est récupérée.");
             }
 
-            _logger.LogInformation("Création de la carte pour la demande : {DemandeId}", demandeId);
             var codePIN = await GenerateUniquePinAsync();
             var codeCVV = await GenerateUniqueCvvAsync();
             var encryptedPIN = EncryptCode(int.Parse(codePIN));
             var encryptedCVV = EncryptCode(int.Parse(codeCVV));
-
-            // Générer un numéro de carte unique en fonction du type de carte
             var numCarte = await GenerateUniqueCardNumberAsync(demande.NomCarte.ToString());
-
-            // Créer la carte
+            var compte = await _compteService.GetByRibAsync(demande.NumCompte);
             var carte = new Carte
             {
-                NumCarte = numCarte, // Utiliser le numéro de carte généré
+                NumCarte = numCarte,
                 NomCarte = demande.NomCarte,
                 TypeCarte = demande.TypeCarte,
                 DateCreation = demande.DateCreation,
                 DateExpiration = demande.DateCreation.AddYears(3),
-                Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Active,
+                Statut = StatutCarte.Active,
                 RIB = demande.NumCompte,
+                Solde=compte.Solde,
                 PlafondTPE = 4000,
                 PlafondDAP = 2000,
                 Iddemande = demande.Iddemande,
@@ -117,19 +122,21 @@ namespace STBEverywhere_back_APICarte.Services
                 CodeCVV = encryptedCVV
             };
 
-            // Enregistrer la carte dans la base de données
             var result = await _carteRepository.CreateCarteAsync(carte);
 
-            if (result)
-            {
-                _logger.LogInformation("Carte créée avec succès pour la demande : {DemandeId}", demandeId);
-            }
-            else
+            if (!result)
             {
                 _logger.LogError("Échec de la création de la carte pour la demande : {DemandeId}", demandeId);
+                return null;
             }
 
-            return result;
+            return carte;
+        }
+
+        // Ajoutez cette nouvelle méthode
+        public async Task AddFraisToCarte(string numCarte, FraisCarte frais)
+        {
+            await _carteRepository.AddFraisToCarteAsync(numCarte, frais);
         }
 
         private string EncryptCode(int code)
@@ -188,6 +195,17 @@ namespace STBEverywhere_back_APICarte.Services
                 prefix = "431405";
                 length = 16; // Longueur totale de la carte Visa
             }
+            else if (nomCarte.Contains("CIB"))
+            {
+                prefix = "539997";
+                length = 16; // Longueur totale de la carte Visa
+            }
+            else if (nomCarte.Contains("C_"))
+            {
+                prefix = "4906012";
+                length = 16; // Longueur totale de la carte Visa
+            }
+           
             else if (nomCarte.Contains("Mastercard"))
             {
                 prefix = "539997";

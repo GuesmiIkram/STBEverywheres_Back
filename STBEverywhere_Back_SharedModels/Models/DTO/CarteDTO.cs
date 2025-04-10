@@ -14,7 +14,8 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
         public DateTime? DateRecuperation { get; set; } // Date de récupération de la carte (nullable)
         public int CodePIN { get; set; } // Code PIN à 4 chiffres
         public int CodeCVV { get; set; } // Code CVV à 3 chiffres
-        public int Iddemande { get; set; } // Référence à la demande de carte
+        public int Iddemande { get; set; } // Référen
+        public decimal? Solde { get; set; }// ce à la demande de carte
         public decimal PlafondDAP { get; set; }
         public decimal PlafondTPE { get; set; }
     }

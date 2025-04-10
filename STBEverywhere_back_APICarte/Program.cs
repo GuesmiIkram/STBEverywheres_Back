@@ -6,8 +6,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using STBEverywhere_Back_SharedModels.Models;
 using STBEverywhere_back_APICarte.Repository;
-using STBEverywhere_back_APICarte.Services;
+
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using STBEverywhere_ApiAuth.Repositories;
+ // Pour ICompteService
+using STBEverywhere_back_APICarte.Services;
+using STBEverywhere_back_APICompte.Repository.IRepository;
+using STBEverywhere_back_APICompte.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +27,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
   ));
 
 // Enregistrement des repositories
+// Enregistrement sans ambiguïté
+builder.Services.AddScoped<STBEverywhere_back_APICompte.Services.ICompteService,STBEverywhere_back_APICompte.Services.CompteService>();
+builder.Services.AddScoped<ICompteRepository, CompteRepository>();
 builder.Services.AddScoped<ICarteRepository, CarteRepository>();
-builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<STBEverywhere_back_APICarte.Services.EmailService>();
 builder.Services.AddHttpClient();
 // Enregistrement des services
 builder.Services.AddScoped<ICarteService, CarteService>();
 builder.Services.AddHostedService<CarteCreationJob>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHostedService<CarteDisponibleJob>();
 builder.Services.AddHostedService<CarteLivreeJob>();
 
@@ -105,6 +116,14 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+//ajout de ca pour id 
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
 
 var app = builder.Build();
 

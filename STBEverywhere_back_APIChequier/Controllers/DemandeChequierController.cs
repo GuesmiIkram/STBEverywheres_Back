@@ -9,6 +9,8 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
+using STBEverywhere_ApiAuth.Repositories;
+using System.IdentityModel.Tokens.Jwt;
 namespace STBEverywhere_back_APIChequier.Controllers
 {
     [Route("api/DemandeChequierApi")]
@@ -20,15 +22,19 @@ namespace STBEverywhere_back_APIChequier.Controllers
         private readonly IDemandesChequiersRepository _repository;
         private readonly HttpClient _httpClient;
         private readonly ILogger<DemandeChequierController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserRepository _userRepository;
 
-        public DemandeChequierController(ILogger<DemandeChequierController> logger,HttpClient httpClient, IDemandesChequiersRepository repository,EmailService emailService)
+        public DemandeChequierController(ILogger<DemandeChequierController> logger,HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository, IDemandesChequiersRepository repository,EmailService emailService)
         {
             _logger = logger;
             _httpClient = httpClient;
 
             _repository = repository;
             _emailService = emailService;
-            //_logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+           
+            _userRepository = userRepository;
         }
 
 
@@ -36,7 +42,7 @@ namespace STBEverywhere_back_APIChequier.Controllers
         [HttpPost("DemandeChequierBarre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+       
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DemanderChequierBarre([FromBody] DemandeChequierDTO demandeDto)
         {
@@ -142,7 +148,6 @@ namespace STBEverywhere_back_APIChequier.Controllers
         [HttpPost("DemandeChequierNonBarre")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DemanderChequierNonBarre([FromBody] DemandeChequierDTO demandeDto)
         {
@@ -262,16 +267,12 @@ namespace STBEverywhere_back_APIChequier.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetDemandesParClient()
         {
-
-            var idClient = GetClientIdFromToken();
-           
-            if (!idClient.HasValue) // Vérifier si idClient est null
-            {
-                return Unauthorized(new { message = "Utilisateur non authentifié" });
-            }
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            
             try
             {
-                int clientId = idClient.Value;
+                int clientId = client.Id;
                 // Récupérer les RIBs des comptes associés à ce client
                 var ribComptes = await _repository.GetRibComptesByClientId(clientId);
 
@@ -350,18 +351,47 @@ namespace STBEverywhere_back_APIChequier.Controllers
 
         }
 
-        private int? GetClientIdFromToken()
+        private int GetUserIdFromToken()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
+            try
             {
-                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                if (clientIdClaim != null)
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                if (string.IsNullOrEmpty(authHeader))
                 {
-                    return int.Parse(clientIdClaim.Value);
+                    throw new UnauthorizedAccessException("Header Authorization manquant");
                 }
+
+                var tokenParts = authHeader.Split(' ');
+                if (tokenParts.Length != 2 || !tokenParts[0].Equals("Bearer", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException("Format d'autorisation invalide");
+                }
+
+                var token = tokenParts[1].Trim();
+                var handler = new JwtSecurityTokenHandler();
+
+                if (!handler.CanReadToken(token))
+                {
+                    throw new UnauthorizedAccessException("Le token n'est pas un JWT valide");
+                }
+
+                var jwtToken = handler.ReadJwtToken(token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == JwtRegisteredClaimNames.Sub ||
+                    c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+                }
+
+                return userId;
             }
-            return null;
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
+                throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
         }
     }
 }

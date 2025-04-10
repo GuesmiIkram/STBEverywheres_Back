@@ -16,8 +16,12 @@ using STBEverywhere_back_APIClient.Repositories;
 using STBEverywhere_back_APICompte.Jobs;
 using DinkToPdf.Contracts;
 using DinkToPdf;
+
+using QuestPDF.Infrastructure;
+
 using System.Runtime.InteropServices;
 using System.Net.Http.Headers;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +52,7 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddScoped<DecouvertTrackerService>();
 builder.Services.AddScoped<AgiosService>();
 builder.Services.AddHostedService<AgiosBackgroundService>();
-string agenceServiceUrl = "http://localhost:5036"; // URL définie en dur
+string agenceServiceUrl = "http://localhost:5036"; // URL dÃ©finie en dur
 
 builder.Services.AddHttpClient("AgenceService", client =>
 {
@@ -108,7 +112,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Ajoute le filtre pour gérer les fichiers dans Swagger
+    // Ajoute le filtre pour gÃ©rer les fichiers dans Swagger
    options.OperationFilter<SwaggerFileOperationFilter>();
 
     options.SchemaGeneratorOptions.SupportNonNullableReferenceTypes = false;
@@ -130,7 +134,7 @@ var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.RequireHttpsMetadata = false; // À activer en production
+        options.RequireHttpsMetadata = false; // Ã€ activer en production
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -168,7 +172,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
+QuestPDF.Settings.License = LicenseType.Community;
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

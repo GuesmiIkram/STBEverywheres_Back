@@ -8,6 +8,7 @@ namespace STBEverywhere_back_APICarte.Repository
     public interface ICarteRepository
     {
         Task<IEnumerable<Carte>> GetCartesByRIBAsync(string rib);
+        Task<bool> AddFraisToCarteAsync(string numCarte, FraisCarte frais);
         Task<bool> UpdateCarteAsync(Carte carte);
         Task<bool> CreateDemandeCarteAsync(DemandeCarte demandeCarte);
         Task<IEnumerable<DemandeCarte>> GetDemandesByStatutAsync(StatutDemande statut);
@@ -22,5 +23,6 @@ namespace STBEverywhere_back_APICarte.Repository
         Task<bool> CardNumberExistsAsync(string cardNumber);
         Task<bool> UpdateEmailEnvoyeAsync(int demandeId, bool emailEnvoye);
         Task<bool> UpdateEmailEnvoyeLivreeAsync(int demandeId, bool emailEnvoyeLivree);
+        Task<Carte?> GetCarteActiveByRIBAndNomAndTypeAsync(string rib, NomCarte nomCarte, TypeCarte typeCarte);
     }
 }

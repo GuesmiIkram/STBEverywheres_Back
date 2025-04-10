@@ -45,6 +45,7 @@ namespace STBEverywhere_Back_SharedModels
 
         // Relation One-to-Many avec Carte
         public ICollection<Carte> Cartes { get; set; } = new List<Carte>(); // Collection de cartes
+        public ICollection<DemandeCarte> DemandesCarte { get; set; } = new List<DemandeCarte>();
         public ICollection<PeriodeDecouvert> PeriodesDecouvert { get; set; }
         public ICollection<FraisCompte> FraisComptes { get; set; } = new List<FraisCompte>();
 

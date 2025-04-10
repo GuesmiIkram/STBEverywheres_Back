@@ -52,7 +52,7 @@ var app = builder.Build();
 app.Use(async (context, next) =>
 {
     var path = context.Request.Path;
-    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/client/upload-documents") || path.StartsWithSegments("/api/compte/GetSoldeByRIB"))
+    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/client/upload-documents") || path.StartsWithSegments("/api/compte/GetSoldeByRIB") || path.StartsWithSegments("/api/compte/GetByRIB"))
     {
         // Ignorer l'authentification pour ces routes
         await next();

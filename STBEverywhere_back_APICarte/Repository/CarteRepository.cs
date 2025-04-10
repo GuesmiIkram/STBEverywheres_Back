@@ -18,6 +18,29 @@ namespace STBEverywhere_back_APICarte.Repository
             _context = context;
             _logger = logger;
         }
+        public async Task<bool> AddFraisToCarteAsync(string numCarte, FraisCarte frais)
+        {
+            try
+            {
+                _context.FraisCartes.Add(frais);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<Carte?> GetCarteActiveByRIBAndNomAndTypeAsync(string rib, NomCarte nomCarte, TypeCarte typeCarte)
+        {
+            return await _context.Cartes
+                .FirstOrDefaultAsync(c =>
+                    c.RIB == rib &&
+                    c.NomCarte == nomCarte &&
+                    c.TypeCarte == typeCarte &&
+                    c.Statut == StatutCarte.Active // Assurez-vous que ce statut existe dans votre modèle
+                );
+        }
         public async Task<bool> UpdateCarteAsync(Carte carte)
         {
             _context.Cartes.Update(carte);

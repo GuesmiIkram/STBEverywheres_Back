@@ -33,8 +33,10 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<FraisCompte> FraisComptes { get; set; }
         public DbSet<PeriodeDecouvert> PeriodeDecouverts { get; set; }
         public DbSet<DemandeModificationDecouvert> DemandeModificationDecouverts { get; set; }
-
-
+        public DbSet<FraisCarte> FraisCartes { get; set; }
+        public DbSet<DemandeAugmentationPlafond> DemandesAugmentationPlafond { get; set; }
+        public DbSet<RechargeCarte> RechargesCarte { get; set; }
+        public DbSet<Reclamation> Reclamations { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -61,6 +63,28 @@ namespace STBEverywhere_Back_SharedModels.Data
 
                 );
             });
+
+            modelBuilder.Entity<Reclamation>()
+           .HasOne(r => r.Client)
+           .WithMany(c => c.Reclamations)
+           .HasForeignKey(r => r.ClientId);
+
+
+            modelBuilder.Entity<FraisCarte>(entity =>
+            {
+                entity.HasKey(f => f.Id);
+                entity.Property(f => f.Montant).HasColumnType("decimal(18,2)");
+
+                // Relation avec Carte
+                entity.HasOne(f => f.Carte)
+                      .WithMany(c => c.FraisCartes)
+                      .HasForeignKey(f => f.NumCarte)
+                      .OnDelete(DeleteBehavior.Cascade); // Supprime les frais si la carte est supprimée
+            });
+            modelBuilder.Entity<DemandeAugmentationPlafond>()
+               .HasOne(d => d.Carte)
+               .WithMany()
+               .HasForeignKey(d => d.NumCarte);
 
             // Configuration de l'entité Agent
             modelBuilder.Entity<Agent>(entity =>
@@ -112,10 +136,6 @@ namespace STBEverywhere_Back_SharedModels.Data
                     .HasForeignKey(c => c.ClientId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany(c => c.DemandesCarte)
-                    .WithOne(d => d.Client)
-                    .HasForeignKey(d => d.ClientId)
-                    .OnDelete(DeleteBehavior.Cascade);
 
                 // Données initiales
                 entity.HasData(
@@ -220,6 +240,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.Property(c => c.Solde).HasColumnType("decimal(18,3)");
                 entity.Property(c => c.Statut).HasMaxLength(20);
 
+
                 entity.HasData(
                     new Compte
                     {
@@ -271,7 +292,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Statut = StatutCarte.Active,
                         Iddemande = 1,
                         CodeCVV = "",
-                        Nature = "postpayée",
+                        Nature = "postpayee",
                         PlafondTPE = 40000,
                         PlafondDAP = 20000,
                         Solde = 1000.50m,
@@ -289,7 +310,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         Iddemande = 2,
                         CodeCVV = "",
                         Solde = 5000.00m,
-                        Nature = "postpayée",
+                        Nature = "postpayee",
                         CodePIN = "",
                         PlafondTPE = 40000,
                         PlafondDAP = 20000,
@@ -324,7 +345,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         EmailEnvoye = false,
                         EmailEnvoyeLivree = false,
                         CarteAjouter = false,
-                        ClientId = 1
+                      
                     },
                     new DemandeCarte
                     {
@@ -339,7 +360,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         EmailEnvoye = false,
                         EmailEnvoyeLivree = false,
                         CarteAjouter = false,
-                        ClientId = 2
+                      
                     }
                 );
             });

@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Newtonsoft.Json;
+using STBEverywhere_ApiAuth.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ builder.Services.AddScoped<IEmailLogRepository, EmailLogRepository>();
 builder.Services.AddScoped<IChequierRepository, ChequierRepository>();
 //builder.Services.AddHostedService<ChequierJob>();
 builder.Services.AddHostedService<EmailJob>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHostedService<ChequierJob>();
 builder.Services.AddHostedService<ChequierEnvoiRecommandeJob>();
 builder.Services.AddHostedService<ChequierDisponibleEnAgenceJob>();
@@ -103,6 +106,15 @@ builder.Services.AddCors(options =>
                           .AllowCredentials()
                           .SetIsOriginAllowed(_ => true));
 });
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    });
+
+
 
 var app = builder.Build(); // Ici, les services deviennent en lecture seule !
 

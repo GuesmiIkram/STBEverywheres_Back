@@ -2,8 +2,26 @@
 using Microsoft.AspNetCore.Mvc;
 using STBEverywhere_Back_SharedModels;
 
+using System;  // Pour DateTime
+using System.IO; // Pour MemoryStream
+using System.Linq; // Pour .Select() sur les comptes
+using System.Collections.Generic; // Pour IEnumerable<>
+using Scriban; // Pour le moteur de templates
+
+using System.IdentityModel.Tokens.Jwt; // Pour JwtRegisteredClaimNames
 
 
+
+
+
+using Microsoft.AspNetCore.Mvc;
+using PuppeteerSharp;
+using Scriban;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_back_APICompte.Repository.IRepository;
 
@@ -11,9 +29,24 @@ using System.Security.Claims;
 using STBEverywhere_back_APICompte.Services;
 using System.IdentityModel.Tokens.Jwt;
 using STBEverywhere_ApiAuth.Repositories;
+
+using Microsoft.AspNetCore.Components.Web;
+using DinkToPdf; // Pour IConverter et HtmlToPdfDocument
+using DinkToPdf.Contracts; // Pour les paramètres de conversion
+using System.IO; // Pour MemoryStream
+using STBEverywhere_Back_SharedModels.Data;
+using QuestPDF.Fluent;
+using PuppeteerSharp;
+using PuppeteerSharp.Media;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using System.Text;
+
 
 
 namespace STBEverywhere_back_APICompte.Controllers
@@ -25,19 +58,19 @@ namespace STBEverywhere_back_APICompte.Controllers
         private readonly IConverter _pdfConverter;
 
         private readonly ICompteService _compteService;
-        //private readonly ICompteRepository _dbCompte;
+        private readonly ApplicationDbContext _db;
         private readonly IVirementRepository _dbVirement;
         private readonly IUserRepository _userRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CompteAPIController> _logger;
         private readonly IMapper _mapper;
-       
-        
 
-        public CompteAPIController(IConverter pdfConverter, ICompteService compteService, IUserRepository userRepository /*ICompteRepository dbCompte*/, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
+        public CompteAPIController(IConverter pdfConverter, ICompteService compteService, IUserRepository userRepository, ApplicationDbContext db, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
+
+ main
         {
             _compteService = compteService;
-            //_dbCompte = dbCompte;
+            _db = db;
             _dbVirement = dbVirement;
             _logger = logger;
             _mapper = mapper;
@@ -45,6 +78,31 @@ namespace STBEverywhere_back_APICompte.Controllers
             _httpContextAccessor = httpContextAccessor;
             _pdfConverter = pdfConverter;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -77,12 +135,13 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
+
         [HttpGet("listecompte")]
-       
+
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-      
+
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> GetComptesByClientId()
@@ -94,7 +153,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             //var comptes = await _context.Compte
             // var comptes = await _dbCompte.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé");
 
-            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé");
+            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type != "Technique");
             if (comptes == null || !comptes.Any())
             {
                 return NotFound(new { message = "Aucun compte actif trouvé pour vous." });
@@ -130,9 +189,9 @@ namespace STBEverywhere_back_APICompte.Controllers
          }*/
 
         //liste des comptes qui peuvent effectuer des virements (tous les comptes sauf compte epargne) 
-        
+
         [HttpGet("listecompteVirement")]
-       
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -143,7 +202,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = await _userRepository.GetClientByUserIdAsync(userId);
             var clientId = client.Id;
 
-            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne");
+            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Statut != "Clôturé" && c.Type.ToLower() != "epargne" && c.Type != "Technique");
 
 
             if (comptes == null || !comptes.Any())
@@ -156,7 +215,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
         [HttpPost("CreateCompte")]
- 
+
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
@@ -169,7 +228,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             var clientId = Client.Id;
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
-          
+
             if (compteDto == null || string.IsNullOrEmpty(compteDto.type))
             {
                 _logger.LogError(" Type  obligatoire");
@@ -200,6 +259,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             string generatedRIB = await _compteService.GenerateUniqueRIB(agenceid);
             string iban = _compteService.GenerateIBANFromRIB(generatedRIB);
 
+
+   
+
             decimal initialSolde = compteDto.type.ToLower() == "epargne" ? 10 : 0;
             // Utilisation d'AutoMapper pour convertir compteDto en Compte
             var compte = _mapper.Map<Compte>(compteDto);
@@ -213,7 +275,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             compte.NumCin = client.NumCin;
             compte.NbrOperationsAutoriseesParJour = "illimité";
             compte.MontantMaxAutoriseParJour = 2000.000m;
-            compte.DecouvertAutorise = Client.RevenuMensuel ;
+            compte.DecouvertAutorise = Client.RevenuMensuel;
             compte.IBAN = iban;
 
 
@@ -235,8 +297,8 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
         [HttpGet("GetByRIB/{rib}")]
-       
-    
+
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCompteByRIB(string rib)
@@ -326,7 +388,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         [HttpGet("GetSoldeByRIB/{rib}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
- 
+
         public async Task<IActionResult> GetSoldeByRIB(string rib)
         {
             try
@@ -340,13 +402,162 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
         }
 
+        [HttpPost("CreateCompteTechnique")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateCompteTechnique([FromBody] CreateCompteDto compteDto)
+        {
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            try
+            {
+                _logger.LogInformation("Début de création d'un compte technique");
 
 
 
 
 
+                // Génération des identifiants
+                string generatedRIB = _compteService.GenerateUniqueRIB();
+                string iban = _compteService.GenerateIBANFromRIB(generatedRIB);
 
 
+                var compte = new Compte
+                {
+                    RIB = generatedRIB,
+                    IBAN = iban,
+                    Type = "Technique",
+                    // Ajoutez ce champ à votre modèle Compte si nécessaire
+                    Solde = 0,
+                    DateCreation = DateTime.Now,
+                    Statut = "Actif",
+                    ClientId = client.Id,
+                    NumCin = "TECHNIQUE", // Valeur spéciale pour les comptes techniques
+                    NbrOperationsAutoriseesParJour = "illimité",
+                    MontantMaxAutoriseParJour = 1000000.000m, // Limite haute pour les comptes techniques
+                    DecouvertAutorise = 0 // Pas de découvert pour les comptes techniques
+                };
+
+                await _compteService.CreateAsync(compte);
+                _logger.LogInformation($"Compte technique créé avec RIB: {compte.RIB}");
+
+                return CreatedAtAction(nameof(GetCompteByRIB), new { rib = compte.RIB }, new
+                {
+                    RIB = compte.RIB,
+                    IBAN = compte.IBAN,
+                    Type = compte.Type,
+
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la création du compte technique");
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    success = false,
+                    message = "Une erreur interne est survenue lors de la création du compte technique."
+                });
+            }
+        }
+        [HttpGet("rib/download")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DownloadRIB()
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+                if (client == null)
+                    return NotFound(new { message = "Client non trouvé" });
+
+                var comptes = await _compteService.GetAllAsync(c => c.ClientId == client.Id && c.Statut != "Clôturé" &&
+    c.Type != "Technique");
+
+                if (comptes == null || !comptes.Any())
+                    return NotFound(new { message = "Aucun compte actif trouvé pour ce client" });
+
+                // Configuration de la licence QuestPDF (gratuite pour les projets open source)
+                QuestPDF.Settings.License = LicenseType.Community;
+
+                var pdfBytes = GeneratePdfWithQuestPDF(client, comptes);
+                return File(pdfBytes, "application/pdf", $"Releve_RIB_{client.Nom}_{client.Prenom}.pdf");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la génération du RIB");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { message = "Une erreur est survenue lors de la génération du document" });
+            }
+        }
+
+        private byte[] GeneratePdfWithQuestPDF(Client client, IEnumerable<Compte> comptes)
+        {
+            return Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(12));
+
+                    // En-tête
+                    page.Header()
+                        .AlignCenter()
+                        .Text("STB EVERYWHERE")
+                        .SemiBold().FontSize(18).FontColor(Colors.Blue.Darken3);
+
+                    // Contenu principal
+                    page.Content()
+                        .PaddingVertical(1, QuestPDF.Infrastructure.Unit.Centimetre)
+                        .Column(col =>
+                        {
+                            // Titre principal
+                            col.Item().Text($"Relevé d'Identité Bancaire - {client.Nom} {client.Prenom}")
+                                .SemiBold().FontSize(16);
+
+                            // Section Informations Client
+                            col.Item().PaddingTop(10).Column(clientCol =>
+                            {
+                                clientCol.Item().Text("Informations client:").Bold();
+                                clientCol.Item().Text($"Nom: {client.Nom} {client.Prenom}");
+                                clientCol.Item().Text($"CIN: {client.NumCIN ?? "Non renseigné"}");
+                                clientCol.Item().Text($"Date de naissance: {client.DateNaissance:dd/MM/yyyy}");
+                                clientCol.Item().Text($"Adresse: {client.Adresse}");
+                            });
+
+                            // Section Comptes Bancaires
+                            col.Item().PaddingTop(15).Text("Coordonnées bancaires:").Bold();
+
+                            foreach (var compte in comptes)
+                            {
+                                col.Item().PaddingTop(5).Border(1).Padding(10).Column(accountCol =>
+                                {
+                                    accountCol.Item().Text($"Type: {compte.Type}").SemiBold();
+                                    accountCol.Item().Text($"RIB: {compte.RIB}");
+                                    accountCol.Item().Text($"IBAN: {compte.IBAN}");
+                                    accountCol.Item().Text($"Solde: {compte.Solde:C}");
+                                    accountCol.Item().Text($"Date création: {compte.DateCreation:dd/MM/yyyy}");
+                                });
+                            }
+                        });
+
+                    // Pied de page
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("Document généré le ");
+                            text.Span($"{DateTime.Now:dd/MM/yyyy à HH:mm}");
+                            text.Span(" - STB EVERYWHERE");
+                        });
+                });
+            }).GeneratePdf();
+        }
+
+       
     }
-
-}
+    }
