@@ -20,5 +20,7 @@ namespace STBEverywhere_ApiAuth.Repositories
         Task UpdatePasswordAsync(int userId, string newPasswordHash);
         Task<User> GetByResetTokenAsync(string resetToken);
       Task<Client?> GetClientByUserIdAsync(int userId);
+        Task<Agent?> GetAgentByUserIdAsync(int userId); 
+
     }
 }

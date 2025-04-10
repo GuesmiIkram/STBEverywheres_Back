@@ -21,6 +21,16 @@
         "Path": "STBEverywhere_back_APIClient\\STBEverywhere_back_APIClient.csproj",
         "Action": "Start",
         "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_back_APIAgent\\STBEverywhere_back_APIAgent.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
       }
     ]
   }

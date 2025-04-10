@@ -1,25 +1,20 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using STBEverywhere_Back_SharedModels;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
 
-
-using PdfSharp.Pdf;
-using PdfSharp.Drawing;
 
 
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_back_APICompte.Repository.IRepository;
-using System.Numerics;
-using Microsoft.AspNetCore.Authorization;
+
 using System.Security.Claims;
 using STBEverywhere_back_APICompte.Services;
 using System.IdentityModel.Tokens.Jwt;
 using STBEverywhere_ApiAuth.Repositories;
-using Microsoft.AspNetCore.Components.Web;
-using PdfSharp;
-using DinkToPdf.Contracts;
 using DinkToPdf;
+using DinkToPdf.Contracts;
+using System.Text;
+
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
@@ -36,6 +31,9 @@ namespace STBEverywhere_back_APICompte.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CompteAPIController> _logger;
         private readonly IMapper _mapper;
+       
+        
+
         public CompteAPIController(IConverter pdfConverter, ICompteService compteService, IUserRepository userRepository /*ICompteRepository dbCompte*/, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
         {
             _compteService = compteService;
@@ -49,277 +47,32 @@ namespace STBEverywhere_back_APICompte.Controllers
         }
 
 
-        [HttpGet("impressionIdentiteBancaire")]
+
+        /*
+
+        [HttpGet("getComptesByAgence/{agenceId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ImpressionIdentiteBancaire(string rib, string iban)
+        public async Task<IActionResult> GetComptesByAgence(string agenceId)
         {
             try
             {
-                var userId = GetUserIdFromToken();
-                var client = await _userRepository.GetClientByUserIdAsync(userId);
+                var comptes = await _compteService.GetComptesByAgenceIdAsync(agenceId);
 
-                if (client == null)
+                if (!comptes.Any())
                 {
-                    return NotFound(new { message = "Client non trouvé" });
+                    return NotFound(new { message = "Aucun compte trouvé pour cette agence." });
                 }
 
-                // Vérifier que le compte appartient bien au client
-                var compte = await _compteService.GetByRIBAsync(rib);
-                if (compte == null || compte.ClientId != client.Id)
-                {
-                    return NotFound(new { message = "Compte non trouvé ou n'appartient pas au client" });
-                }
-
-                var pdfBytes = GenerateIdentiteBancairePdf(client, rib, iban);
-                return File(pdfBytes, "application/pdf", $"Identite_Bancaire_{client.Nom}_{client.Prenom}.pdf");
+                return Ok(comptes);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erreur lors de la génération de l'identité bancaire");
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Une erreur est survenue lors de la génération du document" });
+                _logger.LogError(ex, "Erreur lors de la récupération des comptes par agence");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur" });
             }
         }
-
-
-        /*
-        private byte[] GenerateIdentiteBancairePdf(Client client, string rib, string iban)
-        {
-            try
-            {
-                string htmlContent = GenerateIdentiteBancaireHtml(client, rib, iban);
-
-                // Création du document PDF
-                var document = new PdfDocument();
-                var page = document.AddPage();
-                var gfx = XGraphics.FromPdfPage(page);
-
-                // Convertir le HTML en PDF
-                var container = new HtmlContainer();
-                container.SetHtml(htmlContent);
-                container.PerformLayout(gfx);
-                container.PerformPaint(gfx);
-
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, false);
-                    return stream.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la génération du PDF");
-                throw;
-            }
-        }*/
-
-
-
-
-
-        /*private byte[] GenerateIdentiteBancairePdf(Client client, string rib, string iban)
-        {
-            try
-            {
-                // Générer le contenu HTML
-                string htmlContent = GenerateIdentiteBancaireHtml(client, rib, iban);
-
-                // Créer un nouveau document PDF
-                var document = new PdfSharpCore.Pdf.PdfDocument();
-
-                // Ajouter une page au document
-                var page = document.AddPage();
-                page.Size = PdfSharpCore.PageSize.A4;
-
-                // Obtenir un objet XGraphics pour dessiner sur la page
-                var gfx = PdfSharpCore.Drawing.XGraphics.FromPdfPage(page);
-
-                // Créer un renderer HTML (CORRECTION ICI)
-                var container = new TheArtOfDev.HtmlRenderer.Core.HtmlContainer();
-                container.SetHtml(htmlContent, TheArtOfDev.HtmlRenderer.Core.Entities.HtmlGenerationStyle.Inline);
-
-                // Dessiner le contenu HTML sur la page PDF
-                container.PerformLayout(gfx, new PdfSharpCore.Drawing.XSize(page.Width, page.Height));
-                container.PerformPaint(gfx);
-
-                // Sauvegarder dans un MemoryStream
-                using (var stream = new MemoryStream())
-                {
-                    document.Save(stream, false);
-                    return stream.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la génération du PDF");
-                throw;
-            }
-        }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private byte[] GenerateIdentiteBancairePdf(Client client, string rib, string iban)
-        {
-            try
-            {
-                string htmlContent = GenerateIdentiteBancaireHtml(client, rib, iban);
-
-                var doc = new HtmlToPdfDocument()
-                {
-                    GlobalSettings = {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 10, Bottom = 10, Left = 10, Right = 10 },
-            },
-                    Objects = {
-                new ObjectSettings() {
-                    HtmlContent = htmlContent,
-                    WebSettings = { DefaultEncoding = "utf-8" },
-                }
-            }
-                };
-
-                return _pdfConverter.Convert(doc);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erreur lors de la génération du PDF");
-                throw;
-            }
-        }
-
-
-
-
-
-
-        /*
-
-        private byte[] GenerateIdentiteBancairePdf(Client client, string rib, string iban)
-        {
-            var pdf = PdfGenerator.GeneratePdf(GenerateIdentiteBancaireHtml(client, rib, iban), (PdfSharp.PageSize)PageSize.A4);
-            using (var stream = new MemoryStream())
-            {
-                pdf.Save(stream, false);
-                return stream.ToArray();
-            }
-        }*/
-
-
-
-        private string GenerateIdentiteBancaireHtml(Client client, string rib, string iban)
-        {
-            // Vérification et formatage des données
-            rib = rib?.Replace(" ", "") ?? "";
-            iban = iban?.Replace(" ", "") ?? "";
-
-            // Extraction des parties du RIB
-            string codeBanque = rib.Length >= 2 ? rib.Substring(0, 2) : "";
-            string codeAgence = rib.Length >= 5 ? rib.Substring(2, 3) : "";
-            string numeroCompte = rib.Length >= 15 ? rib.Substring(5, 10) : "";
-            string devise = rib.Length >= 18 ? rib.Substring(15, 3) : "";
-            string cle = rib.Length >= 20 ? rib.Substring(18, 2) : "";
-
-            // Formatage de l'IBAN
-            string ibanPart1 = iban.Length >= 4 ? iban.Substring(0, 4) : "";
-            string ibanPart2 = iban.Length > 4 ? iban.Substring(4) : "";
-
-            return $@"
-<html>
-    <head>
-        <style>
-            body {{ font-family: Arial, sans-serif; margin: 20px; }}
-            .header {{ text-align: center; margin-bottom: 20px; }}
-            .logo {{ width: 150px; height: auto; }}
-            .title {{ font-size: 18px; font-weight: bold; margin: 10px 0; }}
-            .notice {{ font-style: italic; margin-bottom: 20px; text-align: center; }}
-            .section {{ margin-bottom: 15px; }}
-            .section-title {{ font-weight: bold; margin-bottom: 5px; }}
-            .two-columns {{ display: flex; margin-bottom: 15px; }}
-            .column {{ flex: 1; }}
-            .table {{ width: 100%; border-collapse: collapse; margin-bottom: 15px; }}
-            .table th, .table td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-            .table th {{ background-color: #f2f2f2; }}
-            .no-border-table {{ border: none; }}
-            .no-border-table td {{ border: none; padding: 3px 0; }}
-        </style>
-    </head>
-    <body>
-        <div class='header'>
-            <img src='https://www.stb.com.tn/Portals/0/STB_LOGO.png' class='logo' alt='STB Logo'>
-            <div class='title'>RELEVÉ D'IDENTITÉ BANCAIRE</div>
-            <div class='notice'>Ce relevé est destiné à être remis sur leur demande à vos débiteurs étrangers</div>
-        </div>
-
-        <div class='two-columns'>
-            <div class='column'>
-                <div class='section-title'>TITULAIRE DU COMPTE</div>
-                <table class='no-border-table'>
-                    <tr><td>Nom:</td><td>{client.Nom}</td></tr>
-                    <tr><td>Prénom:</td><td>{client.Prenom}</td></tr>
-                    <tr><td>Adresse:</td><td>{client.Adresse}</td></tr>
-                </table>
-            </div>
-            <div class='column'>
-                <div class='section-title'>DOMICILIATION</div>
-                <div>Société Tunisienne de Banque</div>
-                <div>Agence {codeAgence}</div>
-            </div>
-        </div>
-
-        <div class='section'>
-            <div class='section-title'>RIB - IDENTIFIANT DU COMPTE NATIONAL</div>
-            <table class='table'>
-                <tr>
-                    <th>Code Banque</th>
-                    <th>Code Agence</th>
-                    <th>Numéro de Compte</th>
-                    <th>Devise</th>
-                    <th>Clé</th>
-                </tr>
-                <tr>
-                    <td>{codeBanque}</td>
-                    <td>{codeAgence}</td>
-                    <td>{numeroCompte}</td>
-                    <td>{devise}</td>
-                    <td>{cle}</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class='section'>
-            <div class='section-title'>IBAN - IDENTIFIANT INTERNATIONAL DU COMPTE</div>
-            <table class='table'>
-                <tr>
-                    <td>{ibanPart1}</td>
-                    <td>{ibanPart2}</td>
-                </tr>
-            </table>
-        </div>
-
-        <div class='section'>
-            <div class='section-title'>BIC - IDENTIFIANT INTERNATIONAL DE LA BANQUE</div>
-            <table class='table'>
-                <tr>
-                    <td>STBKTNTT</td>
-                </tr>
-            </table>
-        </div>
-    </body>
-</html>";
-        }
+        */
 
 
 
@@ -412,6 +165,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         {
             var userId = GetUserIdFromToken();
             var Client = await _userRepository.GetClientByUserIdAsync(userId);
+            var agenceid = Client.AgenceId;
             var clientId = Client.Id;
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
@@ -429,10 +183,10 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = clientList.FirstOrDefault();
             _logger.LogInformation($"Client trouvé ? {(client != null ? "Oui" : "Non")}");
 
-            /*if (client == null)
+            if (client == null)
             {
                 return BadRequest(new { message = "Aucun client trouvé avec ce NumCin." });
-            }*/
+            }
             if (compteDto.type.ToLower() == "epargne")
             {
                 //var epargneCount = (await _dbCompte.GetAllAsync(c => c.NumCin == compteDto.NumCin && c.Type.ToLower() == "epargne")).Count;
@@ -443,9 +197,9 @@ namespace STBEverywhere_back_APICompte.Controllers
                     return BadRequest(new { message = "Vous ne pouvez pas avoir plus de 3 comptes d'épargne." });
                 }
             }
+            string generatedRIB = await _compteService.GenerateUniqueRIB(agenceid);
+            string iban = _compteService.GenerateIBANFromRIB(generatedRIB);
 
-            string generatedRIB = _compteService.GenerateUniqueRIB();
-            string iban= _compteService.GenerateIBANFromRIB(generatedRIB);
             decimal initialSolde = compteDto.type.ToLower() == "epargne" ? 10 : 0;
             // Utilisation d'AutoMapper pour convertir compteDto en Compte
             var compte = _mapper.Map<Compte>(compteDto);

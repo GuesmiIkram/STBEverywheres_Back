@@ -19,11 +19,35 @@ namespace STBEverywhere_back_APICompte.Repository.IRepository
 
         //Task SaveAsync(); 
 
-        public Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes);
+        Task<bool> ExistsByRibAsync(string rib);
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationByCompteRibAsync(string rib);
 
 
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes);
         Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande);
         Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
 
 
     }

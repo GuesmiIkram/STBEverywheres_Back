@@ -25,12 +25,36 @@ namespace STBEverywhere_back_APICompte.Repository
             await _db.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsByRibAsync(string rib)
+        {
+            return await _db.Comptes.AnyAsync(c => c.RIB == rib);
+        }
+
         public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
         {
+            if (!Enum.TryParse<StatutDemandeEnum>(statut, out var statutEnum))
+                throw new ArgumentException("Statut de demande invalide", nameof(statut));
+
             return await _db.DemandeModificationDecouverts
-                .Where(d => d.RIBCompte == ribCompte && d.StatutDemande == statut)
+                .Where(d => d.RIBCompte == ribCompte && d.StatutDemande == statutEnum)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationByCompteRibAsync(string rib)
+        {
+            return await _db.DemandeModificationDecouverts
+                .Where(d => d.RIBCompte == rib)
+                .ToListAsync();
+        }
+
+
+        /* public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
+         {
+             return await _db.DemandeModificationDecouverts
+                 .Where(d => d.RIBCompte == ribCompte && d.StatutDemande == statut)
+                 .ToListAsync();
+         }*/
+
 
 
         public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes)

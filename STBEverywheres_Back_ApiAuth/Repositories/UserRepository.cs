@@ -221,6 +221,12 @@ namespace STBEverywhere_ApiAuth.Repositories
             return await _context.Clients
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+
+        public async Task<Agent?> GetAgentByUserIdAsync(int userId)
+        {
+            return await _context.Agents
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+        }
         public bool VerifyPassword(User user, string password)
         {
             // Implémentez la vérification du mot de passe (compare le hash)
