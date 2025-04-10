@@ -16,6 +16,7 @@ using STBEverywhere_back_APIClient.Repositories;
 using STBEverywhere_back_APICompte.Jobs;
 using DinkToPdf.Contracts;
 using DinkToPdf;
+using QuestPDF.Infrastructure;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -142,7 +143,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
+QuestPDF.Settings.License = LicenseType.Community;
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

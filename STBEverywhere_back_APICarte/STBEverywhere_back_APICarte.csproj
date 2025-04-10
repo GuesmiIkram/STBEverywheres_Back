@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -29,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\STBEverywheres_Back_ApiAuth\STBEverywheres_Back_ApiAuth.csproj" />
+    <ProjectReference Include="..\STBEverywhere_back_APICompte\STBEverywhere_back_APICompte.csproj" />
     <ProjectReference Include="..\STBEverywhere_Back_SharedModels\STBEverywhere_Back_SharedModels.csproj" />
   </ItemGroup>
 

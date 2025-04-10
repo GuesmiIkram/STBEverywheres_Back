@@ -8,8 +8,9 @@
         VisaPlatinum,
         VisaInfinite,
         MastercardGold,
-        MastercardWorld,
-        CarteCIB,
-        Épargne
+        CIB,
+        Epargne,
+        C_cash,
+        C_pay
     }
 }

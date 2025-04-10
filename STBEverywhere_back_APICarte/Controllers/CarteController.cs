@@ -11,6 +11,11 @@ using System.Text.Json;
 using STBEverywhere_Back_SharedModels.Data;
 using STBEverywhere_back_APICarte.Repository;
 using STBEverywhere_Back_SharedModels.Models.enums;
+using System.IdentityModel.Tokens.Jwt;
+using STBEverywhere_ApiAuth.Repositories;
+using STBEverywhere_Back_SharedModels.Models;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace STBEverywhere_back_APICarte.Controllers
 {
@@ -23,16 +28,21 @@ namespace STBEverywhere_back_APICarte.Controllers
         private readonly HttpClient _httpClient;
         private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<CarteService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserRepository _userRepository;
 
         private readonly ICarteRepository _carteRepository;
 
 
-        public CarteController(ICarteService carteService, ICarteRepository carteRepository, HttpClient httpClient, ILogger<CarteService> logger, ApplicationDbContext dbContext)
+        public CarteController(ICarteService carteService, ICarteRepository carteRepository,
+            IHttpContextAccessor httpContextAccessor, IUserRepository userRepository, HttpClient httpClient, ILogger<CarteService> logger, ApplicationDbContext dbContext)
         {
             _carteService = carteService;
             _httpClient = httpClient;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
             _dbContext = dbContext;
+            _userRepository = userRepository;
             _carteRepository = carteRepository;
         }
         //API pour recuperer les Carte par RIB Compte se sont les Cartes prepayee
@@ -43,38 +53,54 @@ namespace STBEverywhere_back_APICarte.Controllers
         public async Task<ActionResult<IEnumerable<CarteDTO>>> GetCartesByRIB(string rib)
         {
 
-            
-           
-      
-           var cartes = await _carteService.GetCartesByRIBAsync(rib);
-           return Ok(cartes);
 
-            
+
+
+            var cartes = await _carteService.GetCartesByRIBAsync(rib);
+            return Ok(cartes);
+
+
 
         }
+
+
+        private readonly Dictionary<NomCarte, decimal> _fraisCartes = new()
+{
+    { NomCarte.VisaClassic, 35 },
+    { NomCarte.Mastercard, 35 },
+    { NomCarte.Tecno, 15 },
+    { NomCarte.VisaPlatinum, 150 },
+    { NomCarte.VisaInfinite, 200 },
+    { NomCarte.MastercardGold, 90 },
+    { NomCarte.CIB, 20 },
+    { NomCarte.Epargne, 0 }
+};
         [HttpPost("demande")]
-      
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> CreateDemandeCarte(DemandeCarteDTO demandeCarteDTO)
         {
             // Récupérer le ClientId depuis le token
-            var clientId = GetClientIdFromToken();
-           
+
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
 
             try
             {
                 _logger.LogInformation("Création d'une nouvelle demande de carte pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
 
                 // Appeler l'API du service de compte pour vérifier si le RIB existe
-                var response = await _httpClient.GetAsync($"http://localhost:5185/api/CompteApi/GetByRIB/{demandeCarteDTO.NumCompte}");
+                var response = await _httpClient.GetAsync($"http://localhost:5185/api/compte/GetByRIB/{demandeCarteDTO.NumCompte}");
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogWarning("RIB invalide : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest(new { success = false, message = "RIB invalide." });
                 }
+
+
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 _logger.LogInformation("Réponse de l'API Compte : {JsonResponse}", jsonResponse);
@@ -96,18 +122,60 @@ namespace STBEverywhere_back_APICarte.Controllers
                 // Extraire le premier compte de la liste
                 var compte = comptes.First();
 
+                //verification de solde
+                // Après la vérification du type de compte épargne...
+
+                // Vérification du solde et découvert
+                var fraisCarte = _fraisCartes[demandeCarteDTO.NomCarte];
+
+                if (fraisCarte > 0 && (compte.Solde + compte.DecouvertAutorise) < fraisCarte)
+                {
+                    _logger.LogWarning("Solde insuffisant pour la carte {NomCarte}. Requis: {Frais}, Disponible: {Disponible}",
+                        demandeCarteDTO.NomCarte,
+                        fraisCarte,
+                        compte.Solde + compte.DecouvertAutorise);
+
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = $"Fonds insuffisants. Frais: {fraisCarte.ToString("N2")} DT | " +
+             $"Disponible: {(compte.Solde + compte.DecouvertAutorise).ToString("N2")} DT"
+                    });
+                }
+            
+
+                // Continuer avec les autres vérifications...
+
+                //une carte par compte de meme type et statut active
+
+
+                var carteActiveExistante = await _carteRepository.GetCarteActiveByRIBAndNomAndTypeAsync(
+                     demandeCarteDTO.NumCompte,
+                     demandeCarteDTO.NomCarte,
+                     demandeCarteDTO.TypeCarte
+);
+
+                if (carteActiveExistante != null)
+                {
+                    _logger.LogWarning(
+                        "Le client a déjà une carte active avec le même nom et type pour le compte : {NumCompte}",
+                        demandeCarteDTO.NumCompte
+                    );
+                    return BadRequest("Vous avez déjà une carte active avec ce nom et ce type.");
+                }
+
                 // Condition : Si le compte est de type "Épargne", la carte doit être de type "Épargne"
-                if (compte.Type == "Epargne" && demandeCarteDTO.NomCarte != NomCarte.Épargne)
+                if (compte.Type == "epargne" && demandeCarteDTO.NomCarte != NomCarte.Epargne)
                 {
                     _logger.LogWarning("Tentative de création d'une carte non Épargne pour un compte Épargne : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Un compte Épargne ne peut avoir qu'une  carte Épargne.");
                 }
 
                 // Vérifier si la demande est pour une carte Épargne
-                if (demandeCarteDTO.NomCarte == NomCarte.Épargne)
+                if (demandeCarteDTO.NomCarte == NomCarte.Epargne)
                 {
                     // Vérifier que le type de compte est "Épargne"
-                    if (compte.Type != "Epargne")
+                    if (compte.Type != "epargne")
                     {
                         _logger.LogWarning("Tentative de création d'une carte Épargne pour un compte non Épargne : {NumCompte}", demandeCarteDTO.NumCompte);
                         return BadRequest("Une carte Épargne ne peut être demandée que pour un compte de type Épargne.");
@@ -115,7 +183,27 @@ namespace STBEverywhere_back_APICarte.Controllers
                 }
 
                 var cartes = await _carteRepository.GetCartesByRIBAsync(demandeCarteDTO.NumCompte);
+        
 
+                // Nouvelle vérification: Visa Classic et Mastercard mutuellement exclusives
+                var hasVisaClassic = cartes.Any(c => c.NomCarte == NomCarte.VisaClassic && c.Statut != StatutCarte.Expired);
+                var hasMastercard = cartes.Any(c => c.NomCarte.ToString().StartsWith("Mastercard") && c.Statut != StatutCarte.Expired);
+
+                if ((demandeCarteDTO.NomCarte.ToString().StartsWith("Mastercard") && hasVisaClassic) ||
+                    (demandeCarteDTO.NomCarte == NomCarte.VisaClassic && hasMastercard))
+                {
+                    _logger.LogWarning("Conflit entre Visa Classic et Mastercard pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
+                    return BadRequest("Vous ne pouvez pas avoir à la fois une Visa Classic et une Mastercard sur le même compte.");
+                }
+                //si le client possede visa platinum il ne peux pas demandee mastercard ou visa classique 
+                var hasPlatinum = cartes.Any(c => c.NomCarte == NomCarte.VisaPlatinum && c.Statut != StatutCarte.Expired);
+
+                if (hasPlatinum &&
+                   (demandeCarteDTO.NomCarte.ToString().StartsWith("Mastercard") ||
+                    demandeCarteDTO.NomCarte == NomCarte.VisaClassic))
+                {
+                    return BadRequest("Vous ne pouvez pas demander une carte Mastercard ou Visa Classic car vous possédez déjà une Visa Platinum.");
+                }
                 // Condition 1: Maximum 2 cartes internationales par compte
                 if (demandeCarteDTO.TypeCarte == TypeCarte.International && cartes.Count(c => c.TypeCarte == TypeCarte.International) >= 2)
                 {
@@ -131,7 +219,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                 }
 
                 // Condition 3: Une seule carte épargne par compte
-                if (demandeCarteDTO.NomCarte == NomCarte.Épargne && cartes.Any(c => c.NomCarte == NomCarte.Épargne))
+                if (demandeCarteDTO.NomCarte == NomCarte.Epargne && cartes.Any(c => c.NomCarte == NomCarte.Epargne))
                 {
                     _logger.LogWarning("Tentative de création d'une deuxième carte épargne pour le compte : {NumCompte}", demandeCarteDTO.NumCompte);
                     return BadRequest("Un compte ne peut avoir qu'une seule carte épargne.");
@@ -160,8 +248,8 @@ namespace STBEverywhere_back_APICarte.Controllers
                     Email = demandeCarteDTO.Email,
                     NumTel = demandeCarteDTO.NumTel,
                     DateCreation = DateTime.Now, // Date de création définie sur maintenant
-                    Statut = StatutDemande.EnPreparation, // Statut initial
-                    ClientId = clientId // Utiliser le ClientId récupéré du token
+                    Statut = StatutDemande.EnCours, // Statut initial
+
                 };
 
                 // Enregistrer la demande de carte// Enregistrer la demande de carte
@@ -180,44 +268,36 @@ namespace STBEverywhere_back_APICarte.Controllers
 
 
         [HttpGet("demandes/rib/{rib}")]
-       
+
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<DemandeCarteDTO>>> GetDemandesByRIB(string rib)
         {
-            var clientId = GetClientIdFromToken();
-           
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
 
             var demandes = await _carteService.GetDemandesByRIBAsync(rib);
             return Ok(demandes);
         }
 
-        private int? GetClientIdFromToken()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var clientIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                if (clientIdClaim != null)
-                {
-                    return int.Parse(clientIdClaim.Value);
-                }
-            }
-            return null;
-        }
+
 
         [HttpGet("details/{numCarte}")]
-      
+
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<CarteDTO>> GetCarteDetails(string numCarte)
         {
-            var clientId = GetClientIdFromToken();
-           
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
             try
             {
                 var carteDetails = await _carteService.GetCarteDetailsAsync(numCarte);
@@ -230,14 +310,16 @@ namespace STBEverywhere_back_APICarte.Controllers
         }
 
         [HttpPost("block/{numCarte}")]
-       
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> BlockCarte(string numCarte)
         {
-            var clientId = GetClientIdFromToken();
-          
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
             try
             {
                 var result = await _carteService.BlockCarteAsync(numCarte);
@@ -257,7 +339,9 @@ namespace STBEverywhere_back_APICarte.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeBlockCarte(string numCarte)
         {
-            var clientId = GetClientIdFromToken();
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
             try
             {
                 var result = await _carteService.DeBlockCarteAsync(numCarte);
@@ -277,13 +361,15 @@ namespace STBEverywhere_back_APICarte.Controllers
         public async Task<ActionResult<IEnumerable<CarteDTO>>> GetCartesByClientId()
         {
             // Récupérer le ClientId depuis le token
-            var clientIdFromToken = GetClientIdFromToken();
-          
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+            var clientId = client.Id;
+
 
             try
             {
                 // Récupérer les cartes associées au client
-                var cartes = await _carteService.GetCartesByClientIdAsync(clientIdFromToken.Value);
+                var cartes = await _carteService.GetCartesByClientIdAsync(clientId);
 
                 // Si aucune carte n'est trouvée, retourner une réponse 404
                 if (cartes == null || !cartes.Any())
@@ -301,5 +387,412 @@ namespace STBEverywhere_back_APICarte.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Une erreur interne est survenue.");
             }
         }
+
+
+        private int GetUserIdFromToken()
+        {
+            try
+            {
+                var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    throw new UnauthorizedAccessException("Header Authorization manquant");
+                }
+
+                var tokenParts = authHeader.Split(' ');
+                if (tokenParts.Length != 2 || !tokenParts[0].Equals("Bearer", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException("Format d'autorisation invalide");
+                }
+
+                var token = tokenParts[1].Trim();
+                var handler = new JwtSecurityTokenHandler();
+
+                if (!handler.CanReadToken(token))
+                {
+                    throw new UnauthorizedAccessException("Le token n'est pas un JWT valide");
+                }
+
+                var jwtToken = handler.ReadJwtToken(token);
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(c =>
+                    c.Type == JwtRegisteredClaimNames.Sub ||
+                    c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    throw new UnauthorizedAccessException("Claim d'identifiant utilisateur invalide");
+                }
+
+                return userId;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
+                throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
+        }
+        [HttpPost("demande-prepayee")]
+        public async Task<ActionResult> CreateDemandeCartePrepayee([FromBody] DemandeCarteDTO demandeCarteDTO)
+        {
+            try
+            {
+                // Validation du modèle
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Données invalides",
+                        errors = ModelState.Values.SelectMany(v => v.Errors)
+                    });
+                }
+
+                // 1. Authentification et récupération du client
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+                if (client == null)
+                    return NotFound(new { success = false, message = "Client non trouvé" });
+
+                // 2. Vérification des demandes existantes
+                var demandeExistante = await _dbContext.DemandesCarte
+                    .AnyAsync(d => d.NomCarte == demandeCarteDTO.NomCarte
+                                && d.TypeCarte == demandeCarteDTO.TypeCarte
+                                && d.Statut != StatutDemande.Recuperee);
+
+                if (demandeExistante)
+                    return BadRequest(new { success = false, message = "Demande similaire déjà en cours" });
+
+                // 3. Création du compte technique
+                var compteTechnique = await CreateCompteTechniqueAsync();
+                if (compteTechnique == null)
+                    return StatusCode(500, new { success = false, message = "Échec création compte technique" });
+
+                // 4. Création de la demande
+                var demandeCarte = new DemandeCarte
+                {
+                    NumCompte = compteTechnique.RIB,
+                    NomCarte = demandeCarteDTO.NomCarte,
+                    TypeCarte = demandeCarteDTO.TypeCarte,
+                 
+                    CIN = demandeCarteDTO.CIN, // Assurez-vous que ce champ est mappé
+                    Email = demandeCarteDTO.Email,
+                    NumTel = demandeCarteDTO.NumTel,
+                    DateCreation = DateTime.UtcNow,
+                    Statut = StatutDemande.EnCours,
+                  
+                };
+
+                _dbContext.DemandesCarte.Add(demandeCarte);
+                await _dbContext.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Demande créée avec succès",
+                    rib = compteTechnique.RIB
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur création demande carte prépayée");
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Erreur lors de la création",
+                    detail = ex.ToString() // Affiche toute la stack trace
+                });
+            }
+        }
+
+        private async Task<Compte> CreateCompteTechniqueAsync()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+
+                // Récupérez le token du header Authorization de la requête originale
+                var authHeader = Request.Headers["Authorization"].FirstOrDefault();
+                if (!string.IsNullOrEmpty(authHeader))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization =
+                        AuthenticationHeaderValue.Parse(authHeader);
+                }
+
+                var response = await httpClient.PostAsJsonAsync(
+                    "http://localhost:5185/api/compte/CreateCompteTechnique",
+                    new { type = "technique" });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    _logger.LogError("Échec création compte technique. Status: {StatusCode}, Response: {Response}",
+                        response.StatusCode, errorContent);
+                    return null;
+                }
+
+                return await response.Content.ReadFromJsonAsync<Compte>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la création du compte technique");
+                return null;
+            }
+        }
+
+
+        [HttpPost("demande-augmentation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+     
+        public async Task<ActionResult> CreateDemandeAugmentation([FromBody] DemandeAugmentationPlafondDTO demandeDto)
+        {
+            try
+            {
+                // Récupération du client
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+                // Vérification que la carte appartient au client
+                var carte = await _dbContext.Cartes
+                    .Include(c => c.Compte)
+                    .FirstOrDefaultAsync(c => c.NumCarte == demandeDto.NumCarte && c.Compte.ClientId == client.Id);
+
+                if (carte == null)
+                    return Unauthorized(new { success = false, message = "Carte non trouvée ou non autorisée" });
+                // Vérification s'il existe déjà une demande en cours pour cette carte
+                // Vérification s'il existe déjà une demande en cours pour cette carte
+                var demandeEnCours = await _dbContext.DemandesAugmentationPlafond
+                    .AnyAsync(d => d.NumCarte == demandeDto.NumCarte &&
+                                   d.Statut == StatutDemandeAug.EnAttente.ToString());
+
+                if (demandeEnCours)
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Une demande d'augmentation est déjà en cours pour cette carte"
+                    });
+                }
+
+                // Validation des nouveaux plafonds
+                if (demandeDto.NouveauPlafondTPE <= carte.PlafondTPE && demandeDto.NouveauPlafondDAB <= carte.PlafondDAP)
+                    return BadRequest(new { success = false, message = "Les nouveaux plafonds doivent être supérieurs aux actuels" });
+
+                // Création de la demande
+                var demande = new DemandeAugmentationPlafond
+                {
+                    NumCarte = demandeDto.NumCarte,
+                    NouveauPlafondTPE = demandeDto.NouveauPlafondTPE,
+                    NouveauPlafondDAB = demandeDto.NouveauPlafondDAB,
+                    Raison = demandeDto.Raison,
+                    DateDemande = DateTime.UtcNow,
+                    Statut = StatutDemandeAug.EnAttente.ToString()
+                };
+
+                _dbContext.DemandesAugmentationPlafond.Add(demande);
+                await _dbContext.SaveChangesAsync();
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Demande d'augmentation créée",
+                    demandeId = demande.Id
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur création demande augmentation");
+                return StatusCode(500, new { success = false, message = "Erreur interne" });
+            }
+        }
+
+        [HttpGet("demandes-augmentation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DemandeAugmentationPlafondDTO>>> GetDemandesAugmentation()
+        {
+            var userId = GetUserIdFromToken();
+            var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+            var demandes = await _dbContext.DemandesAugmentationPlafond
+                .Include(d => d.Carte)
+                .ThenInclude(c => c.Compte)
+                .Where(d => d.Carte.Compte.ClientId == client.Id)
+                .OrderByDescending(d => d.DateDemande)
+                .Select(d => new DemandeAugmentationPlafond
+                {
+                    Id = d.Id,
+                    NumCarte = d.NumCarte,
+                    NouveauPlafondTPE = d.NouveauPlafondTPE,
+                    NouveauPlafondDAB = d.NouveauPlafondDAB,
+                    DateDemande = d.DateDemande,
+                    Statut = d.Statut,
+                    Raison = d.Raison
+                })
+                .ToListAsync();
+
+            return Ok(demandes);
+        }
+
+
+        [HttpPost("effectuer-recharge")]
+        public async Task<IActionResult> EffectuerRecharge([FromBody] RechargeCarteDto dto)
+        {
+            var userId = GetUserIdFromToken();
+            var clientEmetteur = await _userRepository.GetClientByUserIdAsync(userId);
+
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                // 1. Récupération des cartes avec leurs comptes et clients
+                var carteEmetteur = await _dbContext.Cartes
+                    .AsTracking()
+                    .Include(c => c.Compte)
+                    .ThenInclude(c => c.Client)
+                    .FirstOrDefaultAsync(c => c.NumCarte == dto.CarteEmetteurNum);
+
+                var carteRecepteur = await _dbContext.Cartes
+                    .AsTracking()
+                    .Include(c => c.Compte)
+                    .ThenInclude(c => c.Client)
+                    .FirstOrDefaultAsync(c => c.NumCarte == dto.CarteRecepteurNum);
+
+                if (carteEmetteur == null || carteRecepteur == null)
+                    return NotFound("Une des cartes est introuvable");
+
+                if (carteEmetteur.Compte.ClientId != clientEmetteur.Id)
+                    return Unauthorized("Vous n'êtes pas autorisé à utiliser cette carte");
+
+                // 3. Calcul des frais
+                bool memeClient = carteEmetteur.Compte.ClientId == carteRecepteur.Compte.ClientId;
+                decimal frais = memeClient ? 0 : 2.0m;
+                decimal montantTotal = dto.Montant + frais;
+
+                // 4. Vérification du solde
+                if ((carteEmetteur.Compte.Solde + carteEmetteur.Compte.DecouvertAutorise) < montantTotal)
+                    return BadRequest("Solde insuffisant pour effectuer la recharge");
+
+                // 5. Exécution des opérations avec des requêtes UPDATE directes
+                // Mise à jour du compte émetteur
+                await _dbContext.Comptes
+                    .Where(c => c.RIB == carteEmetteur.Compte.RIB)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(c => c.Solde, c => c.Solde - montantTotal));
+
+                // Mise à jour de la carte émetteur
+                await _dbContext.Cartes
+                    .Where(c => c.NumCarte == dto.CarteEmetteurNum)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(c => c.Solde, c => c.Solde - montantTotal));
+
+                // Mise à jour du compte récepteur
+                await _dbContext.Comptes
+                    .Where(c => c.RIB == carteRecepteur.Compte.RIB)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(c => c.Solde, c => c.Solde + dto.Montant));
+
+                // Mise à jour de la carte récepteur
+                await _dbContext.Cartes
+                    .Where(c => c.NumCarte == dto.CarteRecepteurNum)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(c => c.Solde, c => c.Solde + dto.Montant));
+
+                // 6. Enregistrement de la transaction
+                var recharge = new RechargeCarte
+                {
+                    CarteEmetteurNum = dto.CarteEmetteurNum,
+                    CarteRecepteurNum = dto.CarteRecepteurNum,
+                    Montant = dto.Montant,
+                    Frais = frais,
+                    DateRecharge = DateTime.UtcNow
+                };
+
+                _dbContext.RechargesCarte.Add(recharge);
+                await _dbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                // Récupération des nouveaux soldes pour la réponse
+                var nouveauSoldeEmetteur = await _dbContext.Comptes
+                    .Where(c => c.RIB == carteEmetteur.Compte.RIB)
+                    .Select(c => c.Solde)
+                    .FirstOrDefaultAsync();
+
+                var nouveauSoldeRecepteur = await _dbContext.Comptes
+                    .Where(c => c.RIB == carteRecepteur.Compte.RIB)
+                    .Select(c => c.Solde)
+                    .FirstOrDefaultAsync();
+
+                return Ok(new
+                {
+                    Success = true,
+                    Message = "Recharge effectuée avec succès",
+                    Data = new
+                    {
+                        RechargeId = recharge.Id,
+                        MontantTransfere = dto.Montant,
+                        FraisAppliques = frais,
+                        NouveauSoldeEmetteur = nouveauSoldeEmetteur,
+                        NouveauSoldeRecepteur = nouveauSoldeRecepteur
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, "Erreur lors de la recharge");
+                return StatusCode(500, new { Success = false, Message = "Erreur interne" });
+            }
+        }
+
+
+        [HttpGet("historique-recharges")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+      
+        public async Task<ActionResult<IEnumerable<HistoriqueRechargeDto>>> GetHistoriqueRecharges()
+        {
+            try
+            {
+                // 1. Récupérer l'ID du client à partir du token
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+              
+                // 2. Récupérer toutes les cartes du client
+                var cartesClient = await _dbContext.Cartes
+                    .Where(c => c.Compte.ClientId == client.Id)
+                    .Select(c => c.NumCarte)
+                    .ToListAsync();
+
+                // 3. Récupérer l'historique des recharges (en tant qu'émetteur ou récepteur)
+                var historique = await _dbContext.RechargesCarte
+                    .Include(r => r.CarteEmetteur)
+                    .Include(r => r.CarteRecepteur)
+                    .Where(r => cartesClient.Contains(r.CarteEmetteurNum) ||
+                               cartesClient.Contains(r.CarteRecepteurNum))
+                    .OrderByDescending(r => r.DateRecharge)
+                    .Select(r => new HistoriqueRechargeDto
+                    {
+                        Id = r.Id,
+                        DateRecharge = r.DateRecharge,
+                        CarteEmetteurNum = r.CarteEmetteurNum,
+                        CarteRecepteurNum = r.CarteRecepteurNum,
+                        Montant = r.Montant,
+                        Frais = r.Frais,
+                       
+                    })
+                    .ToListAsync();
+
+                return Ok(historique);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération de l'historique des recharges");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erreur interne du serveur");
+            }
+        }
+
+
     }
-}
+} 

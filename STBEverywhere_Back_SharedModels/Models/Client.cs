@@ -59,8 +59,9 @@ namespace STBEverywhere_Back_SharedModels
         // Relation One-to-Many : Un client peut avoir plusieurs comptes
         [JsonIgnore]
         public ICollection<Compte> Comptes { get; set; } = new List<Compte>();
-        public ICollection<DemandeCarte> DemandesCarte { get; set; } = new List<DemandeCarte>();
-
+        [JsonIgnore]
+        public virtual ICollection<Reclamation> Reclamations { get; set; } = new List<Reclamation>();
+        [JsonIgnore]
         public ICollection<Beneficiaire> Beneficiaires { get; set; } = new List<Beneficiaire>();
 
     }

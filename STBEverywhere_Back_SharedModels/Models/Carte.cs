@@ -3,6 +3,7 @@ using STBEverywhere_Back_SharedModels.Models.enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace STBEverywhere_Back_SharedModels.Models
 {
@@ -33,6 +34,7 @@ namespace STBEverywhere_Back_SharedModels.Models
         public int Iddemande { get; set; } // Référence à la demande de carte
 
         [ForeignKey("Iddemande")]
+        [JsonIgnore]
         public DemandeCarte DemandeCarte { get; set; }
 
         // Clé étrangère vers Compte
@@ -56,5 +58,10 @@ namespace STBEverywhere_Back_SharedModels.Models
         public decimal PlafondTPE { get; set; } // Par défaut 4000 pour toutes les cartes
 
         public decimal PlafondDAP { get; set; } // Par défaut 2000 pour toutes les cartes
+
+        [JsonIgnore]
+        public ICollection<FraisCarte> FraisCartes { get; set; } = new List<FraisCarte>();
+        [JsonIgnore]
+        public ICollection<DemandeAugmentationPlafond> DemandesAugmentation { get; set; } = new List<DemandeAugmentationPlafond>();
     }
 }
