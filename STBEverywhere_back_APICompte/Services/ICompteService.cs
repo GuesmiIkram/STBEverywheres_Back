@@ -13,12 +13,21 @@ namespace STBEverywhere_back_APICompte.Services
         Task<Compte> CreateAsync(Compte entity);
         Task SaveAsync();
         string GenerateIBANFromRIB(string rib);
+        Task<string> GenerateUniqueRIB(string userId);
+        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByAgenceIdAsync(string agenceId);
 
-        string GenerateUniqueRIB();
+
         Task<decimal> GetSoldeByRIBAsync(string rib);
         Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByClientIdAsync(int clientId);
         Task CreateDemandeModificationAsync(DemandeModificationDecouvert demande);
-        Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut);
+
+        //Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut);
+
+       
+
+ Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, StatutDemandeEnum statut);
+
+
         Task<Compte> GetByRIBAsync(string rib);
 
     }

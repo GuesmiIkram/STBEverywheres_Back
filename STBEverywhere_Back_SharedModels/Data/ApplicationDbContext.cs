@@ -56,7 +56,11 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.HasData(
                     new User { Id = 1, Email = "guesmiimahmoud@gmail.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password123"), Role = UserRole.Client },
                     new User { Id = 2, Email = "jane.smith@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password456"), Role = UserRole.Client },
-                    new User { Id = 3, Email = "agent@stb.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("agent123"), Role = UserRole.Agent }
+                    new User { Id = 4, Email = "robert.smith@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password789"), Role = UserRole.Client },
+
+                    new User { Id = 3, Email = "agent@stb.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("agent123"), Role = UserRole.Agent },
+                    new User { Id = 5, Email = "agent5@stb.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("agent456"), Role = UserRole.Agent }
+
                 );
             });
 
@@ -101,8 +105,11 @@ namespace STBEverywhere_Back_SharedModels.Data
 
 
                 entity.HasData(
-                        new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3 }
+                        new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3, AgenceId = "67f6461d3d6e3c7fa3ef47ad"}
                     );
+                entity.HasData(
+                       new Agent { Id = 2, Nom = "Admin5", Prenom = "STB5", Departement = "Administration", UserId = 5 ,AgenceId = "67f6461d3d6e3c7fa3ef47ae" }
+                   );
             });
 
             // Configuration de l'entité Client
@@ -158,7 +165,8 @@ namespace STBEverywhere_Back_SharedModels.Data
                         RevenuMensuel = 5000.00m,
                         PaysNaissance = "USA",
                         NomMere = "Jane Doe",
-                        NomPere = "John Doe Sr.",
+                        NomPere = "John Doe Sr.", 
+                        AgenceId= "67f6461d3d6e3c7fa3ef47ad",
                         UserId = 1
                     },
                     new Client
@@ -188,7 +196,38 @@ namespace STBEverywhere_Back_SharedModels.Data
                         PaysNaissance = "Canada",
                         NomMere = "Mary Smith",
                         NomPere = "Robert Smith",
+                        AgenceId = "67f6461d3d6e3c7fa3ef47ae",
                         UserId = 2
+                    },
+                    new Client
+                    {
+                        Id = 4,
+                        Nom = "robert",
+                        Prenom = "smith",
+                        DateNaissance = new DateTime(2000, 5, 15),
+                        Telephone = "997654321",
+                        Email = "robert.smith@example.com",
+                        Adresse = "456 ben arous",
+                        Civilite = "Mme",
+                        Nationalite = "TN",
+                        EtatCivil = "Marié(e)",
+                        Residence = "Tunis",
+                        NumCIN = "19668067",
+                        DateDelivranceCIN = new DateTime(2013, 5, 15),
+                        DateExpirationCIN = new DateTime(2035, 5, 15),
+                        LieuDelivranceCIN = "Toronto",
+                        PhotoClient = "mahmoud.jpg",
+                        Genre = "Masculin",
+                        Profession = "Médecin",
+                        SituationProfessionnelle = "Indépendant",
+                        NiveauEducation = "Doctorat",
+                        NombreEnfants = 1,
+                        RevenuMensuel = 2000.00m,
+                        PaysNaissance = "Canada",
+                        NomMere = "Mary Smith",
+                        NomPere = "Robert Smith",
+                        AgenceId = "67f6461d3d6e3c7fa3ef47ae",
+                        UserId = 4
                     }
                 );
             });
@@ -341,8 +380,10 @@ namespace STBEverywhere_Back_SharedModels.Data
         .Property(e => e.IdsVirementsStr)
         .HasDefaultValue(""); // Valeur par défaut vide
 
-
-
+            // pour stocker l'enum de statut demande en texte pas 0 1 
+            modelBuilder.Entity<DemandeModificationDecouvert>()
+       .Property(d => d.StatutDemande)
+       .HasConversion<string>(); 
 
         }
 

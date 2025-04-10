@@ -54,7 +54,10 @@ namespace STBEverywhere_back_APICompte.Controllers
             // _virementService = virementService;
 
         }
-
+        /*protected virtual int GetTestUserId()
+        {
+            return 1; // Valeur fixe pour les tests
+        }*/
 
 
         [HttpPost("Virement")]
@@ -69,7 +72,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             _logger.LogInformation("Requête reçue pour un virement. Données : {@virementDto}", virementDto);
 
             var userId = GetUserIdFromToken();
+           // var userId = GetTestUserId(); // Au lieu de GetUserIdFromToken()
             var client = await _userRepository.GetClientByUserIdAsync(userId);
+
             var clientId = client?.Id;
 
             if (clientId == null)
@@ -1065,7 +1070,8 @@ namespace STBEverywhere_back_APICompte.Controllers
                     message = "Virement en masse effectué avec succès.",
                     details = virementsEffectués,
                     frais = frais,
-                    nombreVirements = idsVirements.Count
+                    nombreVirements = idsVirements.Count,
+                    totalDebite = totalDébité
                 });
             }
             catch (Exception ex)

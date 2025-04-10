@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Data;
 using STBEverywhere_Back_SharedModels.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
 
 namespace STBEverywhere_back_APICompte.Services
 {
@@ -43,6 +45,7 @@ namespace STBEverywhere_back_APICompte.Services
                 foreach (var compte in comptes)
                 {
                     decimal totalAgios = 0;
+                    //une collection des périodes de découvert pour chaque compte
                     var periodes = compte.PeriodesDecouvert
                         .Where(p => p.DateDebut <= dateFinMois &&
                                    (p.DateFin == null || p.DateFin >= dateDebutMois))
@@ -52,7 +55,7 @@ namespace STBEverywhere_back_APICompte.Services
                     {
                         var debut = periode.DateDebut < dateDebutMois ? dateDebutMois : periode.DateDebut;
                         var fin = (periode.DateFin ?? dateCalcul) > dateFinMois ? dateFinMois : (periode.DateFin ?? dateCalcul);
-
+                        //.Days pour donner le nombre de jours entiers dans cette durée.
                         var jours = (fin - debut).Days;
 
                         if (jours > 0)

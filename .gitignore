@@ -25,6 +25,10 @@ STBEverywhere_ApiGateway/obj/project.assets.json
 STBEverywhere_ApiGateway/obj/project.nuget.cache
 STBEverywheres_Back_ApiAuth/bin/
 STBEverywheres_Back_ApiAuth/obj/
+STBEverywheres_Back_ApiAgent/bin/
+STBEverywheres_Back_ApiAgent/obj/
+STBEverywheres_Back_ApiAgence/bin/
+STBEverywheres_Back_ApiAgence/obj/
 
 
 

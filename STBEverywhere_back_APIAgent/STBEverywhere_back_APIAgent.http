@@ -1,0 +1,6 @@
+@STBEverywhere_back_APIAgent_HostAddress = http://localhost:5117
+
+GET {{STBEverywhere_back_APIAgent_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

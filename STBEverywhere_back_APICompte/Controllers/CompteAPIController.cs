@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using STBEverywhere_Back_SharedModels;
+
 using System;  // Pour DateTime
 using System.IO; // Pour MemoryStream
 using System.Linq; // Pour .Select() sur les comptes
@@ -8,6 +9,10 @@ using System.Collections.Generic; // Pour IEnumerable<>
 using Scriban; // Pour le moteur de templates
 
 using System.IdentityModel.Tokens.Jwt; // Pour JwtRegisteredClaimNames
+
+
+
+
 
 using Microsoft.AspNetCore.Mvc;
 using PuppeteerSharp;
@@ -19,12 +24,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_back_APICompte.Repository.IRepository;
-using System.Numerics;
-using Microsoft.AspNetCore.Authorization;
+
 using System.Security.Claims;
 using STBEverywhere_back_APICompte.Services;
 using System.IdentityModel.Tokens.Jwt;
 using STBEverywhere_ApiAuth.Repositories;
+
 using Microsoft.AspNetCore.Components.Web;
 using DinkToPdf; // Pour IConverter et HtmlToPdfDocument
 using DinkToPdf.Contracts; // Pour les paramètres de conversion
@@ -37,6 +42,12 @@ using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using System.Text;
+
+
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
@@ -53,7 +64,10 @@ namespace STBEverywhere_back_APICompte.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CompteAPIController> _logger;
         private readonly IMapper _mapper;
+
         public CompteAPIController(IConverter pdfConverter, ICompteService compteService, IUserRepository userRepository, ApplicationDbContext db, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
+
+ main
         {
             _compteService = compteService;
             _db = db;
@@ -89,6 +103,34 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
+
+
+
+        /*
+
+        [HttpGet("getComptesByAgence/{agenceId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetComptesByAgence(string agenceId)
+        {
+            try
+            {
+                var comptes = await _compteService.GetComptesByAgenceIdAsync(agenceId);
+
+                if (!comptes.Any())
+                {
+                    return NotFound(new { message = "Aucun compte trouvé pour cette agence." });
+                }
+
+                return Ok(comptes);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des comptes par agence");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur" });
+            }
+        }
+        */
 
 
 
@@ -182,6 +224,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         {
             var userId = GetUserIdFromToken();
             var Client = await _userRepository.GetClientByUserIdAsync(userId);
+            var agenceid = Client.AgenceId;
             var clientId = Client.Id;
             _logger.LogInformation($"ClientId récupéré depuis le token : {clientId}");
 
@@ -199,10 +242,10 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = clientList.FirstOrDefault();
             _logger.LogInformation($"Client trouvé ? {(client != null ? "Oui" : "Non")}");
 
-            /*if (client == null)
+            if (client == null)
             {
                 return BadRequest(new { message = "Aucun client trouvé avec ce NumCin." });
-            }*/
+            }
             if (compteDto.type.ToLower() == "epargne")
             {
                 //var epargneCount = (await _dbCompte.GetAllAsync(c => c.NumCin == compteDto.NumCin && c.Type.ToLower() == "epargne")).Count;
@@ -213,9 +256,12 @@ namespace STBEverywhere_back_APICompte.Controllers
                     return BadRequest(new { message = "Vous ne pouvez pas avoir plus de 3 comptes d'épargne." });
                 }
             }
-
-            string generatedRIB = _compteService.GenerateUniqueRIB();
+            string generatedRIB = await _compteService.GenerateUniqueRIB(agenceid);
             string iban = _compteService.GenerateIBANFromRIB(generatedRIB);
+
+
+   
+
             decimal initialSolde = compteDto.type.ToLower() == "epargne" ? 10 : 0;
             // Utilisation d'AutoMapper pour convertir compteDto en Compte
             var compte = _mapper.Map<Compte>(compteDto);
