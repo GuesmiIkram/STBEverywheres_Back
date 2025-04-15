@@ -1036,23 +1036,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\farha\\.nuget\\packages\\": {},
+    "C:\\Users\\Ikram\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
+      "projectUniqueName": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
       "projectName": "STBEverywhere_ApiAgence",
-      "projectPath": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
-      "packagesPath": "C:\\Users\\farha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\farha\\OneDrive\\Desktop\\projetStb\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\obj\\",
+      "projectPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
+      "packagesPath": "C:\\Users\\Ikram\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ikram\\Desktop\\ikram stage pfe\\STBEverywheres_Back\\STBEverywhere_ApiAgence\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\farha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ikram\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1116,7 +1116,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

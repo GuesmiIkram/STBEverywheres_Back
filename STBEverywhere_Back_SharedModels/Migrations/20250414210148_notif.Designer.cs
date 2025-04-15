@@ -11,8 +11,8 @@ using STBEverywhere_Back_SharedModels.Data;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250410001150_globalmigration")]
-    partial class globalmigration
+    [Migration("20250414210148_notif")]
+    partial class notif
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,6 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Property<bool>("CarteAjouter")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateCreation")
                         .HasColumnType("datetime(6)");
 
@@ -61,7 +57,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Property<string>("NumCompte")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("RIB");
 
                     b.Property<string>("NumTel")
                         .IsRequired()
@@ -78,7 +75,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
                     b.HasKey("Iddemande");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("NumCompte");
 
                     b.ToTable("DemandesCarte");
 
@@ -88,8 +85,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Iddemande = 1,
                             CIN = "14668061",
                             CarteAjouter = false,
-                            ClientId = 1,
-                            DateCreation = new DateTime(2025, 4, 10, 1, 11, 49, 949, DateTimeKind.Local).AddTicks(1795),
+                            DateCreation = new DateTime(2025, 4, 14, 22, 1, 47, 524, DateTimeKind.Local).AddTicks(2113),
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -104,8 +100,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Iddemande = 2,
                             CIN = "14668062",
                             CarteAjouter = false,
-                            ClientId = 2,
-                            DateCreation = new DateTime(2025, 4, 10, 1, 11, 49, 949, DateTimeKind.Local).AddTicks(1815),
+                            DateCreation = new DateTime(2025, 4, 14, 22, 1, 47, 524, DateTimeKind.Local).AddTicks(2229),
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -115,6 +110,46 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Statut = "EnPreparation",
                             TypeCarte = "National"
                         });
+                });
+
+            modelBuilder.Entity("NotificationPack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<string>("NotificationType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int?>("RelatedPackId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("NotificationsPack");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
@@ -239,7 +274,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             Id = 1,
                             Adresse = "123 Main St",
-                            AgenceId = "67f6461d3d6e3c7fa3ef47ad",
+                            AgenceId = "67f83774f6176b4e97078b05",
                             Civilite = "M",
                             DateDelivranceCIN = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpirationCIN = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -269,7 +304,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         {
                             Id = 2,
                             Adresse = "456 Elm St",
-                            AgenceId = "67f6461d3d6e3c7fa3ef47ae",
+                            AgenceId = "67f83774f6176b4e97078b06",
                             Civilite = "Mme",
                             DateDelivranceCIN = new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpirationCIN = new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -442,7 +477,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             Id = 1,
-                            AgenceId = "67f6461d3d6e3c7fa3ef47ad",
+                            AgenceId = "67f83774f6176b4e97078b05",
                             Departement = "Administration",
                             Nom = "Admin",
                             Prenom = "STB",
@@ -451,7 +486,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         new
                         {
                             Id = 2,
-                            AgenceId = "67f6461d3d6e3c7fa3ef47ae",
+                            AgenceId = "67f83774f6176b4e97078b06",
                             Departement = "Administration",
                             Nom = "Admin5",
                             Prenom = "STB5",
@@ -568,7 +603,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Iddemande = 1,
-                            Nature = "postpayée",
+                            Nature = "postpayee",
                             NomCarte = "VisaClassic",
                             PlafondDAP = 20000m,
                             PlafondTPE = 40000m,
@@ -585,7 +620,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             DateCreation = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateExpiration = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Iddemande = 2,
-                            Nature = "postpayée",
+                            Nature = "postpayee",
                             NomCarte = "Mastercard",
                             PlafondDAP = 20000m,
                             PlafondTPE = 40000m,
@@ -616,6 +651,52 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.HasIndex("DemandeChequierId");
 
                     b.ToTable("Chequiers");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeAugmentationPlafond", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CarteNumCarte")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Commentaire")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime>("DateDemande")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateTraitement")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("NouveauPlafondDAB")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("NouveauPlafondTPE")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("NumCarte")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Raison")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Statut")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarteNumCarte");
+
+                    b.HasIndex("NumCarte");
+
+                    b.ToTable("DemandesAugmentationPlafond");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>
@@ -783,6 +864,33 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.ToTable("FeuillesChequiers");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FraisCarte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NumCarte")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NumCarte");
+
+                    b.ToTable("FraisCartes");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FraisCompte", b =>
                 {
                     b.Property<int>("Id")
@@ -940,6 +1048,75 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.ToTable("PeriodeDecouverts");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.RechargeCarte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("CarteEmetteurNum")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("CarteRecepteurNum")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<DateTime>("DateRecharge")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Frais")
+                        .HasColumnType("decimal(18, 3)");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18, 3)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarteEmetteurNum");
+
+                    b.HasIndex("CarteRecepteurNum");
+
+                    b.ToTable("RechargesCarte");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Reclamation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateResolution")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Objet")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("Statut")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Reclamations");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -981,7 +1158,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 1,
                             Email = "guesmiimahmoud@gmail.com",
                             IsActive = true,
-                            PasswordHash = "$2a$11$8WpuFrP4BV.IW3dOH7WQY.dWBrbQIUDPfRLYYFysZgTdecVckFIT.",
+                            PasswordHash = "$2a$11$.dtHNNkJzHN7NmQRwrnCCuS0ckKHlS.2WaLyUNpqzFErhlyDWH0W.",
                             Role = "Client"
                         },
                         new
@@ -989,7 +1166,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 2,
                             Email = "jane.smith@example.com",
                             IsActive = true,
-                            PasswordHash = "$2a$11$XHcl8ZumZuunT1zJOKNPne5sWpFNdLtEsgG1rRsjS5EVgh8OvTQJS",
+                            PasswordHash = "$2a$11$1AiyCnoZ3zT3QpZ/28kuEOWijt.UDuNQFmyC2F8fqeLK3VLiYc45q",
                             Role = "Client"
                         },
                         new
@@ -997,7 +1174,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 4,
                             Email = "robert.smith@example.com",
                             IsActive = true,
-                            PasswordHash = "$2a$11$L9/Bb4RdQvdgA9CVOwl3HulkAra55QfHPZk8OJEOHNJkWnqY93.XK",
+                            PasswordHash = "$2a$11$qn3MxQEodcvaQQdB5kJV0uYHt4nc88kivC7j2/ihdU/WopdU8JoA2",
                             Role = "Client"
                         },
                         new
@@ -1005,7 +1182,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 3,
                             Email = "agent@stb.com",
                             IsActive = true,
-                            PasswordHash = "$2a$11$CD15Et1xf3XX9Yj0FPLbyuusTALjlSoYwM.DCdO9jHm6vvrKemOQa",
+                            PasswordHash = "$2a$11$d5iwJIRq5EYbQwW7O.FBnu46x.ehFYLWc4BfQG49uH7PphY/09niW",
                             Role = "Agent"
                         },
                         new
@@ -1013,7 +1190,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 5,
                             Email = "agent5@stb.com",
                             IsActive = true,
-                            PasswordHash = "$2a$11$RpcDruxOalzec.F/PNFec.oNFq7Yxs185FKghrptFKfuwGlkg/1tK",
+                            PasswordHash = "$2a$11$niuTT3Y.DQYENpplvoeTgOuAfbXfDL3hoVkDTuPEuN12jsGRE3E4u",
                             Role = "Agent"
                         });
                 });
@@ -1067,8 +1244,19 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
             modelBuilder.Entity("DemandeCarte", b =>
                 {
-                    b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
+                    b.HasOne("STBEverywhere_Back_SharedModels.Compte", "Compte")
                         .WithMany("DemandesCarte")
+                        .HasForeignKey("NumCompte")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Compte");
+                });
+
+            modelBuilder.Entity("NotificationPack", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
+                        .WithMany("NotificationsPack")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1125,7 +1313,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .HasForeignKey("CompteRIB");
 
                     b.HasOne("DemandeCarte", "DemandeCarte")
-                        .WithMany()
+                        .WithMany("Cartes")
                         .HasForeignKey("Iddemande")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1150,6 +1338,21 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                         .IsRequired();
 
                     b.Navigation("DemandeChequier");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeAugmentationPlafond", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.Carte", null)
+                        .WithMany("DemandesAugmentation")
+                        .HasForeignKey("CarteNumCarte");
+
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.Carte", "Carte")
+                        .WithMany()
+                        .HasForeignKey("NumCarte")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carte");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>
@@ -1196,6 +1399,17 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Navigation("DemandeChequier");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FraisCarte", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.Carte", "Carte")
+                        .WithMany("FraisCartes")
+                        .HasForeignKey("NumCarte")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carte");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.FraisCompte", b =>
                 {
                     b.HasOne("STBEverywhere_Back_SharedModels.Compte", "Compte")
@@ -1240,22 +1454,68 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.Navigation("Compte");
                 });
 
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.RechargeCarte", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.Carte", "CarteEmetteur")
+                        .WithMany()
+                        .HasForeignKey("CarteEmetteurNum")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STBEverywhere_Back_SharedModels.Models.Carte", "CarteRecepteur")
+                        .WithMany()
+                        .HasForeignKey("CarteRecepteurNum")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CarteEmetteur");
+
+                    b.Navigation("CarteRecepteur");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Reclamation", b =>
+                {
+                    b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
+                        .WithMany("Reclamations")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("DemandeCarte", b =>
+                {
+                    b.Navigation("Cartes");
+                });
+
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
                 {
                     b.Navigation("Beneficiaires");
 
                     b.Navigation("Comptes");
 
-                    b.Navigation("DemandesCarte");
+                    b.Navigation("NotificationsPack");
+
+                    b.Navigation("Reclamations");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Compte", b =>
                 {
                     b.Navigation("Cartes");
 
+                    b.Navigation("DemandesCarte");
+
                     b.Navigation("FraisComptes");
 
                     b.Navigation("PeriodesDecouvert");
+                });
+
+            modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.Carte", b =>
+                {
+                    b.Navigation("DemandesAugmentation");
+
+                    b.Navigation("FraisCartes");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Models.DemandeChequier", b =>

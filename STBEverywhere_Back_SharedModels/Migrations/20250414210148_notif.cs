@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace STBEverywhere_Back_SharedModels.Migrations
 {
     /// <inheritdoc />
-    public partial class globalmigration : Migration
+    public partial class notif : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -230,36 +230,27 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "DemandesCarte",
+                name: "NotificationsPack",
                 columns: table => new
                 {
-                    Iddemande = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NumCompte = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NomCarte = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TypeCarte = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CIN = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NumTel = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Statut = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    EmailEnvoye = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    EmailEnvoyeLivree = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CarteAjouter = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Message = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsRead = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    NotificationType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RelatedPackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DemandesCarte", x => x.Iddemande);
+                    table.PrimaryKey("PK_NotificationsPack", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DemandesCarte_Clients_ClientId",
+                        name: "FK_NotificationsPack_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
@@ -340,6 +331,33 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Reclamations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    Objet = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DateResolution = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Statut = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reclamations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reclamations_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "DemandeModificationDecouverts",
                 columns: table => new
                 {
@@ -363,6 +381,43 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     table.ForeignKey(
                         name: "FK_DemandeModificationDecouverts_Comptes_RIBCompte",
                         column: x => x.RIBCompte,
+                        principalTable: "Comptes",
+                        principalColumn: "RIB",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "DemandesCarte",
+                columns: table => new
+                {
+                    Iddemande = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    RIB = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NomCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TypeCarte = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CIN = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NumTel = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Statut = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmailEnvoye = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    EmailEnvoyeLivree = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CarteAjouter = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DemandesCarte", x => x.Iddemande);
+                    table.ForeignKey(
+                        name: "FK_DemandesCarte_Comptes_RIB",
+                        column: x => x.RIB,
                         principalTable: "Comptes",
                         principalColumn: "RIB",
                         onDelete: ReferentialAction.Cascade);
@@ -592,16 +647,111 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "DemandesAugmentationPlafond",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NumCarte = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NouveauPlafondTPE = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NouveauPlafondDAB = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DateDemande = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Statut = table.Column<string>(type: "varchar(20)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Raison = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DateTraitement = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Commentaire = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CarteNumCarte = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DemandesAugmentationPlafond", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DemandesAugmentationPlafond_Cartes_CarteNumCarte",
+                        column: x => x.CarteNumCarte,
+                        principalTable: "Cartes",
+                        principalColumn: "NumCarte");
+                    table.ForeignKey(
+                        name: "FK_DemandesAugmentationPlafond_Cartes_NumCarte",
+                        column: x => x.NumCarte,
+                        principalTable: "Cartes",
+                        principalColumn: "NumCarte",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "FraisCartes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Type = table.Column<string>(type: "varchar(50)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Montant = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NumCarte = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FraisCartes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FraisCartes_Cartes_NumCarte",
+                        column: x => x.NumCarte,
+                        principalTable: "Cartes",
+                        principalColumn: "NumCarte",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "RechargesCarte",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CarteEmetteurNum = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CarteRecepteurNum = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Montant = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    Frais = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    DateRecharge = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RechargesCarte", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RechargesCarte_Cartes_CarteEmetteurNum",
+                        column: x => x.CarteEmetteurNum,
+                        principalTable: "Cartes",
+                        principalColumn: "NumCarte",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RechargesCarte_Cartes_CarteRecepteurNum",
+                        column: x => x.CarteRecepteurNum,
+                        principalTable: "Cartes",
+                        principalColumn: "NumCarte",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "IsActive", "PasswordHash", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Role" },
                 values: new object[,]
                 {
-                    { 1, "guesmiimahmoud@gmail.com", true, "$2a$11$8WpuFrP4BV.IW3dOH7WQY.dWBrbQIUDPfRLYYFysZgTdecVckFIT.", null, null, "Client" },
-                    { 2, "jane.smith@example.com", true, "$2a$11$XHcl8ZumZuunT1zJOKNPne5sWpFNdLtEsgG1rRsjS5EVgh8OvTQJS", null, null, "Client" },
-                    { 3, "agent@stb.com", true, "$2a$11$CD15Et1xf3XX9Yj0FPLbyuusTALjlSoYwM.DCdO9jHm6vvrKemOQa", null, null, "Agent" },
-                    { 4, "robert.smith@example.com", true, "$2a$11$L9/Bb4RdQvdgA9CVOwl3HulkAra55QfHPZk8OJEOHNJkWnqY93.XK", null, null, "Client" },
-                    { 5, "agent5@stb.com", true, "$2a$11$RpcDruxOalzec.F/PNFec.oNFq7Yxs185FKghrptFKfuwGlkg/1tK", null, null, "Agent" }
+                    { 1, "guesmiimahmoud@gmail.com", true, "$2a$11$.dtHNNkJzHN7NmQRwrnCCuS0ckKHlS.2WaLyUNpqzFErhlyDWH0W.", null, null, "Client" },
+                    { 2, "jane.smith@example.com", true, "$2a$11$1AiyCnoZ3zT3QpZ/28kuEOWijt.UDuNQFmyC2F8fqeLK3VLiYc45q", null, null, "Client" },
+                    { 3, "agent@stb.com", true, "$2a$11$d5iwJIRq5EYbQwW7O.FBnu46x.ehFYLWc4BfQG49uH7PphY/09niW", null, null, "Agent" },
+                    { 4, "robert.smith@example.com", true, "$2a$11$qn3MxQEodcvaQQdB5kJV0uYHt4nc88kivC7j2/ihdU/WopdU8JoA2", null, null, "Client" },
+                    { 5, "agent5@stb.com", true, "$2a$11$niuTT3Y.DQYENpplvoeTgOuAfbXfDL3hoVkDTuPEuN12jsGRE3E4u", null, null, "Agent" }
                 });
 
             migrationBuilder.InsertData(
@@ -609,8 +759,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Id", "AgenceId", "Departement", "Nom", "Prenom", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "67f6461d3d6e3c7fa3ef47ad", "Administration", "Admin", "STB", 3 },
-                    { 2, "67f6461d3d6e3c7fa3ef47ae", "Administration", "Admin5", "STB5", 5 }
+                    { 1, "67f83774f6176b4e97078b05", "Administration", "Admin", "STB", 3 },
+                    { 2, "67f83774f6176b4e97078b06", "Administration", "Admin5", "STB5", 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -618,8 +768,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "Id", "Adresse", "AgenceId", "Civilite", "DateDelivranceCIN", "DateExpirationCIN", "DateNaissance", "Email", "EtatCivil", "Genre", "LieuDelivranceCIN", "Nationalite", "NiveauEducation", "Nom", "NomMere", "NomPere", "NombreEnfants", "NumCIN", "PaysNaissance", "PhotoClient", "Prenom", "Profession", "ResetPasswordToken", "ResetPasswordTokenExpiry", "Residence", "RevenuMensuel", "SituationProfessionnelle", "Telephone", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "123 Main St", "67f6461d3d6e3c7fa3ef47ad", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789", 1 },
-                    { 2, "456 Elm St", "67f6461d3d6e3c7fa3ef47ae", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321", 2 },
+                    { 1, "123 Main St", "67f83774f6176b4e97078b05", "M", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "guesmiimahmoud@gmail.com", "Célibataire", "Masculin", "New York", "US", "Master", "Doe", "Jane Doe", "John Doe Sr.", 2, "14668061", "USA", "mahmoud.jpg", "John", "Ingénieur", null, null, "New York", 5000.00m, "Employé", "123456789", 1 },
+                    { 2, "456 Elm St", "67f83774f6176b4e97078b06", "Mme", new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "jane.smith@example.com", "Marié(e)", "Féminin", "Toronto", "CA", "Doctorat", "Smith", "Mary Smith", "Robert Smith", 1, "14668062", "Canada", "mahmoud.jpg", "Jane", "Médecin", null, null, "Toronto", 7000.00m, "Indépendant", "987654321", 2 },
                     { 4, "456 ben arous", "67f6461d3d6e3c7fa3ef47ae", "Mme", new DateTime(2013, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2035, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2000, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "robert.smith@example.com", "Marié(e)", "Masculin", "Toronto", "TN", "Doctorat", "robert", "Mary Smith", "Robert Smith", 1, "19668067", "Canada", "mahmoud.jpg", "smith", "Médecin", null, null, "Tunis", 2000.00m, "Indépendant", "997654321", 4 }
                 });
 
@@ -634,11 +784,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
             migrationBuilder.InsertData(
                 table: "DemandesCarte",
-                columns: new[] { "Iddemande", "CIN", "CarteAjouter", "ClientId", "DateCreation", "Email", "EmailEnvoye", "EmailEnvoyeLivree", "NomCarte", "NumCompte", "NumTel", "Statut", "TypeCarte" },
+                columns: new[] { "Iddemande", "CIN", "CarteAjouter", "DateCreation", "Email", "EmailEnvoye", "EmailEnvoyeLivree", "NomCarte", "RIB", "NumTel", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { 1, "14668061", false, 1, new DateTime(2025, 4, 10, 1, 11, 49, 949, DateTimeKind.Local).AddTicks(1795), "john.doe@example.com", false, false, "VisaClassic", "12345678923537902652", "12345678", "DisponibleEnAgence", "International" },
-                    { 2, "14668062", false, 2, new DateTime(2025, 4, 10, 1, 11, 49, 949, DateTimeKind.Local).AddTicks(1815), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "EnPreparation", "National" }
+                    { 1, "14668061", false, new DateTime(2025, 4, 14, 22, 1, 47, 524, DateTimeKind.Local).AddTicks(2113), "john.doe@example.com", false, false, "VisaClassic", "12345678923537902652", "12345678", "DisponibleEnAgence", "International" },
+                    { 2, "14668062", false, new DateTime(2025, 4, 14, 22, 1, 47, 524, DateTimeKind.Local).AddTicks(2229), "jane.smith@example.com", false, false, "Mastercard", "65432110223463790345", "87654321", "EnPreparation", "National" }
                 });
 
             migrationBuilder.InsertData(
@@ -646,8 +796,8 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 columns: new[] { "NumCarte", "CodeCVV", "CodePIN", "CompteRIB", "DateCreation", "DateExpiration", "DateRecuperation", "Iddemande", "Nature", "NomCarte", "PlafondDAP", "PlafondTPE", "RIB", "Solde", "Statut", "TypeCarte" },
                 values: new object[,]
                 {
-                    { "1111222233334444", "", "", null, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, "postpayée", "VisaClassic", 20000m, 40000m, "12345678923537902652", 1000.50m, "Active", "International" },
-                    { "5555666677778888", "", "", null, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 2, "postpayée", "Mastercard", 20000m, 40000m, "65432110223463790345", 5000.00m, "Active", "National" }
+                    { "1111222233334444", "", "", null, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, "postpayee", "VisaClassic", 20000m, 40000m, "12345678923537902652", 1000.50m, "Active", "International" },
+                    { "5555666677778888", "", "", null, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 2, "postpayee", "Mastercard", 20000m, 40000m, "65432110223463790345", 5000.00m, "Active", "National" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -698,9 +848,19 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 column: "RIBCompte");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DemandesCarte_ClientId",
+                name: "IX_DemandesAugmentationPlafond_CarteNumCarte",
+                table: "DemandesAugmentationPlafond",
+                column: "CarteNumCarte");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DemandesAugmentationPlafond_NumCarte",
+                table: "DemandesAugmentationPlafond",
+                column: "NumCarte");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DemandesCarte_RIB",
                 table: "DemandesCarte",
-                column: "ClientId");
+                column: "RIB");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DemandesChequiers_RibCompte",
@@ -718,9 +878,19 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 column: "DemandeChequierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FraisCartes_NumCarte",
+                table: "FraisCartes",
+                column: "NumCarte");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FraisComptes_RIB",
                 table: "FraisComptes",
                 column: "RIB");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotificationsPack_ClientId",
+                table: "NotificationsPack",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PackElyssa_ClientId",
@@ -736,6 +906,21 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 name: "IX_PeriodeDecouverts_RIB",
                 table: "PeriodeDecouverts",
                 column: "RIB");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RechargesCarte_CarteEmetteurNum",
+                table: "RechargesCarte",
+                column: "CarteEmetteurNum");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RechargesCarte_CarteRecepteurNum",
+                table: "RechargesCarte",
+                column: "CarteRecepteurNum");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reclamations_ClientId",
+                table: "Reclamations",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Virements_RIB_Emetteur_DateVirement",
@@ -754,13 +939,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 name: "Beneficiaires");
 
             migrationBuilder.DropTable(
-                name: "Cartes");
-
-            migrationBuilder.DropTable(
                 name: "Chequiers");
 
             migrationBuilder.DropTable(
                 name: "DemandeModificationDecouverts");
+
+            migrationBuilder.DropTable(
+                name: "DemandesAugmentationPlafond");
 
             migrationBuilder.DropTable(
                 name: "EmailLogs");
@@ -769,7 +954,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 name: "FeuillesChequiers");
 
             migrationBuilder.DropTable(
+                name: "FraisCartes");
+
+            migrationBuilder.DropTable(
                 name: "FraisComptes");
+
+            migrationBuilder.DropTable(
+                name: "NotificationsPack");
 
             migrationBuilder.DropTable(
                 name: "PackElyssa");
@@ -781,13 +972,22 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                 name: "PeriodeDecouverts");
 
             migrationBuilder.DropTable(
+                name: "RechargesCarte");
+
+            migrationBuilder.DropTable(
+                name: "Reclamations");
+
+            migrationBuilder.DropTable(
                 name: "Virements");
 
             migrationBuilder.DropTable(
-                name: "DemandesCarte");
+                name: "DemandesChequiers");
 
             migrationBuilder.DropTable(
-                name: "DemandesChequiers");
+                name: "Cartes");
+
+            migrationBuilder.DropTable(
+                name: "DemandesCarte");
 
             migrationBuilder.DropTable(
                 name: "Comptes");
