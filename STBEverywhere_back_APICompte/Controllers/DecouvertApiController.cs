@@ -8,6 +8,9 @@ using STBEverywhere_Back_SharedModels.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using STBEverywhere_ApiAuth.Repositories;
+using STBEverywhere_Back_SharedModels;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace STBEverywhere_back_APICompte.Controllers
 {
@@ -95,8 +98,8 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
-        
 
+        /*
         [HttpPost("demandeModificationDecouvert")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -135,7 +138,139 @@ namespace STBEverywhere_back_APICompte.Controllers
 
             return CreatedAtAction(nameof(DemandeModificationDecouvert), new { id = demande.Id }, demande);
         }
+        */
 
+        [HttpPost("demandeModificationDecouvert")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DemandeModificationDecouvert([FromBody] DemandeModificationDecouvertDto demandeDto)
+        {
+            // Récupération de l'ID du client depuis le token
+            var clientId = GetUserIdFromToken();
+
+            if (demandeDto == null || string.IsNullOrEmpty(demandeDto.RIBCompte))
+            {
+                return BadRequest(new { message = "Le RIB et le montant du découvert demandé sont obligatoires." });
+            }
+
+            // Vérifier si le compte existe et appartient au client
+            var compte = await _compteService.GetByRIBAsync(demandeDto.RIBCompte);
+            if (compte == null || compte.ClientId != clientId)
+            {
+                return NotFound(new { message = "Compte introuvable ou n'appartenant pas au client." });
+            }
+
+            // Vérifier si une demande pour ce compte est déjà en attente
+            var existingDemandes = await _compteService.GetDemandesModificationAsync(demandeDto.RIBCompte, StatutDemandeEnum.EnAttente);
+            if (existingDemandes.Any())
+            {
+                return BadRequest(new { message = "Une demande de modification de découvert est déjà en attente pour ce compte." });
+            }
+
+            try
+            {
+                // Récupération du revenu mensuel
+                using var httpClient = new HttpClient();
+
+                // Construction de l'URL avec le paramètre userId
+                var apiUrl = $"http://localhost:5260/api/Client/GetClientRevenuMensuel?userId={clientId}";
+
+                // Ajout du token d'autorisation si nécessaire
+                var token = Request.Headers["Authorization"].ToString();
+                if (!string.IsNullOrEmpty(token))
+                {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("Bearer ", ""));
+                }
+
+                var response = await httpClient.GetAsync(apiUrl);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return BadRequest(new
+                    {
+                        message = "Impossible de récupérer les informations du client.",
+                        details = $"Statut: {response.StatusCode}, Raison: {response.ReasonPhrase}"
+                    });
+                }
+
+                var content = await response.Content.ReadAsStringAsync();
+                var client = JsonSerializer.Deserialize<Client>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (client == null || client.RevenuMensuel <= 0)
+                {
+                    return BadRequest(new { message = "Revenu mensuel non valide ou client introuvable." });
+                }
+
+                // Calcul du découvert maximum autorisé
+                decimal decouvertMaxAutorise = Convert.ToDecimal(client.RevenuMensuel) * 2;
+
+                if (demandeDto.DecouvertDemande > decouvertMaxAutorise)
+                {
+                    return BadRequest(new
+                    {
+                        message = $"Le découvert demandé ne peut pas dépasser le double de votre revenu mensuel.",
+                        maxAutorise = decouvertMaxAutorise,
+                        revenuMensuel = client.RevenuMensuel
+                    });
+                }
+
+                // Création de la demande
+                var demande = new DemandeModificationDecouvert
+                {
+                    RIBCompte = demandeDto.RIBCompte,
+                    DecouvertDemande = demandeDto.DecouvertDemande,
+                    StatutDemande = StatutDemandeEnum.EnAttente,
+                    DateDemande = DateTime.Now,
+                   
+                };
+
+                await _compteService.CreateDemandeModificationAsync(demande);
+
+                return CreatedAtAction(
+                    nameof(DemandeModificationDecouvert),
+                    new { id = demande.Id },
+                    new
+                    {
+                        demande,
+                        clientInfo = new
+                        {
+                            client.Nom,
+                            client.Prenom,
+                            client.RevenuMensuel
+                        }
+                    });
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "Erreur HTTP lors de la communication avec le service Client");
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, new
+                {
+                    message = "Service Client indisponible",
+                    details = ex.Message
+                });
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError(ex, "Erreur de désérialisation");
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = "Erreur de traitement des données client",
+                    details = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur serveur inattendue");
+                return StatusCode(StatusCodes.Status500InternalServerError, new
+                {
+                    message = "Erreur interne du serveur",
+                    details = ex.Message
+                });
+            }
+        }
 
 
 

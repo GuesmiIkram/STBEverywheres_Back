@@ -38,7 +38,7 @@ namespace STBEverywhere_back_APIChequier.Jobs
 
                         // Récupérer les demandes dont le statut est 'expedié'
                         var demandesDispo = await context.DemandesChequiers
-                            .Where(d => d.Status == DemandeStatus.expédié && d.ModeLivraison == ModeLivraison.EnvoiRecommande) 
+                            .Where(d => d.Status == DemandeStatus.Expedie && d.ModeLivraison == ModeLivraison.EnvoiRecommande) 
                             .ToListAsync();
 
                         foreach (var demande in demandesDispo) // Ajout de la boucle foreach
@@ -52,7 +52,7 @@ namespace STBEverywhere_back_APIChequier.Jobs
                                 var chequier = new Chequier
                                 {
                                     DemandeChequierId = demande.IdDemande,
-                                    Status = ChequierStatus.Active,
+                                    Status = ChequierStatus.Actif,
                                     DateLivraison = DateTime.Now, // Marquer la date de livraison
                                 };
 

@@ -15,7 +15,6 @@ namespace STBEverywhere_Back_SharedModels.Models.DTO
         public bool Otp { get; set; }
 
         public ModeLivraison ModeLivraison { get; set; }
-        public string? Agence { get; set; }
         public string? AdresseComplete { get; set; }
         public string? CodePostal { get; set; }
 

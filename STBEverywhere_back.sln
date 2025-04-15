@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_ApiGateway", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywheres_Back_ApiAuth", "STBEverywheres_Back_ApiAuth\STBEverywheres_Back_ApiAuth.csproj", "{BF6B8A3F-7C22-417A-86E2-7E6C4A79AF7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere.Tests", "STBEverywhere.Tests\STBEverywhere.Tests.csproj", "{57E16C8D-A88A-4FD1-9621-97795AC2CC94}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_back_APIAgent", "STBEverywhere_back_APIAgent\STBEverywhere_back_APIAgent.csproj", "{F4ECB89E-DF7C-41A3-AFCE-C849ECF7644A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STBEverywhere_ApiAgence", "STBEverywhere_ApiAgence\STBEverywhere_ApiAgence.csproj", "{560CF208-90B0-4BFF-AF05-1FCF602AA2FB}"
@@ -57,10 +55,6 @@ Global
 		{BF6B8A3F-7C22-417A-86E2-7E6C4A79AF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6B8A3F-7C22-417A-86E2-7E6C4A79AF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF6B8A3F-7C22-417A-86E2-7E6C4A79AF7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57E16C8D-A88A-4FD1-9621-97795AC2CC94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57E16C8D-A88A-4FD1-9621-97795AC2CC94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57E16C8D-A88A-4FD1-9621-97795AC2CC94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57E16C8D-A88A-4FD1-9621-97795AC2CC94}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4ECB89E-DF7C-41A3-AFCE-C849ECF7644A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4ECB89E-DF7C-41A3-AFCE-C849ECF7644A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4ECB89E-DF7C-41A3-AFCE-C849ECF7644A}.Release|Any CPU.ActiveCfg = Release|Any CPU

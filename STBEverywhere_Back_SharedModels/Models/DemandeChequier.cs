@@ -28,7 +28,7 @@ namespace STBEverywhere_Back_SharedModels.Models
         [Required]
         public ModeLivraison ModeLivraison { get; set; } // Ajout du mode de livraison
 
-        public string? Agence { get; set; } // Obligatoire si "LivraisonAgence"
+        //public string? Agence { get; set; } // Obligatoire si "LivraisonAgence"
 
         public string? AdresseComplete { get; set; } // Obligatoire si "EnvoiRecommande"
 
@@ -50,7 +50,7 @@ namespace STBEverywhere_Back_SharedModels.Models
         public bool? AccepteEngagement { get; set; } // Accepte l'engagement pour l'encaissement en espèces (nullable)
 
         public bool isBarre { get; set; } // Indicateur si le chéquier est barré ou non
-
+        public int? IdAgent { get; set; }
         public ICollection<FeuilleChequier> Feuilles { get; set; } = new List<FeuilleChequier>();
 
         // Relation One-to-Many : Une demande peut avoir plusieurs e-mails
@@ -59,16 +59,16 @@ namespace STBEverywhere_Back_SharedModels.Models
 
     public enum DemandeStatus
     {
-        EnCoursPreparation,
-        DisponibleEnAgence,
-        RemisAuClient,
-        expédié
+        EnCoursPreparation=0,
+        DisponibleEnAgence=1,
+        RemisAuClient=2,
+        Expedie= 3 //envoi postale
     }
 
     public enum ModeLivraison
     {
-        LivraisonAgence,
-        EnvoiRecommande
+        LivraisonAgence=0,
+        EnvoiRecommande=1
     }
 
 }

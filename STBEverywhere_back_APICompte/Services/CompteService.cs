@@ -55,6 +55,21 @@ namespace STBEverywhere_back_APICompte.Services
         }
 
 
+        public async Task<string> GetAgenceIdOfCompteAsync(string rib)
+        {
+            var Compte = await _compteRepository.GetCompteByRIBAsync(rib);
+
+           
+           
+                var client = await _userRepository.GetClientByUserIdAsync(Compte.ClientId);
+
+
+            return client.AgenceId ;
+        }
+
+
+
+
         public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesByAgenceIdAsync(string agenceId)
         {
             var allComptes = await _compteRepository.GetAllAsync();

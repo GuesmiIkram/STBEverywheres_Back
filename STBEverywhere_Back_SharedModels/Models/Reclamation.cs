@@ -19,25 +19,33 @@ namespace STBEverywhere_Back_SharedModels.Models
 
         [Required]
         [MaxLength(100)]
-        public string Objet { get; set; } // Renommé de Sujet à Objet comme demandé
+        public string Objet { get; set; }
 
         [Required]
+        public string Motif { get; set; }
+
+        
+        [Required]
         [MaxLength(1000)]
-        public string Description { get; set; }
+        public string Message { get; set; }
 
         [Required]
         public DateTime DateCreation { get; set; } = DateTime.UtcNow;
 
+        public string? Reponse { get; set; }
+
+        public int? IdAgent { get; set; }
+
         public DateTime? DateResolution { get; set; }
 
         [Required]
-        public ReclamationStatut Statut { get; set; } = ReclamationStatut.Nouvelle;
+        public ReclamationStatut Statut { get; set; } = ReclamationStatut.EnCours;
     }
     public enum ReclamationStatut
     {
-        Nouvelle,
+        
         EnCours,
-        Resolue,
-        Rejetee
+        traite
+        
     }
 }

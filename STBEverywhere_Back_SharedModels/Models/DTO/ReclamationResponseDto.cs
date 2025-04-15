@@ -8,6 +8,5 @@
         public DateTime DateCreation { get; set; }
         public DateTime? DateResolution { get; set; }
         public string Statut { get; set; }
-        public string Reference { get; set; } 
     }
 }

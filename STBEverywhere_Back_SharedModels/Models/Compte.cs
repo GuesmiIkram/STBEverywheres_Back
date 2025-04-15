@@ -18,18 +18,18 @@ namespace STBEverywhere_Back_SharedModels
         [Required]
         public string Type { get; set; }
 
-        [Column(TypeName = "decimal(18,3)")]
+        //[Column(TypeName = "decimal(18,3)")]
         public decimal Solde { get; set; }
         [NotMapped]
-        public decimal SoldeDisponible => Solde + DecouvertAutorise; // Solde total disponible
+        public decimal? SoldeDisponible => Solde + DecouvertAutorise; // Solde total disponible
 
         public DateTime DateCreation { get; set; }
         public string Statut { get; set; }
         public string NumCin { get; set; }
 
-        public decimal DecouvertAutorise { get; set; }
+        public decimal? DecouvertAutorise { get; set; }
 
-
+        public string? idAgent { get; set; }
         public string? NbrOperationsAutoriseesParJour { get; set; }
 
         [Column(TypeName = "decimal(18,3)")]

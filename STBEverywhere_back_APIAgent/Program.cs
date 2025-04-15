@@ -10,7 +10,8 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using System.Text.Json.Serialization;
+using static System.Net.Mime.MediaTypeNames;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration de la base de données MySQL
@@ -22,7 +23,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddScoped<IReclamationService, ReclamationService>();
+builder.Services.AddScoped<IReclamationRepository, ReclamationRepository>();
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddHttpClient("CompteService", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5185");
@@ -54,6 +57,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Ajouter les services aux containers
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Configuration Swagger + sécurité JWT
 builder.Services.AddSwaggerGen(options =>
@@ -92,6 +100,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<IDemandeModificationDecouvertRepository, DemandeModificationDecouvertRepository>();
 builder.Services.AddScoped<IDemandeModificationDecouvertService, DemandeModificationDecouvertService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 // CORS pour permettre les requêtes du frontend Angular
 builder.Services.AddCors(options =>

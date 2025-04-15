@@ -48,8 +48,9 @@ namespace STBEverywhere_back_APIClient.Controllers
                 {
                     ClientId = client.Id,
                     Objet = reclamationDto.Objet,
-                    Description = reclamationDto.Description,
-                    Statut = ReclamationStatut.Nouvelle,
+                    Message = reclamationDto.Message,
+                    Motif= reclamationDto.Motif,
+                    Statut = ReclamationStatut.EnCours,
                     DateCreation = DateTime.UtcNow
                 };
 
@@ -62,10 +63,10 @@ namespace STBEverywhere_back_APIClient.Controllers
                 {
                     Id = reclamation.Id,
                     Objet = reclamation.Objet,
-                    Description = reclamation.Description,
+                    Description = reclamation.Message,
                     DateCreation = reclamation.DateCreation,
                     Statut = reclamation.Statut.ToString(),
-                    Reference = reference
+                    //Reference = reference
                 });
             }
             catch (Exception ex)
@@ -75,7 +76,89 @@ namespace STBEverywhere_back_APIClient.Controllers
             }
         }
 
-        [HttpGet]
+        
+        [HttpGet("reclamations-par-agence/{agenceId}")]
+        public async Task<IActionResult> GetReclamationsParAgence(string agenceId)
+        {
+            try
+            {
+                var reclamations = await _dbContext.Reclamations
+                    .Include(r => r.Client) // Inclure les données du client
+                    .Where(r => r.Statut == ReclamationStatut.EnCours && r.Client.AgenceId == agenceId)
+                    .OrderByDescending(r => r.DateCreation)
+                    .Select(r => new
+                    {
+                        // Tous les champs de la réclamation
+                        r.Id,
+                        r.Objet,
+                        r.Message,
+                        r.Motif,
+                        r.Reponse,
+                        r.IdAgent,
+                        r.Statut,
+                        DateCreation = r.DateCreation.ToString("yyyy-MM-dd"),
+                        DateResolution = r.DateResolution.HasValue ? r.DateResolution.Value.ToString("yyyy-MM-dd") : null,
+
+                        // Informations du client
+                        ClientId = r.Client.Id,
+                        NomClient = r.Client.Nom + " " + r.Client.Prenom,
+                        ClientCIN = r.Client.NumCIN,
+                        ClientEmail = r.Client.Email,
+                        ClientTelephone = r.Client.Telephone,
+
+                        // Champ calculé
+                        Reference = $"REC-{r.Id.ToString().PadLeft(8, '0')}"
+                    })
+                    .ToListAsync();
+
+                return Ok(reclamations);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des réclamations pour l'agence {AgenceId}", agenceId);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Une erreur est survenue");
+            }
+        }
+
+       
+
+
+
+        [HttpGet("mes-reclamations")]
+        public async Task<IActionResult> GetReclamations()
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+                var reclamations = await _dbContext.Reclamations
+                    .Where(r => r.ClientId == client.Id)
+                    .OrderByDescending(r => r.DateCreation)
+                    .Select(r => new
+                    {
+                        r.Id,
+                        r.Objet,
+                        Description = r.Message,
+                        r.DateCreation,
+                        Statut = r.Statut.ToString(),
+                        Reference = $"REC-{r.Id.ToString().PadLeft(8, '0')}",
+                        Reponse = string.IsNullOrEmpty(r.Reponse) ? null : r.Reponse
+                    })
+                    .ToListAsync();
+
+                return Ok(reclamations);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des réclamations");
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Une erreur est survenue");
+            }
+        }
+
+
+
+     /*   [HttpGet]
         public async Task<IActionResult> GetReclamations()
         {
             try
@@ -90,10 +173,12 @@ namespace STBEverywhere_back_APIClient.Controllers
                     {
                         Id = r.Id,
                         Objet = r.Objet,
-                        Description = r.Description,
+                        Description = r.Message,
+                        Motif=r.Motif,
                         DateCreation = r.DateCreation,
                         DateResolution = r.DateResolution,
                         Statut = r.Statut.ToString(),
+                       
                         Reference = $"REC-{r.Id.ToString().PadLeft(8, '0')}"
                     })
                     .ToListAsync();
@@ -105,7 +190,7 @@ namespace STBEverywhere_back_APIClient.Controllers
                 _logger.LogError(ex, "Erreur lors de la récupération des réclamations");
                 return StatusCode((int)HttpStatusCode.InternalServerError, "Une erreur est survenue");
             }
-        }
+        }*/
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReclamationDetails(int id)
@@ -125,11 +210,11 @@ namespace STBEverywhere_back_APIClient.Controllers
                 {
                     Id = reclamation.Id,
                     Objet = reclamation.Objet,
-                    Description = reclamation.Description,
+                    Description = reclamation.Message,
                     DateCreation = reclamation.DateCreation,
                     DateResolution = reclamation.DateResolution,
                     Statut = reclamation.Statut.ToString(),
-                    Reference = $"REC-{reclamation.Id.ToString().PadLeft(8, '0')}"
+                   // Reference = $"REC-{reclamation.Id.ToString().PadLeft(8, '0')}"
                 });
             }
             catch (Exception ex)
