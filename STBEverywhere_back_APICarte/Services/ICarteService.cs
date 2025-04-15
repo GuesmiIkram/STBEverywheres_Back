@@ -22,5 +22,7 @@ namespace STBEverywhere_back_APICarte.Services
         Task<string> BlockCarteAsync(string numCarte);
         Task<string> DeBlockCarteAsync(string numCarte);
         Task<IEnumerable<CarteDTO>> GetCartesByClientIdAsync(int clientId);
+        Task<IEnumerable<DemandeAugmentationPlafond>> GetDemandesPlafondByAgenceIdAsync(string agenceId);
+        Task<bool> RepondreDemandeAugmentationAsync(int demandeId, string nouveauStatut, string commentaire);
     }
 }
