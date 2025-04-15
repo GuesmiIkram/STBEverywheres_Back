@@ -23,6 +23,7 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Hosting;
+
 using STBEverywhere_Back_SharedModels.Models;
 using System.Net.Http;
 using System.Text.Json.Serialization;
@@ -30,6 +31,7 @@ using System.Text.Json;
 using MongoDB.Bson.IO;
 using Newtonsoft.Json;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
+
 
 
 
@@ -54,7 +56,6 @@ namespace STBEverywhere_back_APICompte.Controllers
 
         public CompteAPIController(HttpClient httpClient, IConverter pdfConverter, IWebHostEnvironment webHostEnvironment, ICompteService compteService, IUserRepository userRepository, ApplicationDbContext db, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
 
-
         {
             _compteService = compteService;
             _db = db;
@@ -65,7 +66,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             _httpContextAccessor = httpContextAccessor;
             _pdfConverter = pdfConverter;
             _webHostEnvironment = webHostEnvironment;
+
             _httpClient = httpClient;
+
         }
 
 
@@ -170,9 +173,11 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = await _userRepository.GetClientByUserIdAsync(userId);
             var clientId = client.Id;
 
+
             
 
             var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId  && c.Type != "Technique");
+
             if (comptes == null || !comptes.Any())
             {
                 return NotFound(new { message = "Aucun compte actif trouvé pour vous." });
@@ -181,7 +186,7 @@ namespace STBEverywhere_back_APICompte.Controllers
             return Ok(comptes);
         }
 
-       
+
 
         //liste des comptes qui peuvent effectuer des virements (tous les comptes sauf compte epargne) 
 
@@ -316,7 +321,7 @@ namespace STBEverywhere_back_APICompte.Controllers
         public async Task<IActionResult> desactiverCompte(string rib, string idAgent)
         {
 
-           
+
 
             var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault(); // Correction appliquée
 
@@ -327,7 +332,9 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
             compte.Statut = "desactive";
+
             compte.idAgent = idAgent;
+
 
             await _compteService.SaveAsync();
             return Ok(new { message = "Le compte a été désactivé avec succès." });
@@ -347,7 +354,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
 
             compte.Statut = "actif";
+
             compte.idAgent = idAgent;
+
             await _compteService.SaveAsync();
 
             return Ok(new { message = "Le compte a été activé avec succès." });
@@ -366,7 +375,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = await _userRepository.GetClientByUserIdAsync(userId);
             var clientId = client.Id;
 
+
             var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault(); 
+
             if (compte == null)
             {
                 return NotFound(new { message = "Compte introuvable." });
@@ -682,14 +693,6 @@ namespace STBEverywhere_back_APICompte.Controllers
                 throw new Exception($"Erreur lors de l'appel HTTP: {ex.Message}");
             }
 
-
-
-
-
-
-
-
-            
         }
 
 
@@ -717,7 +720,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                 var compte = comptes.FirstOrDefault();
                 if (string.IsNullOrEmpty(compte?.RIB))
                     return NotFound(new { message = "RIB non disponible pour ce compte" });
-                // Configuration de la licence QuestPDF
+
                 QuestPDF.Settings.License = LicenseType.Community;
 
 
@@ -744,3 +747,104 @@ namespace STBEverywhere_back_APICompte.Controllers
 
     }
 }
+
+        /* [HttpGet("rib/download")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+         [ProducesResponseType(StatusCodes.Status404NotFound)]
+         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+         public async Task<IActionResult> DownloadRIB()
+         {
+             try
+             {
+                 var userId = GetUserIdFromToken();
+                 var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+                 if (client == null)
+                     return NotFound(new { message = "Client non trouvé" });
+
+                 var comptes = await _compteService.GetAllAsync(c => c.ClientId == client.Id && c.Statut != "Clôturé" &&
+     c.Type != "Technique");
+
+                 if (comptes == null || !comptes.Any())
+                     return NotFound(new { message = "Aucun compte actif trouvé pour ce client" });
+
+                 // Configuration de la licence QuestPDF (gratuite pour les projets open source)
+                 QuestPDF.Settings.License = LicenseType.Community;
+
+                 var pdfBytes = GeneratePdfWithQuestPDF(client, comptes);
+                 return File(pdfBytes, "application/pdf", $"Releve_RIB_{client.Nom}_{client.Prenom}.pdf");
+             }
+             catch (Exception ex)
+             {
+                 _logger.LogError(ex, "Erreur lors de la génération du RIB");
+                 return StatusCode(StatusCodes.Status500InternalServerError,
+                     new { message = "Une erreur est survenue lors de la génération du document" });
+             }
+         }*/
+
+        /*private byte[] GeneratePdfWithQuestPDF(Client client, IEnumerable<Compte> comptes)
+        {
+            return Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(12));
+
+                    // En-tête
+                    page.Header()
+                        .AlignCenter()
+                        .Text("STB EVERYWHERE")
+                        .SemiBold().FontSize(18).FontColor(Colors.Blue.Darken3);
+
+                    // Contenu principal
+                    page.Content()
+                        .PaddingVertical(1, QuestPDF.Infrastructure.Unit.Centimetre)
+                        .Column(col =>
+                        {
+                            // Titre principal
+                            col.Item().Text($"Relevé d'Identité Bancaire - {client.Nom} {client.Prenom}")
+                                .SemiBold().FontSize(16);
+
+                            // Section Informations Client
+                            col.Item().PaddingTop(10).Column(clientCol =>
+                            {
+                                clientCol.Item().Text("Informations client:").Bold();
+                                clientCol.Item().Text($"Nom: {client.Nom} {client.Prenom}");
+                                clientCol.Item().Text($"CIN: {client.NumCIN ?? "Non renseigné"}");
+                                clientCol.Item().Text($"Date de naissance: {client.DateNaissance:dd/MM/yyyy}");
+                                clientCol.Item().Text($"Adresse: {client.Adresse}");
+                            });
+
+                            // Section Comptes Bancaires
+                            col.Item().PaddingTop(15).Text("Coordonnées bancaires:").Bold();
+
+                            foreach (var compte in comptes)
+                            {
+                                col.Item().PaddingTop(5).Border(1).Padding(10).Column(accountCol =>
+                                {
+                                    accountCol.Item().Text($"Type: {compte.Type}").SemiBold();
+                                    accountCol.Item().Text($"RIB: {compte.RIB}");
+                                    accountCol.Item().Text($"IBAN: {compte.IBAN}");
+                                    accountCol.Item().Text($"Solde: {compte.Solde:C}");
+                                    accountCol.Item().Text($"Date création: {compte.DateCreation:dd/MM/yyyy}");
+                                });
+                            }
+                        });
+
+                    // Pied de page
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("Document généré le ");
+                            text.Span($"{DateTime.Now:dd/MM/yyyy à HH:mm}");
+                            text.Span(" - STB EVERYWHERE");
+                        });
+                });
+            }).GeneratePdf();
+        }*/
+
+

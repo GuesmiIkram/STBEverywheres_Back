@@ -1,4 +1,5 @@
-﻿using STBEverywhere_back_APICarte.Repository;
+﻿
+using STBEverywhere_back_APICarte.Repository;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_Back_SharedModels.Models;
 using System;
@@ -113,7 +114,7 @@ namespace STBEverywhere_back_APICarte.Services
                 DateExpiration = demande.DateCreation.AddYears(3),
                 Statut = StatutCarte.Active,
                 RIB = demande.NumCompte,
-                Solde=compte.Solde,
+                Solde = compte.Solde,
                 PlafondTPE = 4000,
                 PlafondDAP = 2000,
                 Iddemande = demande.Iddemande,
@@ -205,7 +206,7 @@ namespace STBEverywhere_back_APICarte.Services
                 prefix = "4906012";
                 length = 16; // Longueur totale de la carte Visa
             }
-           
+
             else if (nomCarte.Contains("Mastercard"))
             {
                 prefix = "539997";
@@ -392,12 +393,12 @@ namespace STBEverywhere_back_APICarte.Services
                 throw new InvalidOperationException("La carte est déjà inactive.");
             }
             // Vérifier si le solde est égal à 0
-           
-                // Mettre à jour le statut de la carte à "Inactif"
-           carte.Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Inactive;
-           await _carteRepository.UpdateCarteAsync(carte);
-           return "Carte bloquée avec succès.";
-           
+
+            // Mettre à jour le statut de la carte à "Inactif"
+            carte.Statut = STBEverywhere_Back_SharedModels.Models.enums.StatutCarte.Inactive;
+            await _carteRepository.UpdateCarteAsync(carte);
+            return "Carte bloquée avec succès.";
+
         }
 
 
@@ -422,7 +423,7 @@ namespace STBEverywhere_back_APICarte.Services
             {
                 throw new InvalidOperationException("La carte est déjà active.");
             }
-            
+
 
             else
             {
@@ -431,7 +432,83 @@ namespace STBEverywhere_back_APICarte.Services
                 await _carteRepository.UpdateCarteAsync(carte);
                 return "Carte debloquée avec succès.";
             }
-           
+
+        }
+
+
+        public async Task<IEnumerable<DemandeAugmentationPlafond>> GetDemandesPlafondByAgenceIdAsync(string agenceId)
+        {
+            // Récupérer tous les comptes associés à l'agence
+            var comptesAgence = await _dbContext.Comptes
+                .Include(c => c.Client)
+                .Where(c => c.Client.AgenceId == agenceId)
+                .ToListAsync();
+
+            // Récupérer les numéros de carte associés à ces comptes
+            var ribComptes = comptesAgence.Select(c => c.RIB).ToList();
+
+            // Récupérer les demandes d'augmentation pour ces cartes
+            var demandes = await _dbContext.DemandesAugmentationPlafond
+                .Include(d => d.Carte)
+                .Where(d => ribComptes.Contains(d.Carte.RIB))
+                .OrderByDescending(d => d.DateDemande)
+                .ToListAsync();
+
+            return demandes;
+        }
+
+        public async Task<bool> RepondreDemandeAugmentationAsync(int demandeId, string nouveauStatut, string commentaire)
+        {
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                // Récupérer la demande
+                var demande = await _dbContext.DemandesAugmentationPlafond
+                    .Include(d => d.Carte)
+                    .FirstOrDefaultAsync(d => d.Id == demandeId);
+
+                if (demande == null)
+                {
+                    _logger.LogWarning("Demande d'augmentation introuvable : {DemandeId}", demandeId);
+                    return false;
+                }
+
+                // Valider la transition de statut
+                if (demande.Statut != StatutDemandeAug.EnAttente.ToString() &&
+                    nouveauStatut != StatutDemandeAug.Approuvee.ToString() &&
+                    nouveauStatut != StatutDemandeAug.Rejetee.ToString())
+                {
+                    _logger.LogWarning("Transition de statut invalide : {AncienStatut} -> {NouveauStatut}",
+                        demande.Statut, nouveauStatut);
+                    return false;
+                }
+
+                // Mettre à jour la demande
+                demande.Statut = nouveauStatut;
+                demande.Commentaire = commentaire;
+                demande.DateTraitement = DateTime.Now;
+
+                // Si approuvée, mettre à jour les plafonds de la carte
+                if (nouveauStatut == StatutDemandeAug.Approuvee.ToString())
+                {
+                    demande.Carte.PlafondTPE = demande.NouveauPlafondTPE;
+                    demande.Carte.PlafondDAP = demande.NouveauPlafondDAB;
+                    _dbContext.Cartes.Update(demande.Carte);
+                }
+
+                _dbContext.DemandesAugmentationPlafond.Update(demande);
+                await _dbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, "Erreur lors du traitement de la demande d'augmentation");
+                return false;
+            }
         }
 
     }

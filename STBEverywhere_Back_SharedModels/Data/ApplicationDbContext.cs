@@ -37,6 +37,7 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<DemandeAugmentationPlafond> DemandesAugmentationPlafond { get; set; }
         public DbSet<RechargeCarte> RechargesCarte { get; set; }
         public DbSet<Reclamation> Reclamations { get; set; }
+        public DbSet<NotificationPack> NotificationsPack { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -68,6 +69,31 @@ namespace STBEverywhere_Back_SharedModels.Data
            .HasOne(r => r.Client)
            .WithMany(c => c.Reclamations)
            .HasForeignKey(r => r.ClientId);
+
+            modelBuilder.Entity<NotificationPack>(entity =>
+            {
+                entity.HasKey(n => n.Id);
+
+                entity.Property(n => n.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(n => n.Message)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(n => n.NotificationType)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(n => n.CreatedAt)
+                    .IsRequired();
+
+                entity.HasOne(n => n.Client)
+                    .WithMany(c => c.NotificationsPack)
+                    .HasForeignKey(n => n.ClientId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
 
             modelBuilder.Entity<FraisCarte>(entity =>
@@ -105,10 +131,10 @@ namespace STBEverywhere_Back_SharedModels.Data
 
 
                 entity.HasData(
-                        new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3, AgenceId = "67f6461d3d6e3c7fa3ef47ad"}
+                        new Agent { Id = 1, Nom = "Admin", Prenom = "STB", Departement = "Administration", UserId = 3, AgenceId = "67f83774f6176b4e97078b05" }
                     );
                 entity.HasData(
-                       new Agent { Id = 2, Nom = "Admin5", Prenom = "STB5", Departement = "Administration", UserId = 5 ,AgenceId = "67f6461d3d6e3c7fa3ef47ae" }
+                       new Agent { Id = 2, Nom = "Admin5", Prenom = "STB5", Departement = "Administration", UserId = 5 ,AgenceId = "67f83774f6176b4e97078b06" }
                    );
             });
 
@@ -166,7 +192,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         PaysNaissance = "USA",
                         NomMere = "Jane Doe",
                         NomPere = "John Doe Sr.", 
-                        AgenceId= "67f6461d3d6e3c7fa3ef47ad",
+                        AgenceId= "67f83774f6176b4e97078b05",
                         UserId = 1
                     },
                     new Client
@@ -196,7 +222,7 @@ namespace STBEverywhere_Back_SharedModels.Data
                         PaysNaissance = "Canada",
                         NomMere = "Mary Smith",
                         NomPere = "Robert Smith",
-                        AgenceId = "67f6461d3d6e3c7fa3ef47ae",
+                        AgenceId = "67f83774f6176b4e97078b06",
                         UserId = 2
                     },
                     new Client

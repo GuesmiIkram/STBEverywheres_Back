@@ -142,7 +142,7 @@ namespace STBEverywhere_back_APICarte.Controllers
              $"Disponible: {(compte.Solde + compte.DecouvertAutorise.Value).ToString("N2")} DT"
                     });
                 }
-            
+
 
                 // Continuer avec les autres vérifications...
 
@@ -183,7 +183,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                 }
 
                 var cartes = await _carteRepository.GetCartesByRIBAsync(demandeCarteDTO.NumCompte);
-        
+
 
                 // Nouvelle vérification: Visa Classic et Mastercard mutuellement exclusives
                 var hasVisaClassic = cartes.Any(c => c.NomCarte == NomCarte.VisaClassic && c.Statut != StatutCarte.Expired);
@@ -474,13 +474,13 @@ namespace STBEverywhere_back_APICarte.Controllers
                     NumCompte = compteTechnique.RIB,
                     NomCarte = demandeCarteDTO.NomCarte,
                     TypeCarte = demandeCarteDTO.TypeCarte,
-                 
+
                     CIN = demandeCarteDTO.CIN, // Assurez-vous que ce champ est mappé
                     Email = demandeCarteDTO.Email,
                     NumTel = demandeCarteDTO.NumTel,
                     DateCreation = DateTime.UtcNow,
                     Statut = StatutDemande.EnCours,
-                  
+
                 };
 
                 _dbContext.DemandesCarte.Add(demandeCarte);
@@ -544,7 +544,7 @@ namespace STBEverywhere_back_APICarte.Controllers
         [HttpPost("demande-augmentation")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-     
+
         public async Task<ActionResult> CreateDemandeAugmentation([FromBody] DemandeAugmentationPlafondDTO demandeDto)
         {
             try
@@ -560,7 +560,6 @@ namespace STBEverywhere_back_APICarte.Controllers
 
                 if (carte == null)
                     return Unauthorized(new { success = false, message = "Carte non trouvée ou non autorisée" });
-                // Vérification s'il existe déjà une demande en cours pour cette carte
                 // Vérification s'il existe déjà une demande en cours pour cette carte
                 var demandeEnCours = await _dbContext.DemandesAugmentationPlafond
                     .AnyAsync(d => d.NumCarte == demandeDto.NumCarte &&
@@ -749,7 +748,7 @@ namespace STBEverywhere_back_APICarte.Controllers
         [HttpGet("historique-recharges")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-      
+
         public async Task<ActionResult<IEnumerable<HistoriqueRechargeDto>>> GetHistoriqueRecharges()
         {
             try
@@ -758,7 +757,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                 var userId = GetUserIdFromToken();
                 var client = await _userRepository.GetClientByUserIdAsync(userId);
 
-              
+
                 // 2. Récupérer toutes les cartes du client
                 var cartesClient = await _dbContext.Cartes
                     .Where(c => c.Compte.ClientId == client.Id)
@@ -780,7 +779,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                         CarteRecepteurNum = r.CarteRecepteurNum,
                         Montant = r.Montant,
                         Frais = r.Frais,
-                       
+
                     })
                     .ToListAsync();
 
@@ -794,5 +793,284 @@ namespace STBEverywhere_back_APICarte.Controllers
         }
 
 
+        [HttpGet("getDemandesPlafondByAgence/{agenceId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> GetDemandesByAgence(string agenceId)
+        {
+            try
+            {
+
+
+                var demandes = await _carteService.GetDemandesPlafondByAgenceIdAsync(agenceId);
+
+                if (!demandes.Any())
+                {
+                    return NotFound(new { message = "Aucune demande trouvée pour cette agence." });
+                }
+
+                // Mapper vers un DTO si nécessaire
+                var result = demandes.Select(d => new {
+                    d.Id,
+                    d.NumCarte,
+                    d.NouveauPlafondTPE,
+                    d.NouveauPlafondDAB,
+                    d.Raison,
+                    d.DateDemande,
+                    d.Statut,
+                    ClientNom = d.Carte?.Compte?.Client?.Nom,
+                    ClientPrenom = d.Carte?.Compte?.Client?.Prenom
+                });
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des demandes par agence");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur" });
+            }
+        }
+
+
+        [HttpPost("repondre-demande-augmentation")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RepondreDemandeAugmentation([FromBody] ReponseDemandeAugmentationPlafondDto dto)
+        {
+            try
+            {
+
+
+                // Récupérer la demande pour vérifier l'agence
+                var demande = await _dbContext.DemandesAugmentationPlafond
+                    .Include(d => d.Carte)
+                    .ThenInclude(c => c.Compte)
+                    .ThenInclude(c => c.Client)
+                    .FirstOrDefaultAsync(d => d.Id == dto.DemandeId);
+
+                if (demande == null)
+                    return NotFound(new { message = "Demande introuvable" });
+
+
+                // Traiter la demande
+                var result = await _carteService.RepondreDemandeAugmentationAsync(
+                    dto.DemandeId,
+                    dto.NouveauStatut,
+                    dto.Commentaire);
+
+                if (!result)
+                    return BadRequest(new { message = "Échec du traitement de la demande" });
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Demande traitée avec succès",
+                    nouveauPlafondTPE = demande.NouveauPlafondTPE,
+                    nouveauPlafondDAB = demande.NouveauPlafondDAB
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors du traitement de la demande");
+                return StatusCode(500, new { message = "Erreur interne du serveur" });
+            }
+        }
+
+        [HttpGet("demandes-carte/by-agence/{agenceId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetDemandesCarteByAgence(string agenceId)
+        {
+            try
+            {
+                // Récupérer tous les clients de l'agence
+                var clientsAgence = await _dbContext.Clients
+                    .Where(c => c.AgenceId == agenceId)
+                    .ToListAsync();
+
+                if (!clientsAgence.Any())
+                {
+                    return NotFound(new { message = "Aucun client trouvé pour cette agence." });
+                }
+
+                // Récupérer les RIB des comptes de ces clients
+                var ribComptes = await _dbContext.Comptes
+                    .Where(c => clientsAgence.Select(cl => cl.Id).Contains(c.ClientId))
+                    .Select(c => c.RIB)
+                    .ToListAsync();
+
+                // Récupérer les demandes de carte pour ces comptes
+                var demandes = await _dbContext.DemandesCarte
+                    .Include(d => d.Compte)
+                    .ThenInclude(c => c.Client)
+                    .Where(d => ribComptes.Contains(d.NumCompte))
+                    .OrderByDescending(d => d.DateCreation)
+                    .Select(d => new
+                    {
+                        d.Iddemande,
+                        d.NumCompte,
+                        ClientNom = d.Compte.Client.Nom,
+                        ClientPrenom = d.Compte.Client.Prenom,
+                        d.NomCarte,
+                        d.TypeCarte,
+                        d.DateCreation,
+                        d.Statut,
+                        d.Email,
+                        d.NumTel
+                    })
+                    .ToListAsync();
+
+                if (!demandes.Any())
+                {
+                    return NotFound(new { message = "Aucune demande de carte trouvée pour cette agence." });
+                }
+
+                return Ok(demandes);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des demandes de carte par agence");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur" });
+            }
+        }
+
+
+        [HttpPatch("demandes-carte/{demandeId}/statut")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateStatutDemandeCarte(int demandeId, [FromBody] UpdateStatutDemandeDto updateDto)
+        {
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            try
+            {
+                // Récupérer la demande avec les relations nécessaires
+                var demande = await _dbContext.DemandesCarte
+                    .Include(d => d.Compte)
+                    .ThenInclude(c => c.Client)
+                    .FirstOrDefaultAsync(d => d.Iddemande == demandeId);
+
+                if (demande == null)
+                {
+                    return NotFound(new { message = "Demande de carte introuvable." });
+                }
+
+                // Valider que le nouveau statut est différent de l'actuel
+                if (demande.Statut == updateDto.NouveauStatut)
+                {
+                    return BadRequest(new { message = "Le nouveau statut doit être différent du statut actuel." });
+                }
+
+                // Valider la transition de statut
+                if (!IsValidStatusTransition(demande.Statut, updateDto.NouveauStatut))
+                {
+                    var allowedStatuses = GetAllowedStatusTransitions(demande.Statut);
+                    return BadRequest(new
+                    {
+                        message = "Transition de statut invalide.",
+                        statutActuel = demande.Statut,
+                        statutsAutorises = allowedStatuses
+                    });
+                }
+
+                // Mettre à jour le statut
+                var ancienStatut = demande.Statut;
+                demande.Statut = updateDto.NouveauStatut;
+
+
+
+                // Sauvegarder les changements
+                _dbContext.DemandesCarte.Update(demande);
+                await _dbContext.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                // Journaliser la modification
+                _logger.LogInformation($"Statut demande {demandeId} changé de {ancienStatut} à {updateDto.NouveauStatut}");
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Statut de la demande mis à jour avec succès.",
+                    demandeId = demande.Iddemande,
+                    ancienStatut,
+                    nouveauStatut = demande.Statut
+                });
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, $"Erreur lors de la mise à jour du statut de la demande {demandeId}");
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Erreur serveur lors de la mise à jour du statut." });
+            }
+        }
+
+        // Valide les transitions de statut possibles
+        private bool IsValidStatusTransition(StatutDemande ancienStatut, StatutDemande nouveauStatut)
+        {
+            switch (ancienStatut)
+            {
+                case StatutDemande.EnCours:
+                    return nouveauStatut == StatutDemande.EnPreparation ||
+                           nouveauStatut == StatutDemande.DisponibleEnAgence ||
+                           nouveauStatut == StatutDemande.Recuperee ||
+                           nouveauStatut == StatutDemande.Rejetee;
+
+                case StatutDemande.EnPreparation:
+                    return nouveauStatut == StatutDemande.DisponibleEnAgence ||
+                         nouveauStatut == StatutDemande.Recuperee ||
+                         nouveauStatut == StatutDemande.Livree ||
+                         nouveauStatut == StatutDemande.Rejetee;
+
+                case StatutDemande.DisponibleEnAgence:
+                    return nouveauStatut == StatutDemande.Livree ||
+                           nouveauStatut == StatutDemande.Recuperee ||
+                           nouveauStatut == StatutDemande.Rejetee;
+
+                case StatutDemande.Livree:
+                    return nouveauStatut == StatutDemande.Recuperee;
+
+
+                case StatutDemande.Rejetee:
+                    return false; // Statuts terminaux
+
+                default:
+                    return false;
+            }
+        }
+
+        // Retourne les statuts possibles pour une transition
+        private List<StatutDemande> GetAllowedStatusTransitions(StatutDemande currentStatus)
+        {
+            return currentStatus switch
+            {
+                StatutDemande.EnCours => new List<StatutDemande> {
+            StatutDemande.EnPreparation,
+            StatutDemande.DisponibleEnAgence,
+            StatutDemande.Recuperee,
+            StatutDemande.Rejetee
+        },
+                StatutDemande.EnPreparation => new List<StatutDemande> {
+            StatutDemande.DisponibleEnAgence,
+            StatutDemande.Recuperee,
+            StatutDemande.Rejetee
+        },
+                StatutDemande.DisponibleEnAgence => new List<StatutDemande> {
+            StatutDemande.Livree,
+            StatutDemande.Recuperee,
+            StatutDemande.Rejetee
+        },
+                StatutDemande.Livree => new List<StatutDemande> {
+            StatutDemande.Recuperee
+        },
+                _ => new List<StatutDemande>(),
+            };
+        }
     }
-} 
+
+}
+

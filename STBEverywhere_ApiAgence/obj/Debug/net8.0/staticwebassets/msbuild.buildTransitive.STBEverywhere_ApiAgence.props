@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\STBEverywhere_ApiAgence.props" />
-</Project>

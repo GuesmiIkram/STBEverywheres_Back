@@ -29,8 +29,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<IClientService, ClientService>();
+
 
 builder.Services.AddScoped<EmailService>();
 
