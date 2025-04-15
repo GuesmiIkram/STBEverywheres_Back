@@ -16,20 +16,24 @@ namespace STBEverywhere_Back_SharedModels.Models
         public DemandeChequier DemandeChequier { get; set; }
 
         [Required]
-        public ChequierStatus Status { get; set; } = ChequierStatus.Active;
+        public ChequierStatus Status { get; set; } = ChequierStatus.Actif;
 
 
-        public DateTime? DateLivraison { get; set; } // Nullable
+        public DateTime? DateLivraison { get; set; }
 
-       //public List<FeuilleChequier> Feuilles { get; set; } = new List<FeuilleChequier>();
+        public int? IdAgent { get; set; }
+
+
+        //public List<FeuilleChequier> Feuilles { get; set; } = new List<FeuilleChequier>();
 
     }
 
     public enum ChequierStatus
     {
-        Active,// Le chéquier est actif et peut être utilisé
-        Désactivé, // Le chéquier est désactivé (perdu, suspendu, etc.)
-        Bloqué // Le chéquier est bloqué (fraude, décision de la banque, etc.)
+        Actif,// Le chéquier est actif et peut être utilisé
+        EnOpposition, // client met chequier en opposition en cas de  (perte,vol,fraude.)
+        Bloqué_agent,
+        epuisé
     }
 
 }

@@ -12,10 +12,13 @@ namespace STBEverywhere_back_APIChequier.Repository.IRepositoy
         Task SaveAsync();
         Task<List<DemandeChequier>> GetDemandesByRibComptes(List<string> ribComptes);
         Task<List<DemandeChequier>> GetDemandesByRibCompte(string ribCompte);
-
+        Task<bool> HasDemandeEncours(string ribCompte);
         Task<List<string>> GetRibComptesByClientId(int clientId);
         Task<int> CountFeuillesByRib(string ribCompte);
         Task<bool> IsCompteEpargne(string ribCompte);
         Task<bool> HasActiveChequier(string ribCompte);
+
+        Task<DemandeChequier> GetDemandeByNumeroChequier(string numeroChequier);
+        Task<IEnumerable<FeuilleChequier>> GetFeuillesByDemandeId(int demandeId);
     }
 }

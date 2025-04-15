@@ -8,7 +8,6 @@ using STBEverywhere_back_APIChequier.Services;
 
 namespace STBEverywhere_back_APIChequier.Jobs
 {
-    // ChequierJob.cs
     public class ChequierJob : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
@@ -42,7 +41,6 @@ namespace STBEverywhere_back_APIChequier.Jobs
                     _logger.LogError(ex, "Une erreur s'est produite lors de l'exécution du job.");
                 }
 
-                // Attendre avant la prochaine exécution
                 await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }

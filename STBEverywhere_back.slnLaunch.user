@@ -23,20 +23,22 @@
         "DebugTarget": "http"
       },
       {
-
-        "Path": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
-
         "Path": "STBEverywhere_back_APIAgent\\STBEverywhere_back_APIAgent.csproj",
-
         "Action": "Start",
         "DebugTarget": "http"
       },
       {
-
-        "Path": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
-
         "Path": "STBEverywhere_ApiAgence\\STBEverywhere_ApiAgence.csproj",
-
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_back_APICarte\\STBEverywhere_back_APICarte.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "STBEverywhere_back_APIChequier\\STBEverywhere_back_APIChequier.csproj",
         "Action": "Start",
         "DebugTarget": "http"
       }

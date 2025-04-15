@@ -84,7 +84,7 @@ namespace STBEverywhere_back_APIChequier.Controllers
                     PlafondChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).PlafondChequier,
                     RibCompte = demandes.First(d => d.IdDemande == c.DemandeChequierId).RibCompte,
                     Type = demandes.First(d => d.IdDemande == c.DemandeChequierId).isBarre ? "Barré" : "Non barré",
-                    AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
+                    //AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
                 }).ToList();
 
                 return Ok(chequiersClient);
@@ -95,10 +95,63 @@ namespace STBEverywhere_back_APIChequier.Controllers
             }
         }
 
-     
 
 
-    [HttpGet("cheques/{ribCompte}")]
+
+
+
+
+        [HttpGet("feuilles/{numeroChequier}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFeuillesParChequier(string numeroChequier)
+        {
+            try
+            {
+                // Vérifier que le client est autorisé à accéder à ce chéquier
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+                var ribComptes = await _demandesChequiersRepository.GetRibComptesByClientId(client.Id);
+
+                // Trouver la demande correspondant au numéro de chéquier
+                var demande = await _demandesChequiersRepository.GetDemandeByNumeroChequier(numeroChequier);
+                if (demande == null) return NotFound("Chéquier non trouvé");
+
+                // Vérifier que le compte appartient bien au client
+                if (!ribComptes.Contains(demande.RibCompte))
+                    return Unauthorized("Ce chéquier ne vous appartient pas");
+
+                // Récupérer les feuilles de la demande
+                var feuilles = await _demandesChequiersRepository.GetFeuillesByDemandeId(demande.IdDemande);
+
+                if (!feuilles.Any())
+                    return NotFound("Aucune feuille trouvée pour ce chéquier");
+
+                var feuillesDetails = feuilles.Select(f => new
+                {
+                    NumeroFeuille = f.NumeroFeuille,
+                    PlafondFeuille = f.PlafondFeuille
+                }).ToList();
+
+                return Ok(feuillesDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur serveur : {ex.Message}");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        [HttpGet("cheques/{ribCompte}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -137,7 +190,7 @@ namespace STBEverywhere_back_APIChequier.Controllers
                     PlafondChequier = demandes.First(d => d.IdDemande == c.DemandeChequierId).PlafondChequier,
                     RibCompte = demandes.First(d => d.IdDemande == c.DemandeChequierId).RibCompte,
                     Type = demandes.First(d => d.IdDemande == c.DemandeChequierId).isBarre ? "Barré" : "Non barré",
-                    AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
+                    //AgenceLivraison = demandes.First(d => d.IdDemande == c.DemandeChequierId).Agence // Agence de livraison
                 }).ToList();
 
                 return Ok(chequiersClient);

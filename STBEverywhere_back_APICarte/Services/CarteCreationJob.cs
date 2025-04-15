@@ -85,7 +85,7 @@ namespace STBEverywhere_back_APICarte.Services
                                     await carteService.AddFraisToCarte(carteCreee.NumCarte, fraisCarte);
 
                                     // Déduire les frais du compte client
-                                    var compte = await compteService.GetByRibAsync(demande.NumCompte);
+                                    var compte = await compteService.GetByRIBAsync(demande.NumCompte);
                                     if (compte != null)
                                     {
                                         compte.Solde -= fraisMontant;

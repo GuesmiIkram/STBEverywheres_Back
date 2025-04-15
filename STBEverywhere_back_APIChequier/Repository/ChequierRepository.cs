@@ -14,6 +14,11 @@ namespace STBEverywhere_back_APIChequier.Repository
             _context = context;
         }
 
+        public async Task<Chequier> GetByIdAsync(int chequierId)
+        {
+            return await _context.Chequiers.FirstOrDefaultAsync(c => c.Id == chequierId);
+        }
+
         public async Task<List<Chequier>> GetChequiersByDemandesIds(List<int> demandesIds)
         {
             return await _context.Chequiers

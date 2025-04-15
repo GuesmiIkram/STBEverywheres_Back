@@ -48,14 +48,6 @@ namespace STBEverywhere_back_APICompte.Repository
         }
 
 
-        /* public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(string ribCompte, string statut)
-         {
-             return await _db.DemandeModificationDecouverts
-                 .Where(d => d.RIBCompte == ribCompte && d.StatutDemande == statut)
-                 .ToListAsync();
-         }*/
-
-
 
         public async Task<IEnumerable<DemandeModificationDecouvert>> GetDemandesModificationAsync(List<string> ribComptes)
         {

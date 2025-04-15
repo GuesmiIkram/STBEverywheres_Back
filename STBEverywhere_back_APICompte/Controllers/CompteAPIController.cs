@@ -24,6 +24,15 @@ using QuestPDF.Infrastructure;
 using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.AspNetCore.Hosting;
 
+using STBEverywhere_Back_SharedModels.Models;
+using System.Net.Http;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using MongoDB.Bson.IO;
+using Newtonsoft.Json;
+using JsonConvert = Newtonsoft.Json.JsonConvert;
+
+
 
 
 
@@ -43,9 +52,9 @@ namespace STBEverywhere_back_APICompte.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CompteAPIController> _logger;
         private readonly IMapper _mapper;
+        private readonly HttpClient _httpClient;
 
-        public CompteAPIController(IConverter pdfConverter, IWebHostEnvironment webHostEnvironment, ICompteService compteService, IUserRepository userRepository, ApplicationDbContext db, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
-
+        public CompteAPIController(HttpClient httpClient, IConverter pdfConverter, IWebHostEnvironment webHostEnvironment, ICompteService compteService, IUserRepository userRepository, ApplicationDbContext db, IVirementRepository dbVirement, IHttpContextAccessor httpContextAccessor, ILogger<CompteAPIController> logger, IMapper mapper)
 
         {
             _compteService = compteService;
@@ -57,6 +66,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             _httpContextAccessor = httpContextAccessor;
             _pdfConverter = pdfConverter;
             _webHostEnvironment = webHostEnvironment;
+
+            _httpClient = httpClient;
+
         }
 
 
@@ -66,6 +78,12 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
+        [HttpGet("agence-id")]
+        public async Task<IActionResult> GetAgenceId(string rib)
+        {
+            var agenceId = await _compteService.GetAgenceIdOfCompteAsync(rib);
+            return Ok(agenceId);
+        }
 
 
 
@@ -156,8 +174,10 @@ namespace STBEverywhere_back_APICompte.Controllers
             var clientId = client.Id;
 
 
+            
 
-            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId && c.Type != "Technique");
+            var comptes = await _compteService.GetAllAsync(c => c.ClientId == clientId  && c.Type != "Technique");
+
             if (comptes == null || !comptes.Any())
             {
                 return NotFound(new { message = "Aucun compte actif trouvé pour vous." });
@@ -255,7 +275,8 @@ namespace STBEverywhere_back_APICompte.Controllers
             compte.NumCin = client.NumCin;
             compte.NbrOperationsAutoriseesParJour = "illimité";
             compte.MontantMaxAutoriseParJour = 2000.000m;
-            compte.DecouvertAutorise = Client.RevenuMensuel;
+            compte.DecouvertAutorise = compteDto.type.ToLower() == "epargne" ? null : 0; 
+
             compte.IBAN = iban;
 
 
@@ -311,7 +332,9 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
             compte.Statut = "desactive";
-            //compte.idAgent = idAgent;
+
+            compte.idAgent = idAgent;
+
 
             await _compteService.SaveAsync();
             return Ok(new { message = "Le compte a été désactivé avec succès." });
@@ -331,7 +354,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
 
             compte.Statut = "actif";
-            //compte.idAgent = idAgent;
+
+            compte.idAgent = idAgent;
+
             await _compteService.SaveAsync();
 
             return Ok(new { message = "Le compte a été activé avec succès." });
@@ -350,7 +375,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             var client = await _userRepository.GetClientByUserIdAsync(userId);
             var clientId = client.Id;
 
-            var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault();
+
+            var compte = (await _compteService.GetAllAsync(c => c.RIB == rib)).FirstOrDefault(); 
+
             if (compte == null)
             {
                 return NotFound(new { message = "Compte introuvable." });
@@ -460,7 +487,7 @@ namespace STBEverywhere_back_APICompte.Controllers
                     NumCin = "TECHNIQUE", // Valeur spéciale pour les comptes techniques
                     NbrOperationsAutoriseesParJour = "illimité",
                     MontantMaxAutoriseParJour = 1000000.000m, // Limite haute pour les comptes techniques
-                    DecouvertAutorise = 0 // Pas de découvert pour les comptes techniques
+                    DecouvertAutorise = null // Pas de découvert pour les comptes techniques
                 };
 
                 await _compteService.CreateAsync(compte);
@@ -487,147 +514,185 @@ namespace STBEverywhere_back_APICompte.Controllers
 
 
 
-        private byte[] GeneratePdfWithQuestPDF(Client client, string rib, IWebHostEnvironment hostingEnvironment)
+        private async Task<byte[]> GeneratePdfWithQuestPDF(Client client, string rib, IWebHostEnvironment hostingEnvironment, string iban, DateTime dateActivation)
         {
-            string logoPath = Path.Combine(hostingEnvironment.WebRootPath, "images", "STBlogo.jpg");
-
-            return Document.Create(container =>
+            try
             {
-                container.Page(page =>
+                var apiAgenceUrl = $"http://localhost:5036/api/AgenceApi/byId/{client.AgenceId}";
+
+                var response = await _httpClient.GetAsync(apiAgenceUrl);
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    page.Size(PageSizes.A4);
-                    page.Margin(2, Unit.Centimetre);
-                    page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(12));
+                    throw new Exception($"Erreur HTTP: {response.StatusCode} - {content}");
+                }
 
-                    // Header unifié avec logo et ligne séparatrice
-                    page.Header()
-                        .Column(headerCol =>
-                        {
-                            // Première ligne avec logo et titres
-                            headerCol.Item().Row(row =>
+                var agence = JsonConvert.DeserializeObject<Agence>(content);
+
+                string logoPath = Path.Combine(hostingEnvironment.WebRootPath, "images", "STBlogo.jpg");
+
+                TextStyle arabicTextStyle = TextStyle.Default
+                    .FontFamily("Arial")
+                    .FontSize(8)
+                    .DirectionFromRightToLeft();
+
+                return Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4);
+                        page.Margin(1, Unit.Centimetre);
+                        page.PageColor(Colors.White);
+                        page.DefaultTextStyle(x => x.FontSize(12));
+
+                        // En-tête
+                        page.Header()
+                            .Column(headerCol =>
                             {
-                                // Logo STB à gauche
-                                row.ConstantItem(100).Height(50).Image(logoPath, ImageScaling.FitArea);
-
-                                // Titres à droite
-                                row.RelativeItem()
-                                   .Column(col =>
-                                   {
-                                       col.Item().AlignRight().Text("STB BANK").Bold().FontSize(18);
-                                       col.Item().AlignRight().Text("RELEVÉ D'IDENTITÉ BANCAIRE RIB").Bold().FontSize(16);
-                                   });
-                            });
-
-                            // Ligne séparatrice sous l'en-tête
-                            headerCol.Item().PaddingTop(10).LineHorizontal(1).LineColor(Colors.Black);
-                        });
-
-                    // Contenu principal
-                    page.Content()
-                        .PaddingVertical(1, Unit.Centimetre)
-                        .Column(col =>
-                        {
-                            // Titulaire du compte et date d'activation
-                            col.Item().Row(row =>
-                            {
-                                row.RelativeItem().Text($"Titulaire du compte : {client.Nom} {client.Prenom}");
-                                row.RelativeItem().AlignRight().Text($"Date d'activation : {DateTime.Now:dd/MM/yyyy}");
-                            });
-
-                            // Espace vide
-                            col.Item().Height(20);
-
-                            // Vérification et découpage du RIB
-                            if (!string.IsNullOrEmpty(rib))
-                            {
-                                var ribCleaned = rib.Replace(" ", "");
-
-                                // Découpage du RIB selon le format attendu
-                                var codeBanque = ribCleaned.Length >= 2 ? ribCleaned.Substring(0, 2) : "";
-                                var codeAgence = ribCleaned.Length >= 5 ? ribCleaned.Substring(2, 3) : "";
-                                var numCompte = ribCleaned.Length >= 15 ? ribCleaned.Substring(5, 10) : "";
-                                var nat = ribCleaned.Length >= 18 ? ribCleaned.Substring(15, 3) : "";
-                                var cleRib = ribCleaned.Length >= 20 ? ribCleaned.Substring(18, 2) : "";
-
-                                // Tableau des codes RIB
-                                /*col.Item().Table(table =>
+                                // Section Logo + Texte
+                                headerCol.Item().PaddingBottom(10).Row(row =>
                                 {
-                                    table.ColumnsDefinition(columns =>
+                                    row.ConstantItem(100).Column(logoCol =>
                                     {
-                                        columns.ConstantColumn(50);  // Code Banque
-                                        columns.ConstantColumn(50);  // Code Agence
-                                        columns.ConstantColumn(100); // Numéro de compte
-                                        columns.ConstantColumn(50);  // Nat
-                                        columns.ConstantColumn(50);  // Clé RIB
+                                        logoCol.Item().Height(40).Image(logoPath, ImageScaling.FitArea);
+                                        logoCol.Item().Container().AlignRight().Text("STB BANK").Bold().FontSize(12);
                                     });
-
-                                    // En-têtes du tableau
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().AlignCenter().Text("Code Banque").Bold();
-                                        header.Cell().AlignCenter().Text("Code Agence").Bold();
-                                        header.Cell().AlignCenter().Text("Numéro de compte").Bold();
-                                        header.Cell().AlignCenter().Text("Nat").Bold();
-                                        header.Cell().AlignCenter().Text("Clé RIB").Bold();
-                                    });
-
-                                    // Données du RIB
-                                    table.Cell().AlignCenter().Text(codeBanque);
-                                    table.Cell().AlignCenter().Text(codeAgence);
-                                    table.Cell().AlignCenter().Text(numCompte.Insert(6, ".")); // Ajout du point pour le format
-                                    table.Cell().AlignCenter().Text(nat);
-                                    table.Cell().AlignCenter().Text(cleRib);
-                                });*/
-                                col.Item().Table(table =>
-                                {
-                                    // Configuration des colonnes
-                                    table.ColumnsDefinition(columns =>
-                                    {
-                                        columns.ConstantColumn(50);  // Code Banque
-                                        columns.ConstantColumn(50);  // Code Agence
-                                        columns.ConstantColumn(100); // Numéro de compte
-                                        columns.ConstantColumn(50);  // Nat
-                                        columns.ConstantColumn(50);  // Clé RIB
-                                    });
-
-                                    // En-têtes du tableau avec bordures
-                                    table.Header(header =>
-                                    {
-                                        header.Cell().BorderBottom(1).AlignCenter().Text("Code Banque").Bold();
-                                        header.Cell().BorderBottom(1).AlignCenter().Text("Code Agence").Bold();
-                                        header.Cell().BorderBottom(1).AlignCenter().Text("Numéro de compte").Bold();
-                                        header.Cell().BorderBottom(1).AlignCenter().Text("Nat").Bold();
-                                        header.Cell().BorderBottom(1).AlignCenter().Text("Clé RIB").Bold();
-                                    });
-
-                                    // Données du RIB avec bordures
-                                    table.Cell().Border(1).AlignCenter().Text(codeBanque);
-                                    table.Cell().Border(1).AlignCenter().Text(codeAgence);
-                                    table.Cell().Border(1).AlignCenter().Text(numCompte.Insert(6, "."));
-                                    table.Cell().Border(1).AlignCenter().Text(nat);
-                                    table.Cell().Border(1).AlignCenter().Text(cleRib);
+                                    row.RelativeItem();
                                 });
-                            }
 
-                            // Informations de l'agence
-                            col.Item().PaddingTop(20).Column(agenceCol =>
-                            {
-                                agenceCol.Item().Text("Agence : RAS JEBEL");
-                                agenceCol.Item().Text("Adresse : Av. H. Bougaffa - 7070 Ras Jebal");
-                                agenceCol.Item().Text("Téléphone : 72447177");
-                                agenceCol.Item().Text("Direction : Direction Régionale de Bizerte");
-                                agenceCol.Item().Text("Fax : 70143070");
+                                // Texte bilingue
+                                headerCol.Item().Row(row =>
+                                {
+                                    row.RelativeItem().Text(t =>
+                                    {
+                                        t.Span("Ce relevé est destiné à être remis à vos créanciers ou débiteurs").FontSize(8);
+                                        t.EmptyLine();
+                                        t.Span("nationaux ou internationaux (Virements, prélèvements, etc.)").FontSize(8);
+                                        t.Span("nationaux ou internationaux (Virements, prélèvements, etc.)").FontSize(8);
+                                        t.EmptyLine();
+                                        t.Span("Garantit le bon enregistrement des opérations bancaires").FontSize(8);
+                                    });
+
+                                    row.RelativeItem().Container().AlignRight().Text(t =>
+                                    {
+                                        t.Span("يُعدّ هذا الكشف مرجعاً مصرفياً رسمياً يُقدَّم إلى الجهات الدائنة أو المدينة، على المستويين الوطني والدولي").Style(arabicTextStyle);
+                                        t.EmptyLine();
+                                        t.Span("يُستعمل لإجراء التحويلات البنكية والاقتطاعات وغيرها من العمليات المالية").Style(arabicTextStyle);
+                                        t.EmptyLine();
+                                        t.Span("يُعتمد هذا المستند لضمان دقة تسجيل المعاملات المرتبطة بالحساب البنكي المعني").Style(arabicTextStyle);
+                                    });
+                                });
+
+                                headerCol.Item().PaddingTop(5).LineHorizontal(1).LineColor(Colors.Black);
+                                headerCol.Item().PaddingTop(5).AlignCenter().Text("RELEVÉ D'IDENTITÉ BANCAIRE RIB").Bold().FontSize(16);
                             });
 
-                            // Ligne séparatrice
-                            col.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Black);
+                        // Contenu principal
+                        page.Content()
+                            .PaddingVertical(1, Unit.Centimetre)
+                            .Column(col =>
+                            {
+                                // Informations client
+                                col.Item().Text("Titulaire du compte :");
+                                col.Item().Text($"{client.Nom} {client.Prenom}");
+                                col.Item().Text(client.Adresse);
+                                col.Item().AlignRight().Text($"Date d'activation : {dateActivation:dd/MM/yyyy}");
 
-                            // Pied de page avec date et lieu
-                            col.Item().AlignRight().Text($"Fait à Tunis le, {DateTime.Now:dd/MM/yyyy}");
-                        });
-                });
-            }).GeneratePdf();
+                                col.Item().Height(20);
+
+                                // Section centrée - Tableau RIB, IBAN et BIC
+                                col.Item().AlignCenter().Column(centerCol =>
+                                {
+                                    // Tableau RIB
+                                    if (!string.IsNullOrEmpty(rib))
+                                    {
+                                        var ribCleaned = rib.Replace(" ", "");
+                                        var codeBanque = ribCleaned.Length >= 2 ? ribCleaned.Substring(0, 2) : "";
+                                        var codeAgence = ribCleaned.Length >= 5 ? ribCleaned.Substring(2, 3) : "";
+                                        var numCompte = ribCleaned.Length >= 15 ? ribCleaned.Substring(5, 10) : "";
+                                        var nat = ribCleaned.Length >= 18 ? ribCleaned.Substring(15, 3) : "";
+                                        var cleRib = ribCleaned.Length >= 20 ? ribCleaned.Substring(18, 2) : "";
+
+                                        centerCol.Item().Table(table =>
+                                        {
+                                            table.ColumnsDefinition(columns =>
+                                            {
+                                                columns.ConstantColumn(50);
+                                                columns.ConstantColumn(50);
+                                                columns.ConstantColumn(100);
+                                                columns.ConstantColumn(50);
+                                                columns.ConstantColumn(50);
+                                            });
+
+                                            table.Header(header =>
+                                            {
+                                                header.Cell().Border(1).AlignCenter().Text("Code Banque").Bold();
+                                                header.Cell().Border(1).AlignCenter().Text("Code Agence").Bold();
+                                                header.Cell().Border(1).AlignCenter().Text("Numéro de compte").Bold();
+                                                header.Cell().Border(1).AlignCenter().Text("Nat").Bold();
+                                                header.Cell().Border(1).AlignCenter().Text("Clé RIB").Bold();
+                                            });
+
+                                            table.Cell().Border(1).AlignCenter().Text(codeBanque);
+                                            table.Cell().Border(1).AlignCenter().Text(codeAgence);
+                                            table.Cell().Border(1).AlignCenter().Text(numCompte.Insert(6, "."));
+                                            table.Cell().Border(1).AlignCenter().Text(nat);
+                                            table.Cell().Border(1).AlignCenter().Text(cleRib);
+                                        });
+                                    }
+
+                                    // IBAN formaté
+                                    if (!string.IsNullOrEmpty(iban))
+                                    {
+                                        var cleanedIban = iban.Replace(" ", "");
+                                        var formattedIban = string.Empty;
+
+                                        if (cleanedIban.Length >= 2)
+                                        {
+                                            formattedIban = cleanedIban.Substring(0, 2);
+                                            if (cleanedIban.Length > 2)
+                                            {
+                                                formattedIban += " " + cleanedIban.Substring(2, 2);
+                                                for (int i = 4; i < cleanedIban.Length; i += 4)
+                                                {
+                                                    int length = Math.Min(4, cleanedIban.Length - i);
+                                                    formattedIban += " " + cleanedIban.Substring(i, length);
+                                                }
+                                            }
+                                        }
+
+                                        centerCol.Item().PaddingTop(15).Text("IBAN International Bank Account Number").FontSize(10).Bold();
+                                        centerCol.Item().Text(formattedIban).FontSize(10);
+                                    }
+
+                                    // BIC
+                                    centerCol.Item().PaddingTop(10).Text("BIC Bank Identifier Code").FontSize(10).Bold();
+                                    centerCol.Item().Text("STBKTNTT").FontSize(10);
+                                });
+
+                                // Pied de page
+                                col.Item().PaddingTop(20).Column(agenceCol =>
+                                {
+                                    
+                                    //agenceCol.Item().Text($"Agence : {agence.}");
+                                    agenceCol.Item().Text($"Adresse : {agence.Libelle}");
+                                    agenceCol.Item().Text($"{agence.DR}");
+                                    agenceCol.Item().Text($"Téléphone : {agence.tel1}");
+                                    agenceCol.Item().Text($"Fax :{agence.fax}");
+                                });
+
+                                col.Item().PaddingVertical(10).LineHorizontal(1).LineColor(Colors.Black);
+                                col.Item().AlignRight().Text($"Tunis le, {DateTime.Now:dd/MM/yyyy}");
+                            });
+                    });
+                }).GeneratePdf();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erreur lors de l'appel HTTP: {ex.Message}");
+            }
+
         }
 
 
@@ -656,13 +721,18 @@ namespace STBEverywhere_back_APICompte.Controllers
                 if (string.IsNullOrEmpty(compte?.RIB))
                     return NotFound(new { message = "RIB non disponible pour ce compte" });
 
-                // Configuration de la licence QuestPDF
                 QuestPDF.Settings.License = LicenseType.Community;
 
-                // Génération du PDF avec le RIB spécifique
-                var pdfBytes = GeneratePdfWithQuestPDF(client, rib, _webHostEnvironment);
-                return File(pdfBytes, "application/pdf", $"RIB_{client.Nom}.pdf");
 
+                
+
+
+                // Génération du PDF avec le RIB spécifique
+                //var pdfBytes = GeneratePdfWithQuestPDF(client, rib, _webHostEnvironment,compte.IBAN,compte.DateCreation);
+                //return File(pdfBytes, "application/pdf", $"RIB_{client.Nom}.pdf");
+
+                var pdfBytes = await GeneratePdfWithQuestPDF(client, rib, _webHostEnvironment, compte.IBAN, compte.DateCreation);
+                return File(pdfBytes, "application/pdf", $"RIB_{client.Nom}.pdf");
 
             }
             catch (Exception ex)
@@ -672,6 +742,11 @@ namespace STBEverywhere_back_APICompte.Controllers
                     new { message = "Une erreur est survenue lors de la génération du document" });
             }
         }
+
+       
+
+    }
+}
 
         /* [HttpGet("rib/download")]
          [ProducesResponseType(StatusCodes.Status200OK)]
@@ -773,5 +848,3 @@ namespace STBEverywhere_back_APICompte.Controllers
         }*/
 
 
-    }
-}

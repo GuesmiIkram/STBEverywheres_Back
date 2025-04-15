@@ -545,7 +545,9 @@ namespace STBEverywhere_back_APICompte.Controllers
             }
 
             // Calcul du solde disponible (en tenant compte du découvert)
-            decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise;
+            //decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise;
+            decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise.Value;
+
 
             // Vérification du solde disponible
             if (soldeDisponible < (totalVirement + frais))
@@ -937,7 +939,10 @@ namespace STBEverywhere_back_APICompte.Controllers
 
             int nombreBeneficiaires = lines.Length - 3;
             decimal frais = 5.0m + Math.Max(0, (nombreBeneficiaires - 5) * 0.5m);
-            decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise;
+            //decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise;
+            //on ajoute .value car decouvert dans certain cas est nul 
+            decimal soldeDisponible = emetteur.Solde + emetteur.DecouvertAutorise.Value;
+
 
             if (soldeDisponible < (montantTotal + frais))
             {

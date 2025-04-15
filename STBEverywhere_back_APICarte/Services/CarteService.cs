@@ -104,7 +104,7 @@ namespace STBEverywhere_back_APICarte.Services
             var encryptedPIN = EncryptCode(int.Parse(codePIN));
             var encryptedCVV = EncryptCode(int.Parse(codeCVV));
             var numCarte = await GenerateUniqueCardNumberAsync(demande.NomCarte.ToString());
-            var compte = await _compteService.GetByRibAsync(demande.NumCompte);
+            var compte = await _compteService.GetByRIBAsync(demande.NumCompte);
             var carte = new Carte
             {
                 NumCarte = numCarte,

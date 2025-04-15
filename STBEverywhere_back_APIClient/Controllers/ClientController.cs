@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using STBEverywhere_Back_SharedModels;
 using STBEverywhere_back_APIClient.Services;
 
 using System.IdentityModel.Tokens.Jwt; // Pour JwtRegisteredClaimNames
 
+
 using System.IO;
+
 using Microsoft.EntityFrameworkCore;
 using STBEverywhere_Back_SharedModels.Data;
 using System.Security.Claims;
 using STBEverywhere_Back_SharedModels.Models.DTO;
 using STBEverywhere_Back_SharedModels.Models;
 using STBEverywhere_ApiAuth.Repositories;
+
+
+
 using MailKit.Security;
 using MimeKit;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+
 
 namespace STBEverywhere_back_APIClient.Controllers
 {
@@ -154,7 +158,14 @@ namespace STBEverywhere_back_APIClient.Controllers
             }
         }
 
+        [HttpGet("GetClientRevenuMensuel")]
+        public async Task<IActionResult> GetClientRevenuMensuel(int userId)
+        {
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
 
+                return Ok(client);
+           
+        }
 
 
         // Récupérer les informations du client
@@ -217,7 +228,9 @@ namespace STBEverywhere_back_APIClient.Controllers
         }
 
         // Télécharger le fichier KYC
-        /*  [HttpGet("kyc/download")]
+
+       /* 
+         [HttpGet("kyc/download")]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(StatusCodes.Status404NotFound)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -226,10 +239,19 @@ namespace STBEverywhere_back_APIClient.Controllers
               var userId = GetUserIdFromToken();
               var client = await _userRepository.GetClientByUserIdAsync(userId);
 
+
               if (client == null)
               {
                   return NotFound(new { message = "Client non trouvé" });
               }
+
+<<<<<<< HEAD
+            var pdfBytes = GenerateKYCReport(client);
+            return File(pdfBytes, "application/pdf", $"Fiche_KYC_{client.Nom}_{client.Prenom}.pdf");
+        }
+      
+
+
 
               var pdfBytes = GenerateKYCReport(client);
               return File(pdfBytes, "application/pdf", $"Fiche_KYC_{client.Nom}_{client.Prenom}.pdf");
@@ -247,6 +269,7 @@ namespace STBEverywhere_back_APIClient.Controllers
                   return stream.ToArray();
               }
           }
+
 
           // Générer le HTML pour le rapport KYC
           private string GenerateKycHtml(Client client)

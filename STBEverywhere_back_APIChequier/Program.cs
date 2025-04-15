@@ -32,6 +32,8 @@ builder.Services.AddScoped<ChequierService>();
 builder.Services.AddScoped<IDemandesChequiersRepository, DemandesChequiersRepository>();
 builder.Services.AddScoped<IEmailLogRepository, EmailLogRepository>();
 builder.Services.AddScoped<IChequierRepository, ChequierRepository>();
+builder.Services.AddScoped<DemandeChequierService>();
+
 //builder.Services.AddHostedService<ChequierJob>();
 builder.Services.AddHostedService<EmailJob>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

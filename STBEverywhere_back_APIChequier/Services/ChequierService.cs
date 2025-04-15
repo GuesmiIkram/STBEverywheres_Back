@@ -28,9 +28,7 @@ namespace STBEverywhere_back_APIChequier.Services
 
         }
 
-        /// <summary>
-        /// Vérifie si des chéquiers doivent être marqués comme "Livré" et les ajoute en base.
-        /// </summary>
+    
         public async Task VérifierChéquiersDisponibles()
         {
             /*var chequiers = await _context.DemandesChequiers

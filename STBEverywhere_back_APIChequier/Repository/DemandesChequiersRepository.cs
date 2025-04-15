@@ -22,6 +22,28 @@ namespace STBEverywhere_back_APIChequier.Repository
                 .ToListAsync();
         }
 
+
+
+        public async Task<DemandeChequier> GetDemandeByNumeroChequier(string numeroChequier)
+        {
+            return await _context.DemandesChequiers
+                .Include(d => d.Feuilles) 
+                .FirstOrDefaultAsync(d => d.NumeroChequier == numeroChequier);
+        }
+
+        public async Task<IEnumerable<FeuilleChequier>> GetFeuillesByDemandeId(int demandeId)
+        {
+            return await _context.FeuillesChequiers
+                .Where(f => f.DemandeChequierId == demandeId)
+                .ToListAsync();
+        }
+
+        public async Task<bool> HasDemandeEncours(string ribCompte)
+        {
+            return await _context.DemandesChequiers
+                .AnyAsync(d => d.RibCompte == ribCompte && d.Status ==0);
+        }
+
         public async Task<List<DemandeChequier>> GetDemandesByRibComptes(List<string> ribComptes)
         {
             return await _context.DemandesChequiers
@@ -66,7 +88,7 @@ namespace STBEverywhere_back_APIChequier.Repository
         public async Task<bool> HasActiveChequier(string ribCompte)
         {
             var chequier = await _context.Chequiers
-                .Where(c => c.DemandeChequier.RibCompte == ribCompte && c.Status == ChequierStatus.Active)
+                .Where(c => c.DemandeChequier.RibCompte == ribCompte && c.Status == ChequierStatus.Actif)
                 .FirstOrDefaultAsync();
 
             return chequier != null; // Si un chéquier actif est trouvé, retourne true

@@ -48,7 +48,7 @@ namespace STBEverywhere_back_APIChequier.Jobs
                                 var chequier = new Chequier
                                 {
                                     DemandeChequierId = demande.IdDemande,
-                                    Status = ChequierStatus.Active,
+                                    Status = ChequierStatus.Actif,
                                     DateLivraison = DateTime.Now, // Marquer la date de livraison
                                 };
 
@@ -62,7 +62,9 @@ namespace STBEverywhere_back_APIChequier.Jobs
 
                                 if (existingEmailLog == null) // Si l'email n'a pas encore été envoyé
                                 {
-                                    var contenu = $"Nous vous informons que votre demande de chéquier a été traitée avec succès et que votre chéquier {demande.NumeroChequier} est désormais disponible dans l'agence {demande.Agence}. Vous pouvez venir le retirer à tout moment pendant les horaires d'ouverture de l'agence.\r\n\r\nSi vous avez des questions, n'hésitez pas à nous contacter.\r\nCordialement,\r\nSTB";
+                                    //var contenu = $"Nous vous informons que votre demande de chéquier a été traitée avec succès et que votre chéquier {demande.NumeroChequier} est désormais disponible dans l'agence {demande.Agence}. Vous pouvez venir le retirer à tout moment pendant les horaires d'ouverture de l'agence.\r\n\r\nSi vous avez des questions, n'hésitez pas à nous contacter.\r\nCordialement,\r\nSTB";
+                                    var contenu = $"Nous vous informons que votre demande de chéquier a été traitée avec succès et que votre chéquier {demande.NumeroChequier} est désormais disponible dans l'agence xxx. Vous pouvez venir le retirer à tout moment pendant les horaires d'ouverture de l'agence.\r\n\r\nSi vous avez des questions, n'hésitez pas à nous contacter.\r\nCordialement,\r\nSTB";
+
                                     await emailService.LogEmailAsync(demande.Email, "Votre chéquier est livré", contenu, demande.IdDemande, "cheque livre");
                                 }
 

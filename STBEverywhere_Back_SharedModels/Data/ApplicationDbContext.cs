@@ -398,11 +398,22 @@ namespace STBEverywhere_Back_SharedModels.Data
                 entity.HasIndex(v => new { v.RIB_Emetteur, v.DateVirement }).IsUnique();
             });
 
+            modelBuilder.Entity<DemandeChequier>()
+        .Property(d => d.ModeLivraison)
+        .HasConversion<string>();
+
+            modelBuilder.Entity<DemandeChequier>()
+                .Property(d => d.Status)
+                .HasConversion<string>();
+
+
+
+            modelBuilder.Entity<DemandeChequier>()
+       .Property(d => d.ModeLivraison)
+       .HasConversion<string>();
 
             // le convertisseur de la liste des idvirement de l'entité FraisCompte
-
-
-            modelBuilder.Entity<FraisCompte>()
+modelBuilder.Entity<FraisCompte>()
         .Property(e => e.IdsVirementsStr)
         .HasDefaultValue(""); // Valeur par défaut vide
 

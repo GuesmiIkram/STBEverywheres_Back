@@ -5,11 +5,12 @@ using STBEverywhere_Back_SharedModels.Models.DTO;
 using System.Security.Claims;
 using STBEverywhere_ApiAuth.Repositories;
 using System.IdentityModel.Tokens.Jwt;
-using STBEverywhere_ApiAuth.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using STBEverywhere_Back_SharedModels.Models;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text;
 
 
 namespace STBEverywhere_back_APIAgent.Controllers
@@ -76,10 +77,103 @@ namespace STBEverywhere_back_APIAgent.Controllers
 
 
 
+        [HttpGet("desactiver compte")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> desactiverCompte(string rib)
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var Agent = await _userRepository.GetAgentByUserIdAsync(userId);
+
+                if (Agent == null)
+                {
+                    return BadRequest("Agent introuvable pour cet utilisateur.");
+                }
+
+                if (string.IsNullOrEmpty(Agent.AgenceId))
+                {
+                    return BadRequest("L'agent n'a pas d'agence assignée.");
+                }
+
+                // Préparer l'URL de l'API cible
+                var apiUrl = $"http://localhost:5185/api/compte/desactive/{rib}";
+
+                // Préparer les données à envoyer dans le corps (idAgent)
+                var content = new StringContent(
+                    JsonSerializer.Serialize(new { idAgent = Agent.Id }),
+                    Encoding.UTF8,
+                    "application/json"
+                );
+
+                // Envoyer la requête PUT via HttpClient
+                using var client = new HttpClient();
+                var response = await client.PutAsync(apiUrl + $"?idAgent={Agent.Id}", null);
+
+                // Lire la réponse
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    return Ok($"Compte désactivé avec succès : {result}");
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    return StatusCode((int)response.StatusCode, $"Erreur lors de la désactivation : {error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne : {ex.Message}");
+            }
+        }
 
 
+        [HttpGet("activerCompte")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> activerCompte(string rib)
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var Agent = await _userRepository.GetAgentByUserIdAsync(userId);
 
-      
+                if (Agent == null)
+                {
+                    return BadRequest("Agent introuvable pour cet utilisateur.");
+                }
+
+                if (string.IsNullOrEmpty(Agent.AgenceId))
+                {
+                    return BadRequest("L'agent n'a pas d'agence assignée.");
+                }
+
+                var apiUrl = $"http://localhost:5185/api/compte/active/{rib}?idAgent={Agent.Id}";
+
+                using var client = new HttpClient();
+                var response = await client.PutAsync(apiUrl, null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    return Ok($"Compte activé avec succès : {result}");
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    return StatusCode((int)response.StatusCode, $"Erreur lors de l'activation : {error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur interne : {ex.Message}");
+            }
+        }
+
 
 
 

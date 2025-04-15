@@ -139,7 +139,7 @@ namespace STBEverywhere_back_APICarte.Controllers
                     {
                         success = false,
                         message = $"Fonds insuffisants. Frais: {fraisCarte.ToString("N2")} DT | " +
-             $"Disponible: {(compte.Solde + compte.DecouvertAutorise).ToString("N2")} DT"
+             $"Disponible: {(compte.Solde + compte.DecouvertAutorise.Value).ToString("N2")} DT"
                     });
                 }
 
