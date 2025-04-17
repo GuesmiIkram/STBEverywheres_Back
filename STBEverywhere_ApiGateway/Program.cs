@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
@@ -8,10 +7,22 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Activer les logs d?taill?s
+// Activer les logs détaillés
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+
+// Configuration CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+    });
+});
 
 // Configuration de l'authentification JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -26,8 +37,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            NameClaimType = ClaimTypes.NameIdentifier, // Important
-            RoleClaimType = ClaimTypes.Role // pour les rôles
+            NameClaimType = ClaimTypes.NameIdentifier,
+            RoleClaimType = ClaimTypes.Role
         };
     });
 
@@ -36,11 +47,13 @@ builder.Services.AddAuthorization();
 // Ajouter les services YARP
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+
 // Configuration Kestrel pour les requêtes volumineuses
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = 5242880; // 5MB
 });
+
 builder.Services.Configure<FormOptions>(options =>
 {
     options.MultipartBodyLengthLimit = 5242880; // 5MB
@@ -49,17 +62,42 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 var app = builder.Build();
+
+// Middleware pour gérer les requêtes OPTIONS (CORS Preflight)
 app.Use(async (context, next) =>
 {
-    var path = context.Request.Path;
-    if (path.StartsWithSegments("/api/auth/login") || path.StartsWithSegments("/api/Client/register") || path.StartsWithSegments("/api/client/upload-documents") || path.StartsWithSegments("/api/compte/GetSoldeByRIB") || path.StartsWithSegments("/api/compte/GetByRIB"))
+    if (context.Request.Method == "OPTIONS")
     {
-        // Ignorer l'authentification pour ces routes
         await next();
         return;
     }
-  
 
+    await next();
+});
+
+app.UseStaticFiles();
+app.UseRouting();
+app.UseCors("AllowAngular"); // Activation CORS
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Middleware d'authentification personnalisé
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path;
+
+    // Routes publiques
+    if (path.StartsWithSegments("/api/auth/login") ||
+        path.StartsWithSegments("/api/Client/register") ||
+        path.StartsWithSegments("/api/client/upload-documents") ||
+        path.StartsWithSegments("/api/compte/GetSoldeByRIB") ||
+        path.StartsWithSegments("/api/compte/GetByRIB"))
+    {
+        await next();
+        return;
+    }
+
+    // Vérification des endpoints protégés
     var endpoint = context.GetEndpoint();
     if (endpoint?.Metadata.GetMetadata<AuthorizeAttribute>() != null)
     {
@@ -73,12 +111,31 @@ app.Use(async (context, next) =>
 
     await next();
 });
-app.UseStaticFiles();
-app.UseRouting();
-// Utiliser l'authentification et l'autorisation
-app.UseAuthentication();
-app.UseAuthorization();
 
-// Utiliser YARP
+// Middleware de vérification des rôles Agent
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path;
+
+    if (path.StartsWithSegments("/api/agent"))
+    {
+        if (!context.User.Identity?.IsAuthenticated ?? true)
+        {
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("Token manquant ou invalide");
+            return;
+        }
+
+        if (!context.User.IsInRole("Agent"))
+        {
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync("Accès réservé aux agents");
+            return;
+        }
+    }
+
+    await next();
+});
+
 app.MapReverseProxy();
-app.Run("http://localhost:5000"); // Changez le port ici
+app.Run("http://localhost:5000");

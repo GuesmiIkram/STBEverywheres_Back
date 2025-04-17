@@ -78,5 +78,7 @@ namespace STBEverywhere_Back_SharedModels
         [JsonIgnore]
         public virtual ICollection<NotificationPack> NotificationsPack { get; set; } = new List<NotificationPack>();
 
+        [JsonIgnore]
+        public virtual ICollection<NotificationReclamation> NotificationsReclamation { get; set; } = new List<NotificationReclamation>();
     }
 }

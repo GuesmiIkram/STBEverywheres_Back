@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using static System.Net.Mime.MediaTypeNames;
+using STBEverywhere_back_APIClient.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration de la base de données MySQL
@@ -23,9 +24,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
 builder.Services.AddScoped<IReclamationService, ReclamationService>();
 builder.Services.AddScoped<IReclamationRepository, ReclamationRepository>();
-builder.Services.AddScoped<EmailService>();
+
+builder.Services.AddScoped<STBEverywhere_back_APIAgent.Service.EmailService>();
 builder.Services.AddHttpClient("CompteService", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5185");

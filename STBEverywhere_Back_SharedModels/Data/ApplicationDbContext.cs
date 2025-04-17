@@ -38,6 +38,7 @@ namespace STBEverywhere_Back_SharedModels.Data
         public DbSet<RechargeCarte> RechargesCarte { get; set; }
         public DbSet<Reclamation> Reclamations { get; set; }
         public DbSet<NotificationPack> NotificationsPack { get; set; }
+        public DbSet<NotificationReclamation> NotificationsReclamation { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -95,6 +96,31 @@ namespace STBEverywhere_Back_SharedModels.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+
+            modelBuilder.Entity<NotificationReclamation>(entity =>
+            {
+                entity.HasKey(n => n.Id);
+
+                entity.Property(n => n.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(n => n.Message)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                entity.Property(n => n.NotificationType)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(n => n.CreatedAt)
+                    .IsRequired();
+
+                entity.HasOne(n => n.Client)
+                    .WithMany(c => c.NotificationsReclamation)
+                    .HasForeignKey(n => n.ClientId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity<FraisCarte>(entity =>
             {
