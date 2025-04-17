@@ -12,10 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using static System.Net.Mime.MediaTypeNames;
-<<<<<<< HEAD
+
 using STBEverywhere_back_APIClient.Services;
-=======
->>>>>>> 4638078 (reclamation/chequier)
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuration de la base de données MySQL
@@ -27,18 +26,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
-<<<<<<< HEAD
+
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddScoped<IReclamationService, ReclamationService>();
 builder.Services.AddScoped<IReclamationRepository, ReclamationRepository>();
 
 builder.Services.AddScoped<STBEverywhere_back_APIAgent.Service.EmailService>();
-=======
-builder.Services.AddScoped<IReclamationService, ReclamationService>();
-builder.Services.AddScoped<IReclamationRepository, ReclamationRepository>();
-builder.Services.AddScoped<EmailService>();
->>>>>>> 4638078 (reclamation/chequier)
+
+
+
 builder.Services.AddHttpClient("CompteService", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5185");
