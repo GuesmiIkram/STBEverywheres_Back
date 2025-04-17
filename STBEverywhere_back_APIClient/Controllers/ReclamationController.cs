@@ -11,6 +11,8 @@ using STBEverywhere_Back_SharedModels.Data;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Http;
+using SkiaSharp;
+using STBEverywhere_back_APIClient.Services;
 namespace STBEverywhere_back_APIClient.Controllers
 {
     [ApiController]
@@ -264,6 +266,63 @@ namespace STBEverywhere_back_APIClient.Controllers
             {
                 _logger.LogError(ex, "Erreur dans GetUserIdFromToken");
                 throw new UnauthorizedAccessException("Erreur de traitement du token", ex);
+            }
+        }
+
+
+
+        [HttpGet("notifications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetNotifications([FromServices] INotificationService notificationService)
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+
+
+                var notifications = await notificationService.GetClientReclamationNotifications(client.Id);
+                return Ok(notifications);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la récupération des notifications");
+                return StatusCode(500, "Erreur interne du serveur");
+            }
+        }
+
+        [HttpPost("notifications/{notificationId}/mark-as-read")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> MarkNotificationAsRead(int notificationId, [FromServices] INotificationService notificationService)
+        {
+            try
+            {
+                var userId = GetUserIdFromToken();
+                var client = await _userRepository.GetClientByUserIdAsync(userId);
+
+
+                // Vérifier que la notification appartient bien au client
+                var notification = await _dbContext.NotificationsReclamation
+                    .FirstOrDefaultAsync(n => n.Id == notificationId && n.ClientId == client.Id);
+
+                if (notification == null)
+                {
+                    return NotFound();
+                }
+
+                await notificationService.MarkReclamationNotificationAsRead(notificationId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors du marquage de la notification comme lue");
+                return StatusCode(500, "Erreur interne du serveur");
             }
         }
     }

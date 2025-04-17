@@ -1,5 +1,6 @@
 ﻿using STBEverywhere_Back_SharedModels.Data;
 using Microsoft.EntityFrameworkCore;
+using STBEverywhere_Back_SharedModels.Models;
 
 namespace STBEverywhere_back_APIClient.Services
 {
@@ -59,5 +60,51 @@ namespace STBEverywhere_back_APIClient.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task NotifyReclamationStatusChange(int clientId, int reclamationId, string newStatus)
+        {
+            try
+            {
+                var title = $"Mise à jour de votre réclamation";
+                var message = $"Le statut de votre réclamation a changé: {newStatus}";
+
+                var notification = new NotificationReclamation
+                {
+                    ClientId = clientId,
+                    Title = title,
+                    Message = message,
+                    IsRead = false,
+                    NotificationType = "ReclamationStatusChange",
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _context.NotificationsReclamation.Add(notification);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erreur lors de la création de la notification de réclamation");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<NotificationReclamation>> GetClientReclamationNotifications(int clientId)
+        {
+            return await _context.NotificationsReclamation
+                .Where(n => n.ClientId == clientId)
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task MarkReclamationNotificationAsRead(int notificationId)
+        {
+            var notification = await _context.NotificationsReclamation.FindAsync(notificationId);
+            if (notification != null)
+            {
+                notification.IsRead = true;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
+

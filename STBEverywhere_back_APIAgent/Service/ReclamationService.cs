@@ -1,5 +1,11 @@
 ﻿using STBEverywhere_back_APIAgent.Repository.IRepository;
 using STBEverywhere_back_APIAgent.Service.IService;
+
+using STBEverywhere_back_APIClient.Services;
+
+
+using STBEverywhere_back_APIClient.Services;
+
 using STBEverywhere_Back_SharedModels.Models;
 
 namespace STBEverywhere_back_APIAgent.Service
@@ -7,13 +13,16 @@ namespace STBEverywhere_back_APIAgent.Service
     public class ReclamationService : IReclamationService
     {
         private readonly IReclamationRepository _reclamationRepository;
+
+        private readonly INotificationService _notificationService;
         private readonly EmailService _emailService;
 
-        public ReclamationService(IReclamationRepository reclamationRepository, EmailService emailService)
+        public ReclamationService(IReclamationRepository reclamationRepository, INotificationService notificationService, EmailService emailService)
         {
             _reclamationRepository = reclamationRepository;
-            _emailService = emailService;
-        }
+            _notificationService = notificationService;
+
+}
 
         public async Task<bool> RepondreAReclamationAsync(int reclamationId, string contenuReponse, int idAgent)
         {
@@ -25,6 +34,14 @@ namespace STBEverywhere_back_APIAgent.Service
             reclamation.IdAgent = idAgent;
             reclamation.DateResolution = DateTime.UtcNow;
             reclamation.Statut = ReclamationStatut.traite;
+
+            // Envoyer une notification
+            await _notificationService.NotifyPackStatusChange(
+                reclamation.ClientId,
+                "Reclamtion",
+                reclamationId,
+                "verifier la reponse sur mail ");
+
 
             await _reclamationRepository.UpdateAsync(reclamation);
 
