@@ -82,7 +82,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Iddemande = 1,
                             CIN = "14668061",
                             CarteAjouter = false,
+<<<<<<< HEAD
                             DateCreation = new DateTime(2025, 4, 17, 13, 9, 52, 363, DateTimeKind.Local).AddTicks(684),
+=======
+                            DateCreation = new DateTime(2025, 4, 14, 14, 5, 33, 320, DateTimeKind.Local).AddTicks(2570),
+>>>>>>> 4638078 (reclamation/chequier)
                             Email = "john.doe@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -97,7 +101,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Iddemande = 2,
                             CIN = "14668062",
                             CarteAjouter = false,
+<<<<<<< HEAD
                             DateCreation = new DateTime(2025, 4, 17, 13, 9, 52, 363, DateTimeKind.Local).AddTicks(750),
+=======
+                            DateCreation = new DateTime(2025, 4, 14, 14, 5, 33, 320, DateTimeKind.Local).AddTicks(2592),
+>>>>>>> 4638078 (reclamation/chequier)
                             Email = "jane.smith@example.com",
                             EmailEnvoye = false,
                             EmailEnvoyeLivree = false,
@@ -1211,7 +1219,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 1,
                             Email = "guesmiimahmoud@gmail.com",
                             IsActive = true,
+<<<<<<< HEAD
                             PasswordHash = "$2a$11$FeQZ5dDtreGnhWR0jWEpiOpOnua.Kez.ms2ZGVh829N989HskjShe",
+=======
+                            PasswordHash = "$2a$11$UsgGmUcvr/reX2vczXFtHeNFkDbhgr6o3D1KA8EQP00UA/xN6XVeW",
+>>>>>>> 4638078 (reclamation/chequier)
                             Role = "Client"
                         },
                         new
@@ -1219,7 +1231,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 2,
                             Email = "jane.smith@example.com",
                             IsActive = true,
+<<<<<<< HEAD
                             PasswordHash = "$2a$11$nMGzPuctp7GxW2/XzfiUd.W3JAn2RZgnyJGlevgpFf1FRwmJXtBUm",
+=======
+                            PasswordHash = "$2a$11$.S6W9ANg3dgQ81TkO/GWVOCBnIa135ts5vY/aCAKXd0vp8G9ijCgu",
+>>>>>>> 4638078 (reclamation/chequier)
                             Role = "Client"
                         },
                         new
@@ -1227,7 +1243,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 4,
                             Email = "robert.smith@example.com",
                             IsActive = true,
+<<<<<<< HEAD
                             PasswordHash = "$2a$11$V5MrCNM94abzqsBHAIxnzuLTUC6fI2w.ujb5Inxii0Jnpy8hUHmay",
+=======
+                            PasswordHash = "$2a$11$if9tkSXdV5FY2HpsK7/5LuQ.86G2h7Z42i5prPUEGy36z75XFM7hG",
+>>>>>>> 4638078 (reclamation/chequier)
                             Role = "Client"
                         },
                         new
@@ -1235,7 +1255,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 3,
                             Email = "agent@stb.com",
                             IsActive = true,
+<<<<<<< HEAD
                             PasswordHash = "$2a$11$b92RNQ/Tw8meb.ykjOWrlOxufa0v6S.aXnkBvt2.VqmHIPJARQ516",
+=======
+                            PasswordHash = "$2a$11$OJ2bjGVzZnRfw33YkI/pDu25fw0FguE3Zu9IpfpNysOtLwQ2IqYu.",
+>>>>>>> 4638078 (reclamation/chequier)
                             Role = "Agent"
                         },
                         new
@@ -1243,7 +1267,11 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                             Id = 5,
                             Email = "agent5@stb.com",
                             IsActive = true,
+<<<<<<< HEAD
                             PasswordHash = "$2a$11$eG1JlTes8trrU7JgUgMI3eP4ofj6r0xrR.vRXj5GHDYO8Q9y70Yqu",
+=======
+                            PasswordHash = "$2a$11$XqsY2p2VxpXlmvWqIeeNpu0MmLnrUol3Oxsvis2JLE3iv9gPxYEhq",
+>>>>>>> 4638078 (reclamation/chequier)
                             Role = "Agent"
                         });
                 });
@@ -1300,6 +1328,7 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.HasOne("STBEverywhere_Back_SharedModels.Compte", "Compte")
                         .WithMany("DemandesCarte")
                         .HasForeignKey("NumCompte")
+<<<<<<< HEAD
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1311,10 +1340,12 @@ namespace STBEverywhere_Back_SharedModels.Migrations
                     b.HasOne("STBEverywhere_Back_SharedModels.Client", "Client")
                         .WithMany("NotificationsPack")
                         .HasForeignKey("ClientId")
+=======
+>>>>>>> 4638078 (reclamation/chequier)
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Compte");
                 });
 
             modelBuilder.Entity("STBEverywhere_Back_SharedModels.Client", b =>
@@ -1559,10 +1590,13 @@ namespace STBEverywhere_Back_SharedModels.Migrations
 
                     b.Navigation("Comptes");
 
+<<<<<<< HEAD
                     b.Navigation("NotificationsPack");
 
                     b.Navigation("NotificationsReclamation");
 
+=======
+>>>>>>> 4638078 (reclamation/chequier)
                     b.Navigation("Reclamations");
                 });
 
